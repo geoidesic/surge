@@ -1,0 +1,45 @@
+{
+  "Actor": {
+    "types": [
+      "player",
+      "npc"
+    ],
+    "templates": {
+      "character": {
+        "trait": {}
+      },
+      "player": {
+        "templates": [
+          "character"
+        ],
+        "xp": {
+          "earned": 0,
+          "spent": 0
+        }
+      },
+      "npc": {
+        "templates": [
+          "character"
+        ],
+        "type": "",
+        "xp": 0
+      }
+    },
+    "Item": {
+      "types": [
+        "trait "
+      ],
+      "templates": {
+        "base": {
+          "description": ""
+        }
+      },
+      "trait": {
+        "templates": [
+          "base"
+        ],
+        "reference": ""
+      }
+    }
+  }
+}

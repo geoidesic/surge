@@ -1,16 +1,16 @@
 {
-  "name": "template-svelte-esm",
+  "name": "surge",
   "description": "Provides a bare-bones Foundry module template repo to get set up with using the TyphonJS Runtime Library and Svelte with ES Modules.",
   "license": "MIT",
   "private": true,
   "type": "module",
-  "author": "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)",
+  "author": "Noel da Costa <support@surgerpg.games",
   "contributors": [
-    "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
+    "Noel da Costa <support@surgerpg.games"
   ],
   "dependencies": {
-    "@typhonjs-fvtt/runtime": "^0.0.20",
-    "@typhonjs-fvtt/svelte-standard": "^0.0.16",
+    "@typhonjs-fvtt/runtime": "^0.0.21",
+    "@typhonjs-fvtt/svelte-standard": "^0.0.17",
     "svelte": "^3.52.0"
   },
   "devDependencies": {
