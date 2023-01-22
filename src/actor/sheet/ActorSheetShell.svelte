@@ -32,6 +32,6 @@
 </script>
 
 <ApplicationShell bind:elementRoot>
-  <p>{document.name}</p>
-  <DocInput attr={name} />
+  <p>{$storeDoc.name}</p>
+  <DocInput attr={"name"} />
 </ApplicationShell>
