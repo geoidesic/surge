@@ -1,12 +1,10 @@
-import { svelte }          from '@sveltejs/vite-plugin-svelte';
-import resolve             from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
-import preprocess          from 'svelte-preprocess';
-import {
-   postcssConfig,
-   terserConfig,
-   typhonjsRuntime }       from '@typhonjs-fvtt/runtime/rollup';
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import resolve from "@rollup/plugin-node-resolve"; // This resolves NPM modules from node_modules.
+import preprocess from "svelte-preprocess";
+import { postcssConfig, terserConfig, typhonjsRuntime } from "@typhonjs-fvtt/runtime/rollup";
+import * as path from "path";
 
-const s_COMPRESS = false;  // Set to true to compress the module bundle.
+const s_COMPRESS = false; // Set to true to compress the module bundle.
 const s_SOURCEMAPS = true; // Generate sourcemaps for the bundle (recommended).
 
 // Set to true to enable linking against the TyphonJS Runtime Library module.
@@ -17,32 +15,36 @@ const s_TYPHONJS_MODULE_LIB = false;
 // Used in bundling.
 const s_RESOLVE_CONFIG = {
    browser: true,
-   dedupe: ['svelte']
+   dedupe: ["svelte"],
 };
 
 // ATTENTION!
-// You must change `base` and the `proxy` strings replacing `/modules/template-svelte-esm/` with your
+// You must change `base` and the `proxy` strings replacing `/systems/surge/` with your
 // module or system ID.
 
-export default () =>
-{
+export default () => {
    /** @type {import('vite').UserConfig} */
    return {
-      root: 'src/',                             // Source location / esbuild root.
-      base: '/modules/template-svelte-esm/',    // Base module path that 30001 / served dev directory.
-      publicDir: false,                         // No public resources to copy.
-      cacheDir: '../.vite-cache',               // Relative from root directory.
+      root: "src/", // Source location / esbuild root.
+      base: "/systems/surge/", // Base module path that 30001 / served dev directory.
+      publicDir: false, // No public resources to copy.
+      cacheDir: "../.vite-cache", // Relative from root directory.
 
-      resolve: { conditions: ['import', 'browser'] },
+      resolve: {
+         conditions: ["import", "browser"],
+         alias: {
+            "~": path.resolve(__dirname, "src"),
+         },
+      },
 
       esbuild: {
-         target: ['es2022', 'chrome100'],
-         keepNames: true   // Note: doesn't seem to work.
+         target: ["es2022", "chrome100"],
+         keepNames: true, // Note: doesn't seem to work.
       },
 
       css: {
          // Creates a standard configuration for PostCSS with autoprefixer & postcss-preset-env.
-         postcss: postcssConfig({ compress: s_COMPRESS, sourceMap: s_SOURCEMAPS })
+         postcss: postcssConfig({ compress: s_COMPRESS, sourceMap: s_SOURCEMAPS }),
       },
 
       // About server options:
@@ -54,12 +56,12 @@ export default () =>
       // served.
       server: {
          port: 30001,
-         open: '/game',
+         open: "/game",
          proxy: {
-            '^(/modules/template-svelte-esm/lang)': 'http://localhost:30000',
-            '^(?!/modules/template-svelte-esm/)': 'http://localhost:30000',
-            '/socket.io': { target: 'ws://localhost:30000', ws: true }
-         }
+            "^(/systems/surge/lang)": "http://localhost:30000",
+            "^(?!/systems/surge/)": "http://localhost:30000",
+            "/socket.io": { target: "ws://localhost:30000", ws: true },
+         },
       },
 
       build: {
@@ -67,35 +69,36 @@ export default () =>
          emptyOutDir: false,
          sourcemap: s_SOURCEMAPS,
          brotliSize: true,
-         minify: s_COMPRESS ? 'terser' : false,
-         target: ['es2022', 'chrome100'],
+         minify: s_COMPRESS ? "terser" : false,
+         target: ["es2022", "chrome100"],
          terserOptions: s_COMPRESS ? { ...terserConfig(), ecma: 2022 } : void 0,
          lib: {
-            entry: './index.js',
-            formats: ['es'],
-            fileName: 'index'
-         }
+            entry: "./index.js",
+            formats: ["es"],
+            fileName: "index",
+         },
       },
 
       plugins: [
          svelte({
             preprocess: preprocess(),
-            onwarn: (warning, handler) =>
-            {
+            onwarn: (warning, handler) => {
                // Suppress `a11y-missing-attribute` for missing href in <a> links.
                // Foundry doesn't follow accessibility rules.
-               if (warning.message.includes(`<a> element should have an href attribute`)) { return; }
+               if (warning.message.includes(`<a> element should have an href attribute`)) {
+                  return;
+               }
 
                // Let Rollup handle all other warnings normally.
                handler(warning);
             },
          }),
 
-         resolve(s_RESOLVE_CONFIG),    // Necessary when bundling npm-linked packages.
+         resolve(s_RESOLVE_CONFIG), // Necessary when bundling npm-linked packages.
 
          // When s_TYPHONJS_MODULE_LIB is true transpile against the Foundry module version of TRL.
-         s_TYPHONJS_MODULE_LIB && typhonjsRuntime()
-      ]
+         s_TYPHONJS_MODULE_LIB && typhonjsRuntime(),
+      ],
    };
 };
 

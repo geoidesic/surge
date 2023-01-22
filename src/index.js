@@ -1,3 +1,16 @@
-import BasicApplication from './view/BasicApplication.js';
+import SurgeActorSheet from "./actor/sheet/ActorSheet";
+import SurgeItemSheet from "./view/BasicApplication";
 
-Hooks.once('ready', () => new BasicApplication().render(true, { focus: true }));
+Hooks.once("init", async () => {
+  console.log("SURGE | Starting Surge VTTRPG System");
+
+  Actors.registerSheet("surge", SurgeActorSheet, {
+    makeDefault: true,
+  });
+  Items.registerSheet("surge", SurgeItemSheet, {
+    makeDefault: true,
+  });
+
+  return;
+});
+

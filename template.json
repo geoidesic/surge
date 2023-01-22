@@ -1,45 +1,36 @@
 {
-  "Actor": {
-    "types": [
-      "player",
-      "npc"
-    ],
+  "Actor": {},
+  "Item": {
+    "types": ["trait", "weapon", "shield", "clothing", "armour", "container"],
     "templates": {
-      "character": {
-        "trait": {}
-      },
-      "player": {
-        "templates": [
-          "character"
-        ],
-        "xp": {
-          "earned": 0,
-          "spent": 0
-        }
-      },
-      "npc": {
-        "templates": [
-          "character"
-        ],
-        "type": "",
-        "xp": 0
+      "itemDescription": {
+        "description": ""
       }
     },
     "Item": {
-      "types": [
-        "trait "
-      ],
+      "types": ["weapon"],
       "templates": {
         "base": {
-          "description": ""
+          "description": "",
+          "check": [],
+          "customTrait": []
+        },
+        "object": {
+          "rarity": "common",
+          "value": 0
+        },
+        "equippable": {
+          "equipped": false,
+          "rulesElement": []
         }
       },
-      "trait": {
-        "templates": [
-          "base"
-        ],
-        "reference": ""
+      "weapon": {
+        "templates": ["base", "equippable", "object"],
+        "attack": [],
+        "attackNotes": "",
+        "multiAttack": false
       }
     }
   }
 }
+

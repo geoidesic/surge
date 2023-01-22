@@ -11,19 +11,27 @@
   "dependencies": {
     "@typhonjs-fvtt/runtime": "^0.0.21",
     "@typhonjs-fvtt/svelte-standard": "^0.0.17",
+    "tippy.js": "^6.3.7",
+    "uuid": "^9.0.0",
     "svelte": "^3.52.0"
   },
   "devDependencies": {
     "@typhonjs-config/eslint-config": "^0.3.0",
     "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
-    "eslint": "^8",
+    "eslint": ">=5.16.0",
+    "eslint-config-google": "^0.14.0",
+    "prettier": "^2.5.1",
     "svelte-preprocess": "^4.10.0",
     "vite": "^3"
   },
-  "browserslist": [">5%", "not IE 11"],
+  "browserslist": [
+    ">5%",
+    "not IE 11"
+  ],
   "scripts": {
     "build": "vite build",
     "dev": "vite",
     "eslint": "eslint ."
   }
 }
+
