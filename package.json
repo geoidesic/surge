@@ -11,9 +11,10 @@
   "dependencies": {
     "@typhonjs-fvtt/runtime": "^0.0.21",
     "@typhonjs-fvtt/svelte-standard": "^0.0.17",
+    "lodash": "^4.17.21",
+    "svelte": "^3.52.0",
     "tippy.js": "^6.3.7",
-    "uuid": "^9.0.0",
-    "svelte": "^3.52.0"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@typhonjs-config/eslint-config": "^0.3.0",
@@ -34,4 +35,3 @@
     "eslint": "eslint ."
   }
 }
-

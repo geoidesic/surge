@@ -1,4 +1,4 @@
-import { SvelteDocumentSheet } from "../../DocumentSheet";
+import SvelteDocumentSheet from "~/documents/DocumentSheet";
 import ActorSheetShell from "./ActorSheetShell.svelte";
 
 export default class SurgeActorSheet extends SvelteDocumentSheet {
@@ -19,3 +19,4 @@ export default class SurgeActorSheet extends SvelteDocumentSheet {
     });
   }
 }
+

@@ -1,13 +1,13 @@
 import { SvelteApplication } from "@typhonjs-fvtt/runtime/svelte/application";
 import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
 import DocumentShell from "./DocumentShell.svelte";
-export class SvelteDocumentSheet extends SvelteApplication {
+export default class SvelteDocumentSheet extends SvelteApplication {
   /**
    * Document store that monitors updates to any assigned document.
    *
    * @type {TJSDocument<foundry.abstract.Document>}
    */
-  #storeDoc = new TJSDocument(void 0, { delete: this.close.bind(this) });
+  #documentStore = new TJSDocument(void 0, { delete: this.close.bind(this) });
 
   /**
    * Holds the document unsubscription function.
@@ -19,16 +19,11 @@ export class SvelteDocumentSheet extends SvelteApplication {
   constructor(object) {
     super(object);
 
-    /**
-     * @member {object} document - Adds accessors to SvelteReactive to get / set the document associated with
-     *                             Document.
-     *
-     * @memberof SvelteReactive#
-     */
+    // Define document store property
     Object.defineProperty(this.reactive, "document", {
-      get: () => this.#storeDoc.get(),
+      get: () => this.#documentStore.get(),
       set: (document) => {
-        this.#storeDoc.set(document);
+        this.#documentStore.set(document);
       },
     });
     this.reactive.document = object;
@@ -55,7 +50,7 @@ export class SvelteDocumentSheet extends SvelteApplication {
         target: document.body,
         // You can assign a function that is invoked with MyItemApp instance as `this`.
         props: function () {
-          return { storeDoc: this.#storeDoc, document: this.reactive.document };
+          return { documentStore: this.#documentStore, document: this.reactive.document };
         },
       },
     });
@@ -307,7 +302,7 @@ export class SvelteDocumentSheet extends SvelteApplication {
 
   render(force = false, options = {}) {
     if (!this.#storeUnsubscribe) {
-      this.#storeUnsubscribe = this.#storeDoc.subscribe(this.#handleDocUpdate.bind(this));
+      this.#storeUnsubscribe = this.#documentStore.subscribe(this.#handleDocUpdate.bind(this));
     }
     super.render(force, options);
     return this;

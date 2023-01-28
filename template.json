@@ -1,5 +1,16 @@
 {
-  "Actor": {},
+  "Actor": {
+    "types": ["player", "monster", "npc"],
+    "templates": {
+      "common": {
+        "description": ""
+      }
+    },
+    "player": {
+      "templates": ["common"],
+      "backstory": ""
+    }
+  },
   "Item": {
     "types": ["trait", "weapon", "shield", "clothing", "armour", "container"],
     "templates": {
