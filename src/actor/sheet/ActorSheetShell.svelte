@@ -7,16 +7,25 @@
   import DocInput from "~/components/DocInput.svelte";
   import Shield from "~/components/Shield.svelte";
   import Blobby from "~/components/Blobby.svelte";
+  import Tabs from "~/helpers/svelte-components/Tabs.svelte";
 
   export let elementRoot;
   export let documentStore;
   export let document;
+
+  let activeTab = "skills";
 
   setContext("#doc", documentStore);
 
   console.log(game);
   console.log(documentStore);
   console.log(document);
+
+  // Tabs
+  const tabs = [
+    { label: "skills", id: "skills", component: Shield },
+    { label: "inventory", id: "inventory", component: Blobby },
+  ];
 </script>
 
 <template lang="pug">
@@ -42,6 +51,7 @@
 
     nav.surge-defaultSheet-navigation.tabs
     section.sheet-body
+      Tabs( {tabs} bind:activeTab="{activeTab}")
       div.attributes
       div.inventory
       div.traits
