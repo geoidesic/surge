@@ -49,21 +49,4 @@
 {#if LABEL}
   <label>{label}</label>
 {/if}
-<input class="flex3" value={data} on:input={updateDebounce} {placeholder} {maxlength} />
-
-<style lang="scss" scoped>
-  input {
-    display: block;
-    padding: 0;
-    width: 100%;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    font-size: 2rem;
-    font-weight: 700;
-    font-family: "Modesto Condensed", "Palatino Lynotype", serif;
-    max-height: 2rem;
-    background: none;
-    -webkit-transition: background 0.3s ease, border-color 0.3s ease;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-</style>
+<textarea class="flex3" value={data} on:input={updateDebounce} {placeholder} {maxlength} />
