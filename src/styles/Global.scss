@@ -1,0 +1,27 @@
+.window-content {
+  display: none;
+}
+
+.window-content {
+  //   display: block !important;
+  gap: 0.4rem;
+}
+
+input {
+  max-height: 2rem;
+}
+
+label {
+  display: inline-block;
+  max-height: 1rem;
+  text-transform: capitalize;
+  margin-right: 0.4rem
+}
+
+.right {
+  text-align: right;
+}
+
+.inline {
+  display: inline;
+}
