@@ -19,39 +19,11 @@
   console.log(document);
 </script>
 
-<template lang="pug">
-  ApplicationShell(bind:elementRoot)
-    header.surge-defaultSheet-header
-      section.profile-wrap
-        .profile.round
-        .profile-buttons
-        .portrait
-          img.inline.flex2(src="systems/surge/assets/logo.webp" height="159" width="150" style="max-width: 150px; text-align: center;")
-              
-      section.character-details
-        section.general-info.flexrow
-          input.flex3(name="name" bind:value="{$documentStore.name}" placeholder="Character Name" maxlength="40")
-          div.flex1.level-information 
-            i.fas.fa-dice
-        section.bonus-info
-        ul.origin-summary
-        section.movement
-        section.character-stats
-          .header-attributes
-            Shield
-
-    nav.surge-defaultSheet-navigation.tabs
-    section.sheet-body
-      div.attributes
-      div.inventory
-      div.traits
-      div.body
-        Blobby
-      div.effects
-      div.biography
-      div.journal
-
-</template>
+<ApplicationShell bind:elementRoot>
+  <p>{$documentStore.name}</p>
+  <DocInput label={"name"} attr={"name"} />
+  <DocInput label={"description"} attr={"system.description"} />
+</ApplicationShell>
 
 <style lang="scss" scoped>
   // @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap");

@@ -15,28 +15,22 @@
 
   let data;
 
-  // $: if (attr.includes("system.")) {
-  //   data = $doc ? $doc?.system[attr] : "";
-  // } else {
-  //   data = $doc ? $doc?.[attr] : "";
-  // }
+  $: if (attr.includes("system.")) {
+    const split = attr.split(".");
+    console.log(split);
+    data = $doc ? $doc?.system[split[1]] : "";
+  } else {
+    data = $doc ? $doc?.[attr] : "";
+  }
+
+  console.log(data);
+  console.log(attr);
+  console.log(attr.includes("system."));
+  console.log($doc.system);
 
   function update(event) {
     if ($doc) {
-      if (attr.includes("system.")) {
-        console.log("attr", attr);
-        console.log("value", event.target.value);
-        // const obj = { system: {} };
-        // _.set(obj, attr, event.target.value);
-        // console.log("obj", obj);
-        $doc.update({
-          system: $doc.system,
-          flags: $doc.flags,
-          name: $doc.name,
-        });
-      } else {
-        $doc.update({ [attr]: event.target.value });
-      }
+      $doc.update({ [attr]: event.target.value });
     }
   }
 </script>
