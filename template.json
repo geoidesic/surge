@@ -1,14 +1,264 @@
 {
   "Actor": {
-    "types": ["player", "monster", "npc"],
+    "types": ["fighter", "wizard", "thief"],
     "templates": {
       "common": {
-        "description": ""
+        "description": "",
+        "lore": "",
+        "race": "",
+        "unspentXp": 0,
+        "spentXp": 0
+      },
+      "attributes": {
+        "siz": {
+          "name": "size",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "hid": {
+          "name": "hide",
+          "group": "str",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "mus": {
+          "name": "muscle",
+          "group": "str",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "ton": {
+          "name": "tone",
+          "group": "str",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "den": {
+          "name": "density",
+          "group": "str",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "spd": {
+          "name": "speed",
+          "group": "dex",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "flx": {
+          "name": "flexibility",
+          "group": "dex",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "agl": {
+          "name": "agility",
+          "group": "dex",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "bal": {
+          "name": "balance",
+          "group": "dex",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "coo": {
+          "name": "coordination",
+          "group": "dex",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "com": {
+          "name": "comeliness",
+          "group": "cha",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "pre": {
+          "name": "Presence",
+          "group": "cha",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "gab": {
+          "name": "eloquence",
+          "group": "cha",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "chr": {
+          "name": "charm",
+          "group": "cha",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "sta": {
+          "name": "status",
+          "group": "cha",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "mem": {
+          "name": "memory",
+          "group": "int",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "dsc": {
+          "name": "discipline",
+          "group": "int",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "ins": {
+          "name": "insight",
+          "group": "int",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "wil": {
+          "name": "willpower",
+          "group": "int",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "cog": {
+          "name": "cognition",
+          "group": "int",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "end": {
+          "name": "endurance",
+          "group": "hlt",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "imm": {
+          "name": "immunity",
+          "group": "hlt",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "fat": {
+          "name": "fatigue",
+          "group": "hlt",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "wnd": {
+          "name": "wounds",
+          "group": "hlt",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "pat": {
+          "name": "pathologies",
+          "group": "hlt",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "sig": {
+          "name": "sight",
+          "group": "per",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "hea": {
+          "name": "hearing",
+          "group": "per",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "sml": {
+          "name": "smell",
+          "group": "per",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "tst": {
+          "name": "taste",
+          "group": "per",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        },
+        "tch": {
+          "name": "touch",
+          "group": "per",
+          "xp": 0,
+          "traitDescription": "",
+          "baseValue": 0,
+          "currentValue": 0
+        }
       }
     },
-    "player": {
-      "templates": ["common"],
-      "backstory": ""
+    "fighter": {
+      "templates": ["common", "attributes"]
+    },
+    "wizard": {
+      "templates": ["common", "attributes"]
+    },
+    "thief": {
+      "templates": ["common", "attributes"]
     }
   },
   "Item": {

@@ -14,8 +14,8 @@ const s_TYPHONJS_MODULE_LIB = false;
 
 // Used in bundling.
 const s_RESOLVE_CONFIG = {
-   browser: true,
-   dedupe: ["svelte"],
+  browser: true,
+  dedupe: ["svelte"],
 };
 
 // ATTENTION!
@@ -23,82 +23,88 @@ const s_RESOLVE_CONFIG = {
 // module or system ID.
 
 export default () => {
-   /** @type {import('vite').UserConfig} */
-   return {
-      root: "src/", // Source location / esbuild root.
-      base: "/systems/surge/", // Base module path that 30001 / served dev directory.
-      publicDir: false, // No public resources to copy.
-      cacheDir: "../.vite-cache", // Relative from root directory.
+  /** @type {import('vite').UserConfig} */
+  return {
+    root: "src/", // Source location / esbuild root.
+    base: "/systems/surge/", // Base module path that 30001 / served dev directory.
+    publicDir: false, // No public resources to copy.
+    cacheDir: "../.vite-cache", // Relative from root directory.
 
-      resolve: {
-         conditions: ["import", "browser"],
-         alias: {
-            "~": path.resolve(__dirname, "src"),
-         },
+    resolve: {
+      conditions: ["import", "browser"],
+      alias: {
+        "~": path.resolve(__dirname, "src"),
       },
+    },
 
-      esbuild: {
-         target: ["es2022", "chrome100"],
-         keepNames: true, // Note: doesn't seem to work.
+    esbuild: {
+      target: ["es2022", "chrome100"],
+      keepNames: true, // Note: doesn't seem to work.
+    },
+
+    css: {
+      // Creates a standard configuration for PostCSS with autoprefixer & postcss-preset-env.
+      postcss: postcssConfig({ compress: s_COMPRESS, sourceMap: s_SOURCEMAPS }),
+    },
+
+    // About server options:
+    // - Set to `open` to boolean `false` to not open a browser window automatically. This is useful if you set up a
+    // debugger instance in your IDE and launch it with the URL: 'http://localhost:30001/game'.
+    //
+    // - The top proxy entry for `lang` will pull the language resources from the main Foundry / 30000 server. This
+    // is necessary to reference the dev resources as the root is `/src` and there is no public / static resources
+    // served.
+    server: {
+      port: 30001,
+      open: "/game",
+      proxy: {
+        "^(/systems/surge/lang)": "http://localhost:30000",
+        "^(/systems/surge/style.css)": "http://localhost:30000",
+        "^(?!/systems/surge/)": "http://localhost:30000",
+        "/socket.io": { target: "ws://localhost:30000", ws: true },
+        '/api': {
+          target: 'http://jsonplaceholder.typicode.com',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
       },
+    },
 
-      css: {
-         // Creates a standard configuration for PostCSS with autoprefixer & postcss-preset-env.
-         postcss: postcssConfig({ compress: s_COMPRESS, sourceMap: s_SOURCEMAPS }),
+    build: {
+      outDir: __dirname,
+      emptyOutDir: false,
+      sourcemap: s_SOURCEMAPS,
+      brotliSize: true,
+      minify: s_COMPRESS ? "terser" : false,
+      target: ["es2022", "chrome100"],
+      terserOptions: s_COMPRESS ? { ...terserConfig(), ecma: 2022 } : void 0,
+      lib: {
+        entry: "./index.js",
+        formats: ["es"],
+        fileName: "index",
       },
+    },
 
-      // About server options:
-      // - Set to `open` to boolean `false` to not open a browser window automatically. This is useful if you set up a
-      // debugger instance in your IDE and launch it with the URL: 'http://localhost:30001/game'.
-      //
-      // - The top proxy entry for `lang` will pull the language resources from the main Foundry / 30000 server. This
-      // is necessary to reference the dev resources as the root is `/src` and there is no public / static resources
-      // served.
-      server: {
-         port: 30001,
-         open: "/game",
-         proxy: {
-            "^(/systems/surge/lang)": "http://localhost:30000",
-            "^(?!/systems/surge/)": "http://localhost:30000",
-            "/socket.io": { target: "ws://localhost:30000", ws: true },
-         },
-      },
+    plugins: [
+      svelte({
+        preprocess: preprocess(),
+        onwarn: (warning, handler) => {
+          // Suppress `a11y-missing-attribute` for missing href in <a> links.
+          // Foundry doesn't follow accessibility rules.
+          if (warning.message.includes(`<a> element should have an href attribute`)) {
+            return;
+          }
 
-      build: {
-         outDir: __dirname,
-         emptyOutDir: false,
-         sourcemap: s_SOURCEMAPS,
-         brotliSize: true,
-         minify: s_COMPRESS ? "terser" : false,
-         target: ["es2022", "chrome100"],
-         terserOptions: s_COMPRESS ? { ...terserConfig(), ecma: 2022 } : void 0,
-         lib: {
-            entry: "./index.js",
-            formats: ["es"],
-            fileName: "index",
-         },
-      },
+          // Let Rollup handle all other warnings normally.
+          handler(warning);
+        },
+      }),
 
-      plugins: [
-         svelte({
-            preprocess: preprocess(),
-            onwarn: (warning, handler) => {
-               // Suppress `a11y-missing-attribute` for missing href in <a> links.
-               // Foundry doesn't follow accessibility rules.
-               if (warning.message.includes(`<a> element should have an href attribute`)) {
-                  return;
-               }
+      resolve(s_RESOLVE_CONFIG), // Necessary when bundling npm-linked packages.
 
-               // Let Rollup handle all other warnings normally.
-               handler(warning);
-            },
-         }),
-
-         resolve(s_RESOLVE_CONFIG), // Necessary when bundling npm-linked packages.
-
-         // When s_TYPHONJS_MODULE_LIB is true transpile against the Foundry module version of TRL.
-         s_TYPHONJS_MODULE_LIB && typhonjsRuntime(),
-      ],
-   };
+      // When s_TYPHONJS_MODULE_LIB is true transpile against the Foundry module version of TRL.
+      s_TYPHONJS_MODULE_LIB && typhonjsRuntime(),
+    ],
+  };
 };
 
