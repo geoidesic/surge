@@ -7,13 +7,14 @@
   import DocInput from "~/components/DocInput.svelte";
   import Shield from "~/components/Shield.svelte";
   import Blobby from "~/components/Blobby.svelte";
+  import Biography from "~/components/Biography.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
 
   export let elementRoot;
   export let documentStore;
   export let document;
 
-  let activeTab = "skills";
+  let activeTab = "attributes";
 
   setContext("#doc", documentStore);
 
@@ -23,8 +24,12 @@
 
   // Tabs
   const tabs = [
-    { label: "skills", id: "skills", component: Shield },
+    { label: "attributes", id: "attributes", component: Shield },
     { label: "inventory", id: "inventory", component: Blobby },
+    { label: "traits", id: "traits", component: Biography },
+    { label: "effects", id: "effects", component: Biography },
+    { label: "biography", id: "biography", component: Biography },
+    { label: "journal", id: "journal", component: Biography },
   ];
 </script>
 
@@ -47,21 +52,11 @@
         section.movement
         section.character-stats
           .header-attributes
-            Shield
 
     nav.surge-defaultSheet-navigation.tabs
     section.sheet-body
       Tabs( {tabs} bind:activeTab="{activeTab}")
-      div.attributes
-      div.inventory
-      div.traits
-      div.body
-        Blobby
-      div.effects
-      div.biography
-        DocInput(attr="system.description" placeholder="Physical Description")
-        DocTextArea(attr="system.lore" placeholder="Lore")
-      div.journal
+      
 
 </template>
 
