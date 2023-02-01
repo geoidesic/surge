@@ -58,15 +58,10 @@ export default () => {
       port: 30001,
       open: "/game",
       proxy: {
-        "^(/systems/surge/lang)": "http://localhost:30000",
+        "^(/systems/surge/(lang|packs|assets))": "http://localhost:30000",
         "^(/systems/surge/style.css)": "http://localhost:30000",
         "^(?!/systems/surge/)": "http://localhost:30000",
-        "/socket.io": { target: "ws://localhost:30000", ws: true },
-        '/api': {
-          target: 'http://jsonplaceholder.typicode.com',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
+        "/socket.io": { target: "ws://localhost:30000", ws: true }
       },
     },
 
