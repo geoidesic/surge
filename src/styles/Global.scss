@@ -26,6 +26,19 @@ label {
   display: inline;
 }
 
+article {
+  // border: 2px solid grey;
+  // border-radius: var(--border-radius);
+  padding: 0.2rem;
+  margin: 0.5rem 0.5rem 4rem 1rem;
+  min-height: 80px;
+  text-align: left;
+
+  h2 {
+    text-transform: capitalize;
+  }
+}
+
 // padding / margins
 
   .px-md {

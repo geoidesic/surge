@@ -4,31 +4,33 @@
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import ProseMirror from "~/components/ProseMirror.svelte";
   import { getContext } from "svelte";
-
-  const doc = getContext("#doc");
 </script>
 
 <template lang="pug">
   ScrollingContainer
-    DocInput(label="gender" attr="system.gender" placeholder="gender")
-    DocInput(label="hair" attr="system.hair" placeholder="hair")
-    DocInput(label="eyes" attr="system.eyes" placeholder="eyes")
-    DocInput(label="skin" attr="system.skin" placeholder="skin")
+    h1 Appearance
+    .flexrow
+      DocInput(label="gender" attr="system.gender" placeholder="?")
+      DocInput(label="hair" attr="system.hair" placeholder="?")
+      DocInput(label="eyes" attr="system.eyes" placeholder="?")
+      DocInput(label="skin" attr="system.skin" placeholder="?")
     article
-      h1 Personality Traits
+      h2 physical description
+      ProseMirror( attr="system.appearance" )
+    h1 Personality
+    article
+      h2 Gemeral
       ProseMirror( attr="system.personality" )
     article
-      h1 Ideals
+      h2 Ideals
       ProseMirror( attr="system.ideals")
     article
-      h1 flaws
+      h2 flaws
       ProseMirror( attr="system.flaws" )
     article
       h2 bonds
       ProseMirror( attr="system.bonds" )
-    article
-      h2 appearance
-      ProseMirror( attr="system.appearance" )
+    h1 Backstory
     article
       h2 lore
       ProseMirror( attr="system.lore" )
@@ -47,15 +49,4 @@
 </template>
 
 <style lang="scss" scoped>
-  article {
-    // border: 2px solid grey;
-    // border-radius: var(--border-radius);
-    padding: 0.2rem;
-    margin: 0.5rem 0.5rem 4rem 1rem;
-    min-height: 200px;
-    text-align: left;
-  }
-  h2 {
-    text-transform: capitalize;
-  }
 </style>
