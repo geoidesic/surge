@@ -26,7 +26,7 @@
    */
   const options = {
     document: $doc, // An item to edit description; note: replace w/ valid doc.
-    fieldName: "system.personality", // Path to data in `a.b.c`; note: this is a v10 field name.
+    fieldName: attr, // Path to data in `a.b.c`; note: this is a v10 field name.
     // collaborate: false,                             // Enables collaboration; requires document.
     // button: true      // Show edit button to launch editor when hovered; when false editor is open by default.
     // classes: ['foo', 'bar'],   // Adds additional classes to `.editor` element.
