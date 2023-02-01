@@ -68,16 +68,20 @@
       section.character-details
         section.general-info.flexrow
           .flexcol.flex3
-            DocInput(attr="name" placeholder="Character Name" maxlength="40")
-            DocInput(attr="system.race" placeholder="Character Race" maxlength="40")
+            DocInput(className="lg transparent" attr="name" placeholder="Character Name" maxlength="40")
+            DocInput(className="md transparent" attr="system.race" placeholder="Character Race" maxlength="40")
           div.flex1.level-information
-            .flexcol
-              .flexrow
-                label.flex2 XP
-                DocInput(attr="system.unspentXp" maxlength="6")
-              .flexrow
-                label Skill
-                DocInput(attr="system.spentXp" maxlength="6" disabled)  
+            table(style="text-align: right")
+              tr
+                th(width="50%")
+                  label.flex2 XP
+                td
+                  DocInput(className="md right transparent" attr="system.unspentXp" maxlength="6")
+              tr
+                th(width="50%")
+                  label Skill
+                td
+                  DocInput(className="md right transparent" attr="system.spentXp" maxlength="6" disabled)  
         section.bonus-info
 
         ul.origin-summary
@@ -99,10 +103,10 @@
     -webkit-box-direction: reverse;
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    margin-left: 1rem;
-    padding: 1rem;
+    // border: 1px solid var(--border-color);
+    // border-radius: var(--border-radius);
+    // margin-left: 1rem;
+    // padding: 1rem;
   }
 
   input {

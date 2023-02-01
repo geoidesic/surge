@@ -7,6 +7,7 @@
   export let label = "";
   export let placeholder = "";
   export let maxlength = "40";
+  export let className = "";
 
   const doc = getContext("#doc");
 
@@ -40,24 +41,11 @@
 </script>
 
 <template lang="pug">
-  +if('LABEL')
-    label {label}
-  input.flex3(value="{data}" on:input="{updateDebounce}" placeholder="{placeholder}" maxlength="{maxlength}")
+  div.flexrow
+    +if('LABEL')
+      label {label}
+    input.flex3(class="{className}" value="{data}" on:input="{updateDebounce}" placeholder="{placeholder}" maxlength="{maxlength}")
 </template>
 
 <style lang="scss" scoped>
-  input {
-    display: block;
-    padding: 0;
-    width: 100%;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    font-size: 2rem;
-    font-weight: 700;
-    font-family: "Modesto Condensed", "Palatino Lynotype", serif;
-    max-height: 2rem;
-    background: none;
-    -webkit-transition: background 0.3s ease, border-color 0.3s ease;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
 </style>

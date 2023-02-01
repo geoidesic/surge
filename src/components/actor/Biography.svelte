@@ -7,14 +7,14 @@
 </script>
 
 <template lang="pug">
-  ScrollingContainer
+  ScrollingContainer.container
     .flexcol.pa-sm
       h1 Appearance
-      .flexrow
-        DocInput(label="gender" attr="system.gender" placeholder="?")
-        DocInput(label="hair" attr="system.hair" placeholder="?")
-        DocInput(label="eyes" attr="system.eyes" placeholder="?")
-        DocInput(label="skin" attr="system.skin" placeholder="?")
+      .flexrow.split
+        DocInput( className="right transparent sm border" label="gender" attr="system.gender" placeholder="?")
+        DocInput( className="right transparent sm border" label="hair" attr="system.hair" placeholder="?")
+        DocInput( className="right transparent sm border" label="eyes" attr="system.eyes" placeholder="?")
+        DocInput( className="right transparent sm border" label="skin" attr="system.skin" placeholder="?")
       .flexcol
         article
           h2 physical description

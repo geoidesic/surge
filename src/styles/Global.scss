@@ -9,6 +9,48 @@
 
 input {
   max-height: 2rem;
+  &.right {
+    text-align: right
+  }
+  &.lg {
+    font-size: 2rem;
+    font-weight: 700;
+    max-height: 2rem;
+  }
+  &.md {
+    font-size: 1.5rem;
+    font-weight: 500;
+    max-height: 1.5rem;
+  }
+  &.sm {
+    font-size: 1rem;
+    font-weight: 300;
+    max-height: 1rem;
+  }
+  &.shadow {
+    background: rgba(255,0,20, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;    
+  }
+  &.transparent {
+    display: block;
+    padding: 0;
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    font-family: "Modesto Condensed", "Palatino Lynotype", serif;
+    background: none;
+    -webkit-transition: background 0.3s ease, border-color 0.3s ease;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    &:hover {
+      background: rgba(255,0,20, 0.1);
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;    
+    }
+  }
+}
+
+.flexrow.split > div {
+  padding: 0 4px;
+  border-right: 1px solid grey;
 }
 
 label {
