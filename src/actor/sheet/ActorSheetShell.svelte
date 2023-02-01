@@ -10,6 +10,7 @@
   import Attributes from "~/components/Attributes.svelte";
   import Biography from "~/components/Biography.svelte";
   import Journal from "~/components/Journal.svelte";
+  import Traits from "~/components/Traits.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
 
@@ -29,7 +30,7 @@
   const tabs = [
     { label: "attributes", id: "attributes", component: Attributes },
     { label: "inventory", id: "inventory", component: Blobby },
-    { label: "traits", id: "traits", component: Shield },
+    { label: "traits", id: "traits", component: Traits },
     { label: "effects", id: "effects", component: Shield },
     { label: "biography", id: "biography", component: Biography },
     { label: "journal", id: "journal", component: Journal },

@@ -2,6 +2,9 @@
   import DocInput from "~/components/DocInput.svelte";
   import DocTextArea from "~/components/DocTextArea.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
+  import { getContext } from "svelte";
+
+  const doc = getContext("#doc");
 </script>
 
 <template lang="pug">

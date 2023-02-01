@@ -12,8 +12,8 @@
 
   const updateDebounce = debounce(update, 500);
 
-  console.log(doc); //TJSDocument
-  console.log($doc); //Actor
+  // console.log(doc); //TJSDocument
+  // console.log($doc); //Actor
 
   let data;
   let LABEL = !!label;
@@ -32,11 +32,11 @@
     }
   }
 
-  console.log("data", data);
-  console.log("data placeholder", placeholder);
-  console.log(attr);
-  console.log(attr.includes("system."));
-  console.log($doc.system);
+  // console.log("data", data);
+  // console.log("data placeholder", placeholder);
+  // console.log(attr);
+  // console.log(attr.includes("system."));
+  // console.log($doc.system);
 </script>
 
 <template lang="pug">

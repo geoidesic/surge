@@ -14,9 +14,9 @@
   const updateXPDebounce = debounce(updateXP, 500);
   const updateBaseDebounce = debounce(updateBase, 500);
 
-  console.log("code", code);
-  console.log(doc);
-  console.log($doc.system?.[code]);
+  // console.log("code", code);
+  // console.log(doc);
+  // console.log($doc.system?.[code]);
 
   function updateCurrent(event) {
     if ($doc) {

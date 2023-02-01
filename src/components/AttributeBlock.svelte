@@ -2,8 +2,6 @@
   import Attribute from "~/components/Attribute.svelte";
 
   export let codes = [];
-
-  console.log("codes", codes);
 </script>
 
 <div class="flexrow attribute-block">
