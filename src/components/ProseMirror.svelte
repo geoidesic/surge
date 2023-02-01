@@ -62,4 +62,7 @@
   on:editor:save={(event) => console.log(`! event - editor:save - ${event.detail.content}`)}
   on:editor:start={() => console.log("! event - editor:start")}
 />
+
 <!-- You can subscribe to the above events if desired -->
+<style lang="scss" scoped>
+</style>

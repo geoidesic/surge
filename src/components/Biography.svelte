@@ -2,6 +2,7 @@
   import DocInput from "~/components/DocInput.svelte";
   import DocTextArea from "~/components/DocTextArea.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
+  import ProseMirror from "~/components/ProseMirror.svelte";
   import { getContext } from "svelte";
 
   const doc = getContext("#doc");
@@ -13,14 +14,48 @@
     DocInput(label="hair" attr="system.hair" placeholder="hair")
     DocInput(label="eyes" attr="system.eyes" placeholder="eyes")
     DocInput(label="skin" attr="system.skin" placeholder="skin")
-    DocTextArea(label="ideals" attr="system.ideals" placeholder="ideals")
-    DocTextArea(label="flaws" attr="system.flaws" placeholder="flaws")
-    DocTextArea(label="bonds" attr="system.bonds" placeholder="bonds")
-    DocTextArea(label="Appearance" attr="system.appearance" placeholder="Appearance")
-    DocTextArea(label="Backstory" attr="system.lore" placeholder="Lore")
-    DocTextArea(label="Personality" attr="system.personality" placeholder="Personality")
-    DocTextArea(label="Contacts" attr="system.contacts" placeholder="Contacts")
-    DocTextArea(label="Factions" attr="system.factions" placeholder="Factions")
-    DocTextArea(label="Family" attr="system.family" placeholder="Family")
-    DocTextArea(label="Zodiac" attr="system.zodiac" placeholder="Zodiac")
+    article
+      h1 Personality Traits
+      ProseMirror( attr="system.personality" )
+    article
+      h1 Ideals
+      ProseMirror( attr="system.ideals")
+    article
+      h1 flaws
+      ProseMirror( attr="system.flaws" )
+    article
+      h2 bonds
+      ProseMirror( attr="system.bonds" )
+    article
+      h2 appearance
+      ProseMirror( attr="system.appearance" )
+    article
+      h2 lore
+      ProseMirror( attr="system.lore" )
+    article
+      h2 contacts
+      ProseMirror( attr="system.contacts" )
+    article
+      h2 factions
+      ProseMirror( attr="system.factions" )
+    article
+      h2 family
+      ProseMirror( attr="system.family" )
+    article
+      h2 zodiac
+      ProseMirror( attr="system.zodiac" )
 </template>
+
+<style lang="scss" scoped>
+  article {
+    // border: 2px solid grey;
+    // border-radius: var(--border-radius);
+    padding: 0.2rem;
+    margin: 0.5rem 0.5rem 4rem 1rem;
+    min-height: 200px;
+    text-align: left;
+  }
+  h2 {
+    text-transform: capitalize;
+  }
+</style>

@@ -3,5 +3,7 @@
 </script>
 
 <template lang="pug">
-  ProseMirror(content="la dee pockedie" attr="system.personality")
+  article
+    h1 Personality Traits
+    ProseMirror(content="la dee pockedie" attr="system.personality")
 </template>
