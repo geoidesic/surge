@@ -18,6 +18,9 @@ $dex-color-darker: darken($dex-color, 10%);
 $per-color-darker: darken($per-color, 10%);
 $int-color-darker: darken($int-color, 10%);
 $cha-color-darker: darken($cha-color, 10%);
+
+
+
 :root {
   // Border styling
   --border-style: solid;
@@ -45,17 +48,19 @@ $cha-color-darker: darken($cha-color, 10%);
   --button-border-width: 0.1rem;
   --button-border-color: black;
   --button-padding: 0.1rem 0.5rem;
-  --button-background: rgba(255, 255, 240, 0.8);
+  --button-background: rgba(0, 0, 0, 0.2);
   --button-background-disabled: rgb(208, 208, 208);
   --button-background-highlight: rgb(255, 233, 174);
   --button-font-size: 1rem;
   --button-font-weight: bold;
-  --button-color: black;
+  --button-color: white;
   --button-line-height: 1.75rem;
   --button-color-disabled: black;
   --button-color-highlight: black;
 
   --attribute-field-height: 1.3rem;
+
+  --highlight-background: rgba(20, 0, 40, 0.8);
   
   --str-color: #{$str-color};
   --hlt-color: #{$hlt-color};

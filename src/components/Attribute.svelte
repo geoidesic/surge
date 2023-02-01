@@ -40,8 +40,9 @@
 
 <template lang="pug">
   .flexrow.attribute(style="max-height: 1.4rem" class="{$doc.system[code].group} {code}" )
+    i.fas.fa-dice.flex0
     h2 {code}
-    input.base(type="number" value="{$doc.system[code].baseValue}" on:input="{updateBaseDebounce}" disabled)
+    input.base(type="number" value="{$doc.system[code].baseValue}" on:input="{updateBaseDebounce}")
     input.current(type="number" value="{$doc.system[code].currentValue}" on:input="{updateCurrentDebounce}")
     input.xp(type="number" value="{$doc.system[code].xp}" on:input="{updateXPDebounce}")
 </template>
@@ -58,7 +59,7 @@
   }
   input {
     padding: 0;
-    margin: 0;
+    margin: 0 1px;
     height: var(--attribute-field-height);
   }
 </style>

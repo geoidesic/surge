@@ -21,21 +21,22 @@
   $: if (attr.includes("system.")) {
     const split = attr.split(".");
     console.log(split);
-    data = $doc ? $doc?.system[split[1]] : "";
+    data = $doc?.system?.[split[1]] || placeholder;
   } else {
-    data = $doc ? $doc?.[attr] : "";
+    data = $doc?.[attr] || placeholder;
   }
-
-  console.log(data);
-  console.log(attr);
-  console.log(attr.includes("system."));
-  console.log($doc.system);
 
   function update(event) {
     if ($doc) {
       $doc.update({ [attr]: event.target.value });
     }
   }
+
+  console.log("data", data);
+  console.log("data placeholder", placeholder);
+  console.log(attr);
+  console.log(attr.includes("system."));
+  console.log($doc.system);
 </script>
 
 <template lang="pug">

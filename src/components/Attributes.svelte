@@ -12,7 +12,7 @@
   let cha = ["com", "pre", "gab", "chr", "sta"];
   let int = ["mem", "dsc", "ins", "wil", "cog"];
   let per = ["sig", "hea", "sml", "tst", "tch"];
-  let hlt = ["end", "imm", "fat", "wnd", "dis"];
+  let hlt = ["end", "imm", "ftg", "wnd", "dis"];
 
   const doc = getContext("#doc");
 
@@ -60,7 +60,7 @@
   $: HLT =
     (parseInt($doc.system.end.currentValue) +
       parseInt($doc.system.imm.currentValue) +
-      parseInt($doc.system.fat.currentValue) +
+      parseInt($doc.system.ftg.currentValue) +
       parseInt($doc.system.wnd.currentValue) +
       parseInt($doc.system.dis.currentValue)) /
     5;
@@ -118,6 +118,8 @@
   .title {
     font-size: 1.2rem;
     line-height: 2rem;
+    padding: 2px 0 0 0;
+    margin: 0;
   }
   .caption {
     font-size: 0.8rem;

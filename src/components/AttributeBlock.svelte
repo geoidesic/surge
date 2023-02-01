@@ -25,7 +25,7 @@
   .attribute-block {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    margin: 0.3rem;
+    margin: 0 0.3rem 0.3rem 0.3rem;
     padding: 0.6rem 0.2rem 0.2rem 0.2rem;
     text-transform: uppercase;
     font-family: "Signika";

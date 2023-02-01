@@ -3,11 +3,29 @@
     "types": ["fighter", "wizard", "thief"],
     "templates": {
       "common": {
-        "description": "",
+        "appearance": "",
         "lore": "",
         "race": "",
         "unspentXp": 0,
         "spentXp": 0
+      },
+      "player": {
+        "factions": "",
+        "contacts": "",
+        "family": "",
+        "zodiac": "",
+        "places": "",
+        "notes": "",
+        "personality": "",
+        "ideals": "",
+        "flaws": "",
+        "bonds":"",
+        "gender": "",
+        "hair": "",
+        "eyes": "",
+        "skin": "",
+        "journal": "",
+        "quests": ""
       },
       "attributes": {
         "siz": {
@@ -186,7 +204,7 @@
           "baseValue": 0,
           "currentValue": 0
         },
-        "fat": {
+        "ftg": {
           "name": "fatigue",
           "group": "hlt",
           "xp": 0,
@@ -253,13 +271,13 @@
       }
     },
     "fighter": {
-      "templates": ["common", "attributes"]
+      "templates": ["common", "attributes", "player"]
     },
     "wizard": {
-      "templates": ["common", "attributes"]
+      "templates": ["common", "attributes", "player"]
     },
     "thief": {
-      "templates": ["common", "attributes"]
+      "templates": ["common", "attributes", "player"]
     }
   },
   "Item": {

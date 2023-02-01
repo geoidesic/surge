@@ -9,6 +9,7 @@
   import Blobby from "~/components/Blobby.svelte";
   import Attributes from "~/components/Attributes.svelte";
   import Biography from "~/components/Biography.svelte";
+  import Journal from "~/components/Journal.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
 
@@ -31,7 +32,7 @@
     { label: "traits", id: "traits", component: Shield },
     { label: "effects", id: "effects", component: Shield },
     { label: "biography", id: "biography", component: Biography },
-    { label: "journal", id: "journal", component: Shield },
+    { label: "journal", id: "journal", component: Journal },
   ];
 </script>
 
@@ -46,10 +47,19 @@
               
       section.character-details
         section.general-info.flexrow
-          DocInput(attr="name" placeholder="Character Name" maxlength="40")
-          div.flex1.level-information 
-            i.fas.fa-dice
+          .flexcol.flex3
+            DocInput(attr="name" placeholder="Character Name" maxlength="40")
+            DocInput(attr="race" placeholder="Character Race" maxlength="40")
+          div.flex1.level-information
+            .flexcol
+              .flexrow
+                label.flex2 XP
+                DocInput(attr="system.unspentXp" maxlength="6")
+              .flexrow
+                label Skill
+                DocInput(attr="system.spentXp" maxlength="6" disabled)  
         section.bonus-info
+
         ul.origin-summary
         section.movement
         section.character-stats
@@ -69,7 +79,12 @@
     -webkit-box-direction: reverse;
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-left: 1rem;
+    padding: 1rem;
   }
+
   input {
     display: block;
     padding: 0;
@@ -112,7 +127,7 @@
     overflow: hidden;
   }
   .profile-wrap {
-    width: 150px;
+    width: 100px;
     /* position: relative; */
   }
   .character-details {
