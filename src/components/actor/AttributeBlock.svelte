@@ -4,20 +4,19 @@
   export let codes = [];
 </script>
 
-<div class="flexrow attribute-block">
-  <div class="flexcol">
-    <div class="flexrow header">
-      <div class="title">&nbsp;</div>
-      <div class="base">Base</div>
-      <div class="current">Current</div>
-      <div class="xp">XP</div>
-    </div>
+<template lang="pug">
+  .flexrow.attribute-block
+    .flexcol
+      .flexrow.header
+        .title &nbsp;
+        .base Base
+        .current Current
+        .xp XP
+      
+      +each("codes as code")
+        Attribute({code})       
 
-    {#each codes as code, i}
-      <Attribute {code} />
-    {/each}
-  </div>
-</div>
+</template>
 
 <style lang="scss" scoped>
   .attribute-block {
