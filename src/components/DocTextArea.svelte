@@ -39,14 +39,7 @@
 </script>
 
 <template lang="pug">
-  //- for some reason pug chokes on the if syntax below here; odd because it's fine in PeakVTT
-  //- {#if LABEL}
-  //-   label {label}
-  //- {/if}
-  //- input.flex3(value="{data}" on:input="{updateDebounce}" placeholder="{placeholder}" maxlength="{maxlength}")
+  +if('LABEL')
+    label {label}
+  textarea.flex3(value="{data}" on:input="{updateDebounce}" placeholder="{placeholder}" maxlength="{maxlength}")
 </template>
-
-{#if LABEL}
-  <label>{label}</label>
-{/if}
-<textarea class="flex3" value={data} on:input={updateDebounce} {placeholder} {maxlength} />
