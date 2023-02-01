@@ -2,7 +2,7 @@
 
 <script>
   import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
-  import { setContext } from "svelte";
+  import { setContext, getContext } from "svelte";
   import DocTextArea from "~/components/DocTextArea.svelte";
   import DocInput from "~/components/DocInput.svelte";
   import Shield from "~/components/Shield.svelte";
@@ -18,6 +18,7 @@
   export let documentStore;
   export let document;
 
+  const application = getContext("external").application;
   let activeTab = "attributes";
 
   function onEditImage(event) {
