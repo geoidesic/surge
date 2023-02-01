@@ -1,9 +1,29 @@
+$str-color: #E7807A;
+$hlt-color: #EBAF7B;
+$dex-color: #D3F593;
+$per-color: #B2CFED;
+$int-color: #9B88FC;
+$cha-color: #D7AAFA;
+
+$str-color-lighter: lighten($str-color, 10%);
+$hlt-color-lighter: lighten($hlt-color, 10%);
+$dex-color-lighter: lighten($dex-color, 10%);
+$per-color-lighter: lighten($per-color, 10%);
+$int-color-lighter: lighten($int-color, 10%);
+$cha-color-lighter: lighten($cha-color, 10%);
+
+$str-color-darker: darken($str-color, 10%);
+$hlt-color-darker: darken($hlt-color, 10%);
+$dex-color-darker: darken($dex-color, 10%);
+$per-color-darker: darken($per-color, 10%);
+$int-color-darker: darken($int-color, 10%);
+$cha-color-darker: darken($cha-color, 10%);
 :root {
   // Border styling
   --border-style: solid;
-  --border-radius: 10px;
+  --border-radius: 5px;
   --border-width: 0.1rem;
-  --border-color: black;
+  --border-color: rgb(45, 45, 45);
 
   // Input styling
   --input-border-style: solid;
@@ -34,5 +54,29 @@
   --button-line-height: 1.75rem;
   --button-color-disabled: black;
   --button-color-highlight: black;
+
+  --attribute-field-height: 1.3rem;
   
+  --str-color: #{$str-color};
+  --hlt-color: #{$hlt-color};
+  --dex-color: #{$dex-color};
+  --per-color: #{$per-color};
+  --int-color: #{$int-color};
+  --cha-color: #{$cha-color};
+
+  --str-color-lighter: #{$str-color-lighter};
+  --hlt-color-lighter: #{$hlt-color-lighter};
+  --dex-color-lighter: #{$dex-color-lighter};
+  --per-color-lighter: #{$per-color-lighter};
+  --int-color-lighter: #{$int-color-lighter};
+  --cha-color-lighter: #{$cha-color-lighter};
+
+  --str-color-darker: #{$str-color-darker};
+  --hlt-color-darker: #{$hlt-color-darker};
+  --dex-color-darker: #{$dex-color-darker};
+  --per-color-darker: #{$per-color-darker};
+  --int-color-darker: #{$int-color-darker};
+  --cha-color-darker: #{$cha-color-darker};
+  //  --str-color-darker: hsl(from var(--str-color) h s calc(l - 5%)); 
+  //  --str-color-lighter: hsl(from var(--str-color) h s calc(l + 0%)); 
 }

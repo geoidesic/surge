@@ -7,8 +7,10 @@
   import DocInput from "~/components/DocInput.svelte";
   import Shield from "~/components/Shield.svelte";
   import Blobby from "~/components/Blobby.svelte";
+  import Attributes from "~/components/Attributes.svelte";
   import Biography from "~/components/Biography.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
+  import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
 
   export let elementRoot;
   export let documentStore;
@@ -24,12 +26,12 @@
 
   // Tabs
   const tabs = [
-    { label: "attributes", id: "attributes", component: Shield },
+    { label: "attributes", id: "attributes", component: Attributes },
     { label: "inventory", id: "inventory", component: Blobby },
-    { label: "traits", id: "traits", component: Biography },
-    { label: "effects", id: "effects", component: Biography },
+    { label: "traits", id: "traits", component: Shield },
+    { label: "effects", id: "effects", component: Shield },
     { label: "biography", id: "biography", component: Biography },
-    { label: "journal", id: "journal", component: Biography },
+    { label: "journal", id: "journal", component: Shield },
   ];
 </script>
 
@@ -40,7 +42,7 @@
         .profile.round
         .profile-buttons
         .portrait
-          img.inline.flex2(src="systems/surge/assets/logo.webp" height="159" width="150" style="max-width: 150px; text-align: center;")
+          img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;")
               
       section.character-details
         section.general-info.flexrow
@@ -53,7 +55,6 @@
         section.character-stats
           .header-attributes
 
-    nav.surge-defaultSheet-navigation.tabs
     section.sheet-body
       Tabs( {tabs} bind:activeTab="{activeTab}")
       
@@ -86,6 +87,15 @@
   .surge-defaultSheet-header {
     display: flex;
     justify-content: center;
+    flex: 0;
+  }
+  .sheet-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: hidden;
+    background: url("ui/parchment.jpg");
+    background-repeat: repeat;
   }
   .surge-defaultSheet {
     display: -webkit-box;

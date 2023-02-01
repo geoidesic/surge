@@ -13,6 +13,7 @@
         "siz": {
           "name": "size",
           "xp": 0,
+          "group": "str",
           "traitDescription": "",
           "baseValue": 0,
           "currentValue": 0
@@ -201,8 +202,8 @@
           "baseValue": 0,
           "currentValue": 0
         },
-        "pat": {
-          "name": "pathologies",
+        "dis": {
+          "name": "disease",
           "group": "hlt",
           "xp": 0,
           "traitDescription": "",

@@ -4,7 +4,6 @@
 </script>
 
 <template lang="pug">
-  div
-    DocTextArea(label="Physical Description" attr="system.description" placeholder="Physical Description")
-    DocTextArea(label="Backstory" attr="system.lore" placeholder="Lore")
+  DocTextArea(label="Physical Description" attr="system.description" placeholder="Physical Description")
+  DocTextArea(label="Backstory" attr="system.lore" placeholder="Lore")
 </template>
