@@ -72,42 +72,48 @@
     .flexrow
       .flexcol.str
         .flexrow.title
+          i.fas.fa-dice.flex0
           span.code STR 
-          span.caption (Strength) 
+          span.flex0.pr-sm.caption (Strength) 
           span.val {STR}
         AttributeBlock( codes="{str}")
       .flexcol.dex
         .flexrow.title
+          i.fas.fa-dice.flex0
           span.code DEX 
-          span.caption (Dexterity) 
+          span.flex0.pr-sm.caption (Dexterity) 
           span.val {DEX}
         AttributeBlock( codes="{dex}")
 
     .flexrow
       .flexcol.cha
         .flexrow.title
+          i.fas.fa-dice.flex0
           span.code CHA 
-          span.caption (Charisma) 
+          span.flex0.pr-sm.caption (Charisma) 
           span.val {CHA}
         AttributeBlock( codes="{cha}")
       .flexcol.int
         .flexrow.title
+          i.fas.fa-dice.flex0
           span.code INT 
-          span.caption (Intellect) 
+          span.flex0.pr-sm.caption (Intellect) 
           span.val {INT}
         AttributeBlock( codes="{int}")
 
     .flexrow
       .flexcol.per
         .flexrow.title
+          i.fas.fa-dice.flex0
           span.code PER 
-          span.caption (Perception) 
+          span.flex0.pr-sm.caption (Perception) 
           span.val {PER}
         AttributeBlock( codes="{per}")
       .flexcol.hlt
         .flexrow.title
+          i.fas.fa-dice.flex0
           span.code HLT 
-          span.caption (Health) 
+          span.flex0.pr-sm.caption (Health) 
           span.val {HLT}
         AttributeBlock( codes="{hlt}")
 
@@ -121,26 +127,72 @@
     padding: 2px 0 0 0;
     margin: 0;
   }
+  i {
+    padding: 0.2rem 0 0 0.4rem;
+    margin: 0;
+  }
   .caption {
     font-size: 0.8rem;
     vertical-align: bottom;
   }
   .str {
     background-color: var(--str-color-lighter);
+    .code {
+      font-size: 1.5rem;
+    }
+    .val {
+      font-size: 2rem;
+      background: var(--str-color-lightest);
+    }
   }
   .dex {
     background-color: var(--dex-color);
+    .code {
+      font-size: 1.5rem;
+    }
+    .val {
+      font-size: 2rem;
+      background: var(--dex-color-lightest);
+    }
   }
   .cha {
     background-color: var(--cha-color);
+    .code {
+      font-size: 1.5rem;
+    }
+    .val {
+      font-size: 2rem;
+      background: var(--cha-color-lightest);
+    }
   }
   .int {
     background-color: var(--int-color);
+    .code {
+      font-size: 1.5rem;
+    }
+    .val {
+      font-size: 2rem;
+      background: var(--int-color-lightest);
+    }
   }
   .hlt {
     background-color: var(--hlt-color);
+    .code {
+      font-size: 1.5rem;
+    }
+    .val {
+      font-size: 2rem;
+      background: var(--hlt-color-lightest);
+    }
   }
   .per {
     background-color: var(--per-color);
+    .code {
+      font-size: 1.5rem;
+    }
+    .val {
+      font-size: 2rem;
+      background: var(--per-color-lightest);
+    }
   }
 </style>

@@ -12,6 +12,13 @@ $per-color-lighter: lighten($per-color, 10%);
 $int-color-lighter: lighten($int-color, 10%);
 $cha-color-lighter: lighten($cha-color, 10%);
 
+$str-color-lightest: lighten($str-color, 17%);
+$hlt-color-lightest: lighten($hlt-color, 10%);
+$dex-color-lightest: lighten($dex-color, 10%);
+$per-color-lightest: lighten($per-color, 10%);
+$int-color-lightest: lighten($int-color, 10%);
+$cha-color-lightest: lighten($cha-color, 10%);
+
 $str-color-darker: darken($str-color, 10%);
 $hlt-color-darker: darken($hlt-color, 10%);
 $dex-color-darker: darken($dex-color, 10%);
@@ -75,6 +82,13 @@ $cha-color-darker: darken($cha-color, 10%);
   --per-color-lighter: #{$per-color-lighter};
   --int-color-lighter: #{$int-color-lighter};
   --cha-color-lighter: #{$cha-color-lighter};
+
+  --str-color-lightest: #{$str-color-lightest};
+  --hlt-color-lightest: #{$hlt-color-lightest};
+  --dex-color-lightest: #{$dex-color-lightest};
+  --per-color-lightest: #{$per-color-lightest};
+  --int-color-lightest: #{$int-color-lightest};
+  --cha-color-lightest: #{$cha-color-lightest};
 
   --str-color-darker: #{$str-color-darker};
   --hlt-color-darker: #{$hlt-color-darker};

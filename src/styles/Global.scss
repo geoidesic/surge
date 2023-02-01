@@ -26,3 +26,53 @@ label {
   display: inline;
 }
 
+// padding / margins
+
+  .px-md {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+  .py-md {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .pa-md {
+    padding: 1rem;
+  }
+  .px-sm {
+    padding-right: 0.4rem;
+    padding-left: 0.4rem;
+  }
+  .py-sm {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+  .pa-sm {
+    padding: 0.4rem;
+  }
+  .pl-sm {
+    padding-left: 0.4rem;
+  }
+  .pr-sm {
+    padding-right: 0.4rem;
+  }
+  .mx-sm {
+    margin-right: 0.4rem;
+    margin-left: 0.4rem;
+  }
+  .mt-sm {
+    margin-top: 0.4rem;
+  }
+  .mr-sm {
+    margin-right: 0.4rem;
+  }
+  .ml-sm {
+    margin-left: 0.4rem;
+  }
+  .my-sm {
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+  .ma-sm {
+    margin: 0.4rem;
+  }

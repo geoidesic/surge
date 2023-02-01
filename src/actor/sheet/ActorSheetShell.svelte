@@ -180,43 +180,6 @@
     text-align: center;
   }
 
-  .col-px-md {
-    padding-right: 1rem;
-    padding-left: 1rem;
-  }
-  .col-py-md {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-  .col-pa-md {
-    padding: 1rem;
-  }
-  .col-px-sm {
-    padding-right: 0.4rem;
-    padding-left: 0.4rem;
-  }
-  .col-py-sm {
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-  }
-  .col-pa-sm {
-    padding: 0.4rem;
-  }
-  .col-mx-sm {
-    margin-right: 0.4rem;
-    margin-left: 0.4rem;
-  }
-  .col-mt-sm {
-    margin-top: 0.4rem;
-  }
-  .col-my-sm {
-    margin-top: 0.4rem;
-    margin-bottom: 0.4rem;
-  }
-  .col-ma-sm {
-    margin: 0.4rem;
-  }
-
   .inline-block {
     display: inline-block;
   }
