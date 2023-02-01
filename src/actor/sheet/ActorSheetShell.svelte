@@ -20,11 +20,27 @@
 
   let activeTab = "attributes";
 
+  function onEditImage(event) {
+    const current = $documentStore.img;
+    console.log(FilePicker);
+    const fp = new FilePicker({
+      type: "image",
+      current: current,
+      callback: (path) => {
+        $documentStore.update({ img: path });
+      },
+
+      top: application.position.top + 40,
+      left: application.position.left + 10,
+    });
+    return fp.browse();
+  }
+
   setContext("#doc", documentStore);
 
-  console.log(game);
-  console.log(documentStore);
-  console.log(document);
+  console.log("game", game);
+  console.log("documentStore", documentStore);
+  console.log("document", document);
 
   // Tabs
   const tabs = [
@@ -44,13 +60,15 @@
         .profile.round
         .profile-buttons
         .portrait
-          img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;")
+          img.profile(src="{$documentStore.img}" data-tooltip="{$documentStore.name}" on:click="{onEditImage}")
+          //- img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;")
+
               
       section.character-details
         section.general-info.flexrow
           .flexcol.flex3
             DocInput(attr="name" placeholder="Character Name" maxlength="40")
-            DocInput(attr="race" placeholder="Character Race" maxlength="40")
+            DocInput(attr="system.race" placeholder="Character Race" maxlength="40")
           div.flex1.level-information
             .flexcol
               .flexrow
