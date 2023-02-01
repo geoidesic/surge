@@ -1,5 +1,5 @@
 <script>
-  import Attribute from "~/components/Attribute.svelte";
+  import Attribute from "~/components/actor/Attribute.svelte";
 
   export let codes = [];
 </script>

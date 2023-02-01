@@ -1,8 +1,8 @@
 <script>
   import DocInput from "~/components/DocInput.svelte";
   import DocTextArea from "~/components/DocTextArea.svelte";
-  import Attribute from "~/components/Attribute.svelte";
-  import AttributeBlock from "~/components/AttributeBlock.svelte";
+  import Attribute from "~/components/actor/Attribute.svelte";
+  import AttributeBlock from "~/components/actor/AttributeBlock.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import { getContext } from "svelte";
 

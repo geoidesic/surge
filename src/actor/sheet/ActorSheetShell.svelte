@@ -7,10 +7,10 @@
   import DocInput from "~/components/DocInput.svelte";
   import Shield from "~/components/Shield.svelte";
   import Blobby from "~/components/Blobby.svelte";
-  import Attributes from "~/components/Attributes.svelte";
-  import Biography from "~/components/Biography.svelte";
-  import Journal from "~/components/Journal.svelte";
-  import Traits from "~/components/Traits.svelte";
+  import Attributes from "~/components/actor/Attributes.svelte";
+  import Biography from "~/components/actor/Biography.svelte";
+  import Journal from "~/components/actor/Journal.svelte";
+  import Traits from "~/components/actor/Traits.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
 
