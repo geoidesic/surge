@@ -18,13 +18,15 @@
   export let documentStore;
   export let document;
 
-  const application = getContext("external").application;
-  let activeTab = "attributes";
+  let _filePickerInstance = {};
 
-  function onEditImage(event) {
+  function _launchStandardProfileEditor(event) {
     const current = $documentStore.img;
-    console.log(FilePicker);
-    const fp = new FilePicker({
+    if (_filePickerInstance instanceof FilePicker && !_filePickerInstance?.rendered) {
+      _filePickerInstance.render(true);
+      return;
+    }
+    _filePickerInstance = new FilePicker({
       type: "image",
       current: current,
       callback: (path) => {
@@ -34,7 +36,23 @@
       top: application.position.top + 40,
       left: application.position.left + 10,
     });
-    return fp.browse();
+    return _filePickerInstance.browse();
+  }
+
+  const application = getContext("external").application;
+  let activeTab = "attributes";
+
+  //- provide Tokenizer support
+  function _editToken(event) {
+    if (game.modules.has("vtta-tokenizer")) {
+      _launchTokenizer();
+    } else {
+      _launchStandardProfileEditor(event);
+    }
+  }
+
+  function _launchTokenizer() {
+    Tokenizer.tokenizeActor($documentStore);
   }
 
   setContext("#doc", documentStore);
@@ -61,7 +79,7 @@
         .profile.round
         .profile-buttons
         .portrait
-          img.profile(src="{$documentStore.img}" data-tooltip="{$documentStore.name}" on:click="{onEditImage}")
+          img.profile(src="{$documentStore.img}" data-tooltip="{$documentStore.name}" on:click="{_launchStandardProfileEditor}")
           //- img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;")
 
               
