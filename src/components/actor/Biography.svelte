@@ -3,7 +3,6 @@
   import DocTextArea from "~/components/DocTextArea.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import ProseMirror from "~/components/ProseMirror.svelte";
-  import { getContext } from "svelte";
 </script>
 
 <template lang="pug">

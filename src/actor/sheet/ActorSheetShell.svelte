@@ -9,14 +9,15 @@
   import Blobby from "~/components/Blobby.svelte";
   import Attributes from "~/components/actor/Attributes.svelte";
   import Biography from "~/components/actor/Biography.svelte";
+  import Inventory from "~/components/actor/Inventory.svelte";
   import Journal from "~/components/actor/Journal.svelte";
   import Traits from "~/components/actor/Traits.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
 
-  export let elementRoot;
-  export let documentStore;
-  export let document;
+  export let elementRoot; //- passed in by SvelteApplication
+  export let documentStore; //- passed in by DocumentSheet.js where it attaches DocumentShell to the DOM body
+  export let document; //- passed in by DocumentSheet.js where it attaches DocumentShell to the DOM body
 
   let _filePickerInstance = {};
 
@@ -64,7 +65,7 @@
   // Tabs
   const tabs = [
     { label: "attributes", id: "attributes", component: Attributes },
-    { label: "inventory", id: "inventory", component: Blobby },
+    { label: "inventory", id: "inventory", component: Inventory },
     { label: "traits", id: "traits", component: Traits },
     { label: "effects", id: "effects", component: Shield },
     { label: "biography", id: "biography", component: Biography },
