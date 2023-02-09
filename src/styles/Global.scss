@@ -126,8 +126,14 @@ article {
   .mr-sm {
     margin-right: 0.4rem;
   }
+  .mr-md {
+    margin-right: 1rem;
+  }
   .ml-sm {
     margin-left: 0.4rem;
+  }
+  .ml-md {
+    margin-left: 1rem;
   }
   .my-sm {
     margin-top: 0.4rem;
@@ -142,4 +148,7 @@ article {
 
   .left {
     text-align: left;
+  }
+  .hide {
+    visibility: hidden; 
   }

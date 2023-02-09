@@ -8,8 +8,10 @@
   export let placeholder = "";
   export let maxlength = "40";
   export let className = "";
+  export let document = false;
+  export let disabled = false;
 
-  const doc = getContext("#doc");
+  const doc = document || getContext("#doc");
 
   const updateDebounce = debounce(update, 500);
 
@@ -19,10 +21,23 @@
   let data;
   let LABEL = !!label;
 
+  console.log(attr);
+
+  $: items = [...$doc.items];
+
   $: if (attr.includes("system.")) {
     const split = attr.split(".");
     console.log(split);
     data = $doc?.system?.[split[1]] || placeholder;
+  } else if (attr.includes("items.")) {
+    console.log("item DocInput");
+    const split = attr.split(".");
+    console.log(split);
+    console.log(split[1]);
+    console.log(split[2]);
+    console.log(items);
+    console.log(items.length);
+    data = items?.[split[1]][split[2]] || placeholder;
   } else {
     data = $doc?.[attr] || placeholder;
   }
