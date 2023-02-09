@@ -3,7 +3,7 @@
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
 
   const doc = getContext("#doc");
-  $: items = [...$doc.items]; //- make the items iterable
+  $: items = [...$doc.items]; //- make the items iterable; //- @todo: does this re-render any time the document is updated?
   console.log(typeof $doc.items);
   console.log(typeof items);
   console.log($doc.items);
@@ -37,9 +37,25 @@
 
 <template lang="pug">
   ol
+    li.flexrow.mb-sm.bold
+      div 
+      div.left Sort
+      div.left Name
+      div.left Type
+      //- div Ownership
+      //- div Flags
     +each("items as item")
-      li {item.name}
+      li.flexrow
+        img.flex0(src="{item.img}" width="20px" height="20px")
+        div {item.sort}
+        div.left {item.name}
+        div.left {item.type}
+        //- div {Object.keys(item.ownership)}
+        //- div {Object.keys(item.flags)}
 </template>
 
 <style lang="scss" scoped>
+  img {
+    border: none;
+  }
 </style>
