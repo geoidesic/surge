@@ -12,6 +12,9 @@
   export let disabled = false;
 
   const doc = document || getContext("#doc");
+  // console.log($doc.items);
+  // console.log(doc.embedded);
+  // console.log(Object.getOwnPropertyNames(doc.embedded));
 
   const updateDebounce = debounce(update, 500);
 
@@ -20,39 +23,57 @@
 
   let data;
   let LABEL = !!label;
+  let type = "standard";
 
-  console.log(attr);
+  // console.log(attr);
+  const split = attr.split(".");
 
   $: items = [...$doc.items];
 
   $: if (attr.includes("system.")) {
-    const split = attr.split(".");
-    console.log(split);
+    // console.log(split);
     data = $doc?.system?.[split[1]] || placeholder;
   } else if (attr.includes("items.")) {
-    console.log("item DocInput");
-    const split = attr.split(".");
-    console.log(split);
-    console.log(split[1]);
-    console.log(split[2]);
-    console.log(items);
-    console.log(items.length);
+    // console.log("item DocInput");
+    // console.log(split);
+    // console.log(split[1]);
+    // console.log(split[2]);
     data = items?.[split[1]][split[2]] || placeholder;
   } else {
     data = $doc?.[attr] || placeholder;
   }
 
+  /**
+   * @todo: DocInput for item name doesn't currently work:
+   * `commons.js:5734 Uncaught (in promise) TypeError: (value || []).forEach is not a function`
+   * This is because we're calling $doc.update on a kay of `items.0.name`, which is not how the update method is intended to be used.
+   * Most likely we need to do something else in order to store items... like maybe store the whole items list via a different function
+   * Something like:
+   *  items[0] = event.target.value;
+   *  $doc.update({ items });
+   */
   function update(event) {
+    alert("o");
     if ($doc) {
-      $doc.update({ [attr]: event.target.value });
+      if (attr.includes("items.")) {
+        // console.log("calling updateItems");
+        updateItem(event);
+      } else {
+        // console.log(attr);
+        // console.log(event.target.value);
+        $doc.update({ [attr]: event.target.value });
+      }
     }
   }
 
-  // console.log("data", data);
-  // console.log("data placeholder", placeholder);
-  // console.log(attr);
-  // console.log(attr.includes("system."));
-  // console.log($doc.system);
+  function updateItem(event) {
+    // console.log(attr);
+    // console.log(split);
+    // console.log(event.target.value);
+
+    const item = items[split[1]];
+    item.update({ name: event.target.value });
+  }
 </script>
 
 <template lang="pug">

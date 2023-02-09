@@ -181,6 +181,7 @@ export default class SvelteDocumentSheet extends SvelteApplication {
   }
 
   async _onDropItem(event, data, actor) {
+    console.log('_onDropItem');
     if (!actor.isOwner) {
       return false;
     }
@@ -215,7 +216,9 @@ export default class SvelteDocumentSheet extends SvelteApplication {
   }
 
   async _onDropItemCreate(itemData, actor) {
+    console.log('_onDropItemCreate');
     itemData = itemData instanceof Array ? itemData : [itemData];
+    console.log(itemData);
     return actor.createEmbeddedDocuments("Item", itemData);
   }
 
