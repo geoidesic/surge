@@ -35,6 +35,12 @@
   Hooks.on("createItem", async (item) => {
     console.log(item);
   });
+
+  function deleteItem(index, item) {
+    console.log(index);
+    console.log(item);
+    item.delete();
+  }
 </script>
 
 <template lang="pug">
@@ -51,7 +57,10 @@
 
         div.left.ml-sm Type
         img.left.flex0.hide(width="20px" height="20px")
-        //- div.left Actions
+        div.left
+        div.actions.flex0.hide
+          div.rowbutton
+            i.left.fa.fa-dice.mr-md
         //- div Ownership
         //- div Flags
       +each("items as item, index")
@@ -64,18 +73,25 @@
           img.left.flex0(src="{item.img}" width="20px" height="20px")
           //- div {Object.keys(item.ownership)}
           //- div {Object.keys(item.flags)}
+          div.actions.flex0
+            div.rowbutton
+              i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, item)}")
 </template>
 
 <style lang="scss" scoped>
   img {
     border: none;
   }
+  .actions {
+    margin-left: 0.5rem;
+    margin-right: 0;
+    justify-content: right;
+  }
   .rowbutton {
-    padding: 3px;
+    padding: 5px;
     margin-right: 0.5rem;
     border: 1px solid grey;
     border-radius: 3px;
-    padding: 2px;
     background-color: rgba(0, 0, 0, 0.1);
     cursor: pointer;
     i {

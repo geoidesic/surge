@@ -38,7 +38,7 @@
     // console.log(split);
     // console.log(split[1]);
     // console.log(split[2]);
-    data = items?.[split[1]][split[2]] || placeholder;
+    data = items?.[split[1]]?.[split[2]] || placeholder;
   } else {
     data = $doc?.[attr] || placeholder;
   }
@@ -53,7 +53,6 @@
    *  $doc.update({ items });
    */
   function update(event) {
-    alert("o");
     if ($doc) {
       if (attr.includes("items.")) {
         // console.log("calling updateItems");
