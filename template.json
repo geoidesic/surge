@@ -1,6 +1,10 @@
 {
   "Actor": {
-    "types": ["fighter", "wizard", "thief"],
+    "types": [
+      "fighter",
+      "wizard",
+      "thief"
+    ],
     "templates": {
       "common": {
         "appearance": "",
@@ -23,67 +27,78 @@
             "size": 3,
             "dr": 0,
             "potentialWounds": 1,
-            "actualWounds": 0},
+            "actualWounds": 0
+          },
           "neck": {
             "id": 1,
             "size": 3,
             "dr": 0,
             "potentialWounds": 1,
-            "actualWounds": 0},
+            "actualWounds": 0
+          },
           "groin": {
             "id": 1,
             "size": 3,
             "dr": 0,
             "potentialWounds": 1,
-            "actualWounds": 0},
+            "actualWounds": 0
+          },
           "arm-off": {
             "id": 1,
             "size": 3,
             "dr": 0,
             "potentialWounds": 1,
-            "actualWounds": 0},
+            "actualWounds": 0
+          },
           "arm-on": {
             "id": 1,
             "size": 3,
             "dr": 0,
             "potentialWounds": 1,
-            "actualWounds": 0},
+            "actualWounds": 0
+          },
           "hand-off": {
             "id": 1,
             "size": 3,
             "dr": 0,
             "potentialWounds": 1,
-            "actualWounds": 0},
+            "actualWounds": 0
+          },
           "hand-on": {
             "id": 1,
             "size": 3,
             "dr": 0,
             "potentialWounds": 1,
-            "actualWounds": 0},
+            "actualWounds": 0
+          },
           "leg-off": {
             "id": 1,
             "size": 3,
             "dr": 0,
             "potentialWounds": 1,
-            "actualWounds": 0},
+            "actualWounds": 0
+          },
           "leg-on": {
             "id": 1,
             "size": 3,
             "dr": 0,
             "potentialWounds": 1,
-            "actualWounds": 0},
+            "actualWounds": 0
+          },
           "foot-off": {
             "id": 1,
             "size": 3,
             "dr": 0,
             "potentialWounds": 1,
-            "actualWounds": 0},
+            "actualWounds": 0
+          },
           "foot-on": {
             "id": 1,
             "size": 3,
             "dr": 0,
             "potentialWounds": 1,
-            "actualWounds": 0}
+            "actualWounds": 0
+          }
         }
       },
       "player": {
@@ -96,7 +111,7 @@
         "personality": "",
         "ideals": "",
         "flaws": "",
-        "bonds":"",
+        "bonds": "",
         "gender": "",
         "hair": "",
         "eyes": "",
@@ -348,46 +363,57 @@
       }
     },
     "fighter": {
-      "templates": ["common", "attributes", "player"]
+      "templates": [
+        "common",
+        "attributes",
+        "player"
+      ]
     },
     "wizard": {
-      "templates": ["common", "attributes", "player"]
+      "templates": [
+        "common",
+        "attributes",
+        "player"
+      ]
     },
     "thief": {
-      "templates": ["common", "attributes", "player"]
+      "templates": [
+        "common",
+        "attributes",
+        "player"
+      ]
     }
   },
   "Item": {
-    "types": ["trait", "weapon", "shield", "clothing", "armour", "container"],
+    "types": [
+      "trait",
+      "weapon",
+      "shield",
+      "clothing",
+      "armour",
+      "container"
+    ],
     "templates": {
-      "itemDescription": {
+      "base": {
         "description": ""
+      },
+      "object": {
+        "rarity": "common",
+        "value": 0
+      },
+      "equippable": {
+        "equipped": false
       }
     },
-    "Item": {
-      "types": ["weapon"],
-      "templates": {
-        "base": {
-          "description": "",
-          "check": [],
-          "customTrait": []
-        },
-        "object": {
-          "rarity": "common",
-          "value": 0
-        },
-        "equippable": {
-          "equipped": false,
-          "rulesElement": []
-        }
-      },
-      "weapon": {
-        "templates": ["base", "equippable", "object"],
-        "attack": [],
-        "attackNotes": "",
-        "multiAttack": false
-      }
+    "weapon": {
+      "templates": [
+        "base",
+        "equippable",
+        "object"
+      ],
+      "size": 1,
+      "AF": 0,
+      "AP": 1
     }
   }
 }
-
