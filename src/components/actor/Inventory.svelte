@@ -47,6 +47,11 @@
     console.log(index);
     console.log(item);
   }
+  function editItem(index, item) {
+    console.log("editItem");
+    console.log(index);
+    console.log(item);
+  }
 </script>
 
 <template lang="pug">
@@ -79,7 +84,9 @@
           //- img.left.flex0(src="{item.img}" )
           //- div {Object.keys(item.ownership)}
           //- div {Object.keys(item.flags)}
-          div.actions.flex0
+          div.actions.flex1.right
+            div.rowbutton.rowimgbezelbutton
+              i.left.fa.fa-edit.mr-md( on:click="{editItem(index, item)}")
             div.rowbutton.rowimgbezelbutton
               i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, item)}")
 </template>
@@ -94,21 +101,23 @@
     margin-left: 0.5rem;
     margin-right: 0;
     justify-content: right;
+    :not(:last-child) {
+      margin-right: 2px;
+    }
   }
   .rowimgbutton {
     width: 20px;
     height: 20px;
     padding: 0 1px 20px 0;
     object-fit: cover;
-    margin-right: 0.5rem;
     border: 1px solid grey;
     border-radius: 3px;
     background-color: rgba(0, 0, 0, 0.1);
     cursor: pointer;
   }
   .rowbutton {
+    display: inline-block;
     padding: 3px 5px;
-    margin-right: 0.5rem;
     border: 1px solid grey;
     border-radius: 3px;
     background-color: rgba(0, 0, 0, 0.1);
