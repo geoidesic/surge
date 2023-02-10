@@ -50,11 +50,8 @@
       li.flexrow.mb-sm.bold
         div.flex0.rowbutton.hide
           i.left.fa.fa-dice.mr-md
-        //- div 
-        //- div 
         //- //- div.left Sort
-        div.left Name
-
+        div.left.flex2 Name
         div.left.ml-sm Type
         img.left.flex0.hide(width="20px" height="20px")
         div.left
@@ -104,10 +101,10 @@
     margin: 0;
     padding: 0.4rem;
     li {
+      padding: 3px;
       margin: 2px;
       border: 1px solid grey;
       border-radius: 2px;
-      padding: 5px;
       align-items: center;
       div {
       }

@@ -146,6 +146,7 @@
     justify-content: center;
     flex: 0;
   }
+
   .sheet-body {
     -webkit-box-flex: 1;
     -ms-flex: 1;

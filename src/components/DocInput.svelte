@@ -53,7 +53,7 @@
    *  $doc.update({ items });
    */
   function update(event) {
-    if ($doc) {
+    if ($doc && event.target.value) {
       if (attr.includes("items.")) {
         // console.log("calling updateItems");
         updateItem(event);
