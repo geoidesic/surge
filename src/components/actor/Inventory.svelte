@@ -41,19 +41,26 @@
     console.log(item);
     item.delete();
   }
+
+  function clickItem(index, item) {
+    console.log("clickItem");
+    console.log(index);
+    console.log(item);
+  }
 </script>
 
 <template lang="pug">
-  ScrollingContainer.container
+  ScrollingContainer
 
     ol
       li.flexrow.mb-sm.bold
         div.flex0.rowbutton.hide
-          i.left.fa.fa-dice.mr-md
+          //- i.left.fa.fa-dice.mr-md
+          img.left.flex0.hide()
         //- //- div.left Sort
         div.left.flex2 Name
         div.left.ml-sm Type
-        img.left.flex0.hide(width="20px" height="20px")
+        img.left.flex0.hide()
         div.left
         div.actions.flex0.hide
           div.rowbutton
@@ -62,30 +69,45 @@
         //- div Flags
       +each("items as item, index")
         li.flexrow
-          div.flex0.rowbutton
-            i.left.fa.fa-dice.mr-md
+          div.flex0
+            div.rowimgbutton.rowimgbezelbutton( on:click="{clickItem(index, item)}")
+              img.left.flex0(src="{item.img}" )
+            //- i.left.fa.fa-dice.mr-md
           //- div {item.sort}
           DocInput(attr=`items.{index}.name`)
           div.left.ml-sm {item.type}
-          img.left.flex0(src="{item.img}" width="20px" height="20px")
+          //- img.left.flex0(src="{item.img}" )
           //- div {Object.keys(item.ownership)}
           //- div {Object.keys(item.flags)}
           div.actions.flex0
-            div.rowbutton
+            div.rowbutton.rowimgbezelbutton
               i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, item)}")
 </template>
 
 <style lang="scss" scoped>
   img {
     border: none;
+    width: 20px;
+    height: 20px;
   }
   .actions {
     margin-left: 0.5rem;
     margin-right: 0;
     justify-content: right;
   }
+  .rowimgbutton {
+    width: 20px;
+    height: 20px;
+    padding: 0 1px 20px 0;
+    object-fit: cover;
+    margin-right: 0.5rem;
+    border: 1px solid grey;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
   .rowbutton {
-    padding: 5px;
+    padding: 3px 5px;
     margin-right: 0.5rem;
     border: 1px solid grey;
     border-radius: 3px;
@@ -110,4 +132,27 @@
       }
     }
   }
+
+  .rowimgbezelbutton {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #bbb #aaa #999;
+    text-shadow: 0 1px 0 #eee;
+    background: #ccc;
+    color: #333;
+    font-family: "Lucida Grande";
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    -webkit-border-radius: 3px;
+    -webkit-box-shadow: inset 0 1px 1px #fff, inset 0 -1px 1px #aaa, 0 2px 4px -3px #666;
+  }
+  .rowimgbezelbutton:active {
+    -webkit-box-shadow: inset 0 1px 1px #aaa, inset 0 -1px 1px #aaa;
+    border-color: #888 #aaa #eee;
+  }
+  // .rowimgbezelbutton.down {
+  //   -webkit-box-shadow: inset 0 1px 1px #aaa, inset 0 8px 16px -4px #aaa, inset 0 -1px 1px #aaa;
+  //   border-color: #888 #aaa #eee;
+  // }
 </style>

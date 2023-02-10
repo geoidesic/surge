@@ -6,7 +6,7 @@
 </script>
 
 <template lang="pug">
-  ScrollingContainer.container
+  ScrollingContainer
     .flexcol.pa-sm
       h1 Appearance
       .flexrow.split
