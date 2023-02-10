@@ -1,6 +1,7 @@
 <script>
   import { getContext } from "svelte";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
+  import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocInput from "~/components/DocInput.svelte";
 
   const doc = getContext("#doc");
@@ -37,30 +38,32 @@
 </script>
 
 <template lang="pug">
-  ol
-    li.flexrow.mb-sm.bold
-      div.flex0.rowbutton.hide
-        i.left.fa.fa-dice.mr-md
-      //- div 
-      //- div 
-      //- //- div.left Sort
-      div.left Name
+  ScrollingContainer.container
 
-      div.left.ml-sm Type
-      img.left.flex0.hide(width="20px" height="20px")
-      //- div.left Actions
-      //- div Ownership
-      //- div Flags
-    +each("items as item, index")
-      li.flexrow
-        div.flex0.rowbutton
+    ol
+      li.flexrow.mb-sm.bold
+        div.flex0.rowbutton.hide
           i.left.fa.fa-dice.mr-md
-        //- div {item.sort}
-        DocInput(attr=`items.{index}.name`)
-        div.left.ml-sm {item.type}
-        img.left.flex0(src="{item.img}" width="20px" height="20px")
-        //- div {Object.keys(item.ownership)}
-        //- div {Object.keys(item.flags)}
+        //- div 
+        //- div 
+        //- //- div.left Sort
+        div.left Name
+
+        div.left.ml-sm Type
+        img.left.flex0.hide(width="20px" height="20px")
+        //- div.left Actions
+        //- div Ownership
+        //- div Flags
+      +each("items as item, index")
+        li.flexrow
+          div.flex0.rowbutton
+            i.left.fa.fa-dice.mr-md
+          //- div {item.sort}
+          DocInput(attr=`items.{index}.name`)
+          div.left.ml-sm {item.type}
+          img.left.flex0(src="{item.img}" width="20px" height="20px")
+          //- div {Object.keys(item.ownership)}
+          //- div {Object.keys(item.flags)}
 </template>
 
 <style lang="scss" scoped>

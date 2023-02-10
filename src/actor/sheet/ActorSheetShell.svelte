@@ -13,7 +13,6 @@
   import Journal from "~/components/actor/Journal.svelte";
   import Traits from "~/components/actor/Traits.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
-  import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
 
   export let elementRoot; //- passed in by SvelteApplication
   export let documentStore; //- passed in by DocumentSheet.js where it attaches DocumentShell to the DOM body
