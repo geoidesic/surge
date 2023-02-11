@@ -4,18 +4,55 @@
   import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
   import { setContext, getContext } from "svelte";
   import DocInput from "~/components/item/ItemInput.svelte";
-  import Description from "~/components/item/Description.svelte";
-  import Details from "~/components/item/Details.svelte";
-  import Effects from "~/components/item/Effects.svelte";
-  import Tabs from "~/helpers/svelte-components/Tabs.svelte";
-  import DocumentRaritySelect from "~/components/elements/DocumentRaritySelect.svelte";
+  import WeaponHeader from "~/components/item/type/weapon/WeaponHeader.svelte";
+  import WeaponTabs from "~/components/item/type/weapon/WeaponTabs.svelte";
+  import AmmunitionHeader from "~/components/item/type/ammunition/AmmunitionHeader.svelte";
+  import AmmunitionTabs from "~/components/item/type/ammunition/AmmunitionTabs.svelte";
+  import ArmourHeader from "~/components/item/type/armour/ArmourHeader.svelte";
+  import ArmourTabs from "~/components/item/type/armour/ArmourTabs.svelte";
+  import ClothingHeader from "~/components/item/type/clothing/ClothingHeader.svelte";
+  import ClothingTabs from "~/components/item/type/clothing/ClothingTabs.svelte";
+  import ContainerHeader from "~/components/item/type/container/ContainerHeader.svelte";
+  import ContainerTabs from "~/components/item/type/container/ContainerTabs.svelte";
+  import ShieldHeader from "~/components/item/type/shield/ShieldHeader.svelte";
+  import ShieldTabs from "~/components/item/type/shield/ShieldTabs.svelte";
+  import TraitHeader from "~/components/item/type/trait/TraitHeader.svelte";
+  import TraitTabs from "~/components/item/type/trait/TraitTabs.svelte";
 
   export let elementRoot; //- passed in by SvelteApplication
   export let documentStore; //- passed in by DocumentSheet.js where it attaches DocumentShell to the DOM body
   export let document; //- passed in by DocumentSheet.js where it attaches DocumentShell to the DOM body
 
+  const headerMap = {
+    weapon: WeaponHeader,
+    ammunition: AmmunitionHeader,
+    armour: ArmourHeader,
+    clothing: ClothingHeader,
+    container: ContainerHeader,
+    shield: ShieldHeader,
+    trait: TraitHeader,
+  };
+  const tabMap = {
+    weapon: WeaponTabs,
+    ammunition: AmmunitionTabs,
+    armour: ArmourTabs,
+    clothing: ClothingTabs,
+    container: ContainerTabs,
+    shield: ShieldTabs,
+    trait: TraitTabs,
+  };
+  // console.log("game", game);
+  // console.log("documentStore", documentStore);
+  // console.log("document", document);
+
+  const application = getContext("external").application;
+  let activeTab = "description";
+
+  setContext("#doc", documentStore);
+
   $: item = $documentStore;
 
+  //- Profile Editor
   let _filePickerInstance = {};
 
   function _launchStandardProfileEditor(event) {
@@ -37,33 +74,17 @@
     return _filePickerInstance.browse();
   }
 
-  const application = getContext("external").application;
-  console.log(application);
-
-  let activeTab = "description";
-
   //- provide Tokenizer support
   function _editToken(event) {
     _launchStandardProfileEditor(event);
   }
-
-  setContext("#doc", documentStore);
-
-  console.log("game", game);
-  console.log("documentStore", documentStore);
-  console.log("document", document);
-
-  // Tabs
-  const tabs = [
-    { label: "description", id: "description", component: Description },
-    { label: "details", id: "details", component: Details },
-    { label: "effects", id: "effects", component: Effects },
-  ];
 </script>
 
 <template lang="pug">
   ApplicationShell(bind:elementRoot)
     header.surge-defaultSheet-header
+
+      //- profile pic
       section.profile-wrap
         .profile.round
         .profile-buttons
@@ -71,8 +92,8 @@
           img.profile(src="{$documentStore.img}" data-tooltip="{$documentStore.name}" on:click="{_launchStandardProfileEditor}")
           //- img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;")
 
-              
       section.item.details
+        //- shared details 
         section.general-info.flexrow
           .flexcol.flex3
             DocInput(className="lg transparent" attr="name" placeholder="Item Name" maxlength="40")
@@ -80,30 +101,15 @@
             table(style="text-align: center")
               tr
                 td
-                  div {item.type}
+                  div {item.type} 
 
-        section.extra-info.flexrow
-          DocInput(className="md transparent" attr="system.size" placeholder="Size" maxlength="40")
-          .stat
-            // Label
-            //- .label rarity
-
-            // Input
-            .input
-              DocumentRaritySelect(bind:value='{$documentStore.system.rarity}')
-
-          DocInput(className="md transparent" attr="system.AP" placeholder="0" maxlength="40" inputType="number")
-
-          DocInput(className="md transparent" attr="system.AF" placeholder="0" maxlength="40" inputType="number")
-        section.extra-info.flexrow
-          div Size
-          div Rarity
-          div Action Points
-          div Action Factor
+        //- type details
+        svelte:component(this="{headerMap[item.type]}")
+        
 
 
     section.sheet-body
-      Tabs( {tabs} bind:activeTab="{activeTab}")
+      svelte:component(this="{tabMap[item.type]}")
       
 
 </template>

@@ -1,7 +1,7 @@
 import SvelteDocumentSheet from "~/documents/DocumentSheet";
 import ItemSheetShell from "./ItemSheetShell.svelte";
 
-export default class SurgeActorSheet extends SvelteDocumentSheet {
+export default class SurgeItemSheet extends SvelteDocumentSheet {
   /**
    * Default Application options
    *
