@@ -90,11 +90,9 @@
                 i.fa(class="{faLockCSS}" on:click="{toggleLock}")
         +each("items as item, index")
           li.flexrow.relative
-            div.flex0
-              div.rowimgbutton.rowimgbezelbutton( on:click="{clickItem(index, item)}")
+            div.flex0( on:click="{clickItem(index, item)}")
+              div.rowimgbutton.rowimgbezelbutton
                 img.left.flex0(src="{item.img}" )
-              //- i.left.fa.fa-dice.mr-md
-            //- div {item.sort}
             .flex3.left.ml-xl
               div {item.name}
             .flex1
@@ -102,9 +100,6 @@
             .flex1
               div {item.system.weight}
             div.left.ml-sm {item.type}
-            //- img.left.flex0(src="{item.img}" )
-            //- div {Object.keys(item.ownership)}
-            //- div {Object.keys(item.flags)}
             div.actions.flex1.right
               +if("!$doc.system.inventoryLocked")
                 div.rowbutton.rowimgbezelbutton
