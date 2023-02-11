@@ -4,6 +4,7 @@
   import Attribute from "~/components/actor/Attribute.svelte";
   import AttributeBlock from "~/components/actor/AttributeBlock.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
+  import { attributes } from "~/documents/AttributeStore.js";
   import { getContext } from "svelte";
 
   let cats = ["one", "two", "three"];
@@ -16,54 +17,14 @@
 
   const doc = getContext("#doc");
 
-  console.log("siz int", parseInt($doc.system.siz.currentValue));
-  $: STR =
-    (parseInt($doc.system.siz.currentValue) +
-      parseInt($doc.system.hid.currentValue) +
-      parseInt($doc.system.mus.currentValue) +
-      parseInt($doc.system.ton.currentValue) +
-      parseInt($doc.system.den.currentValue)) /
-    5;
+  $: STR = $attributes.STR;
+  $: DEX = $attributes.DEX;
+  $: CHA = $attributes.CHA;
+  $: INT = $attributes.INT;
+  $: PER = $attributes.PER;
+  $: HLT = $attributes.HLT;
 
-  $: DEX =
-    (parseInt($doc.system.spd.currentValue) +
-      parseInt($doc.system.flx.currentValue) +
-      parseInt($doc.system.agl.currentValue) +
-      parseInt($doc.system.bal.currentValue) +
-      parseInt($doc.system.coo.currentValue)) /
-    5;
-
-  $: CHA =
-    (parseInt($doc.system.com.currentValue) +
-      parseInt($doc.system.pre.currentValue) +
-      parseInt($doc.system.gab.currentValue) +
-      parseInt($doc.system.chr.currentValue) +
-      parseInt($doc.system.sta.currentValue)) /
-    5;
-
-  $: INT =
-    (parseInt($doc.system.mem.currentValue) +
-      parseInt($doc.system.dsc.currentValue) +
-      parseInt($doc.system.ins.currentValue) +
-      parseInt($doc.system.wil.currentValue) +
-      parseInt($doc.system.cog.currentValue)) /
-    5;
-
-  $: PER =
-    (parseInt($doc.system.sig.currentValue) +
-      parseInt($doc.system.hea.currentValue) +
-      parseInt($doc.system.sml.currentValue) +
-      parseInt($doc.system.tst.currentValue) +
-      parseInt($doc.system.tch.currentValue)) /
-    5;
-
-  $: HLT =
-    (parseInt($doc.system.end.currentValue) +
-      parseInt($doc.system.imm.currentValue) +
-      parseInt($doc.system.ftg.currentValue) +
-      parseInt($doc.system.wnd.currentValue) +
-      parseInt($doc.system.dis.currentValue)) /
-    5;
+  // console.log("siz int", parseInt($doc.system.siz.currentValue));
 </script>
 
 <template lang="pug">

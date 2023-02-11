@@ -3,6 +3,7 @@
 <script>
   import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
   import { setContext, getContext } from "svelte";
+  import { attributes } from "~/documents/AttributeStore.js";
   import DocTextArea from "~/components/DocTextArea.svelte";
   import DocInput from "~/components/actor/ActorInput.svelte";
   import Shield from "~/components/Shield.svelte";
@@ -72,6 +73,65 @@
     { label: "biography", id: "biography", component: Biography },
     { label: "journal", id: "journal", component: Journal },
   ];
+
+  $: STR =
+    (parseInt($documentStore.system.siz.currentValue) +
+      parseInt($documentStore.system.hid.currentValue) +
+      parseInt($documentStore.system.mus.currentValue) +
+      parseInt($documentStore.system.ton.currentValue) +
+      parseInt($documentStore.system.den.currentValue)) /
+    5;
+
+  $: DEX =
+    (parseInt($documentStore.system.spd.currentValue) +
+      parseInt($documentStore.system.flx.currentValue) +
+      parseInt($documentStore.system.agl.currentValue) +
+      parseInt($documentStore.system.bal.currentValue) +
+      parseInt($documentStore.system.coo.currentValue)) /
+    5;
+
+  $: CHA =
+    (parseInt($documentStore.system.com.currentValue) +
+      parseInt($documentStore.system.pre.currentValue) +
+      parseInt($documentStore.system.gab.currentValue) +
+      parseInt($documentStore.system.chr.currentValue) +
+      parseInt($documentStore.system.sta.currentValue)) /
+    5;
+
+  $: INT =
+    (parseInt($documentStore.system.mem.currentValue) +
+      parseInt($documentStore.system.dsc.currentValue) +
+      parseInt($documentStore.system.ins.currentValue) +
+      parseInt($documentStore.system.wil.currentValue) +
+      parseInt($documentStore.system.cog.currentValue)) /
+    5;
+
+  $: PER =
+    (parseInt($documentStore.system.sig.currentValue) +
+      parseInt($documentStore.system.hea.currentValue) +
+      parseInt($documentStore.system.sml.currentValue) +
+      parseInt($documentStore.system.tst.currentValue) +
+      parseInt($documentStore.system.tch.currentValue)) /
+    5;
+
+  $: HLT =
+    (parseInt($documentStore.system.end.currentValue) +
+      parseInt($documentStore.system.imm.currentValue) +
+      parseInt($documentStore.system.ftg.currentValue) +
+      parseInt($documentStore.system.wnd.currentValue) +
+      parseInt($documentStore.system.dis.currentValue)) /
+    5;
+
+  $: items = [...$documentStore.items];
+  $: SIZ = parseFloat($documentStore.system.siz.currentValue);
+  $: totalWeight = items.reduce((sum, item) => {
+    sum += parseFloat(item.system.weight);
+    return sum;
+  }, 0);
+  $: ENC = (totalWeight / parseFloat(STR) / (SIZ * SIZ)).toFixed(1);
+  $: AP = Math.round(parseFloat($documentStore.system.spd.currentValue) - ENC);
+  $: attributes.set({ STR, DEX, CHA, INT, PER, HLT, ENC, totalWeight, AP });
+  $: console.log($attributes);
 </script>
 
 <template lang="pug">
@@ -103,6 +163,12 @@
                 td
                   DocInput(className="md right transparent" attr="system.spentXp" maxlength="6" disabled)  
         section.bonus-info
+          .flexrow.ml-sm 
+            div AP 
+            div.right {$attributes.AP}
+            div ENC 
+            div.right {$attributes.ENC}
+
 
         ul.origin-summary
         section.movement

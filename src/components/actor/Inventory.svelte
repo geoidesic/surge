@@ -1,54 +1,62 @@
 <script>
   import { getContext } from "svelte";
+  import { attributes } from "~/documents/AttributeStore.js";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocInput from "~/components/item/ItemInput.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
 
   const doc = getContext("#doc");
-  const STR = 3;
 
   $: items = [...$doc.items]; //- make the items iterable; //- @todo: does this re-render any time the document is updated?
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
-  $: totalWeight = items.reduce((sum, item) => {
-    console.log(sum);
-    console.log(items);
-    console.log(item);
-    console.log(item.system);
-    console.log(item.system.weight);
-    sum += parseFloat(item.system.weight);
-    return sum;
-  }, 0);
+  console.log($doc.system.siz);
+
+  // $: SIZ = parseFloat($doc.system.siz.currentValue);
+  // $: totalWeight = items.reduce((sum, item) => {
+  //   sum += parseFloat(item.system.weight);
+  //   return sum;
+  // }, 0);
+
+  // // console.log(typeof $attributes.STR);
+  // // console.log(typeof parseInt($attributes.STR));
+  // // console.log(parseInt($attributes.STR));
+
+  // $: ENC = (totalWeight / parseFloat($attributes.STR) / (SIZ * SIZ)).toFixed(1);
+
+  // $: attributes.set(...$attributes, ENC);
+  $: ENC = $attributes.ENC;
+  $: totalWeight = $attributes.totalWeight;
+  $: console.log($attributes);
 
   $: encumberance = (function (weight) {
-    if (weight < 3 * 10) {
+    if (ENC < 2) {
       return "light";
     }
-    if (weight > 3 * 10) {
+    if (weight > 2 && weight < 3) {
+      return "medium";
+    }
+    if (weight > 4) {
       return "heavy";
     }
   })(totalWeight);
 
-  console.log(typeof $doc.items);
-  console.log(typeof items);
-  console.log($doc.items);
-  console.log(doc.embedded);
-  console.log(items);
-  console.log(Object.getPrototypeOf($doc.items));
-  let prototype = Object.getPrototypeOf($doc);
-  console.log(prototype);
+  // $: enc = (function (weight) {
+  //   if (weight < stats.STR * 10) {
+  //     return "light";
+  //   }
+  //   if (weight > stats.STR * 10) {
+  //     return "heavy";
+  //   }
+  // })(totalWeight);
 
-  console.log(Object.prototype.toString.call($doc));
+  // console.log($enc);
 
-  if (prototype.hasOwnProperty("update")) {
-    console.log("update is defined on the prototype of the object");
-  }
+  // const itemStore = new TJSDocument(void 0, {});
+  // // itemStore.set($doc.items);
 
-  const itemStore = new TJSDocument(void 0, {});
-  // itemStore.set($doc.items);
-
-  console.log(itemStore);
+  // console.log(itemStore);
 
   /**
    * @todo: hooks that are called when an item is dropped on the sheet
@@ -97,7 +105,7 @@
             div
               img.left.flex0
           .flex3.left.ml-xl
-            div
+            div Name
           .flex1
             div Quantity
           .flex1
@@ -126,17 +134,18 @@
                   i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, item)}")
         li.flexrow.footer
           div.flex0
-            div
-              img.left.flex0
-          .flex3.left.ml-xl
+            div.mr-sm Enc.
+          .flex3.left
             div.flexrow
-              div.flex1 Enc.
+              div.left.flex1 {ENC}
               div.flex3.enc.center(class="{encumberance}") {encumberance}
           .flex1
             div Weight
           .flex1
             div {totalWeight}
-          div.left.ml-sm 
+          div.flexrow.ml-sm 
+            div AP 
+            div.right {$attributes.AP}
         
           div.actions.flex1.right 
             div
@@ -163,6 +172,9 @@
     color: white;
     &.light {
       background-color: #19762d;
+    }
+    &.medium {
+      background-color: #9c510f;
     }
     &.heavy {
       background-color: #9c0f0f;
