@@ -5,11 +5,15 @@
   import { rippleFocus } from "@typhonjs-fvtt/svelte-standard/action";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
+  import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
+  import ItemInput from "~/components/item/ItemInput.svelte";
+  import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
 
   const doc = getContext("#doc");
   console.log($doc);
 
   const filterSearch = createFilterQuery("name");
+
   const input = {
     store: filterSearch,
     efx: rippleFocus(),
@@ -27,6 +31,30 @@
   $: items = [...$wildcard];
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
+
+  $: inventoryWeight = items.reduce((sum, item) => {
+    sum += parseFloat(item.system.weight) * parseInt(item.system.quantity);
+    return sum;
+  }, 0);
+
+  $: ENC = (
+    inventoryWeight /
+    parseFloat($doc.system.STR) /
+    ($doc.system.siz.currentValue * $doc.system.siz.currentValue)
+  ).toFixed(1);
+
+  $: encumbrance =
+    ENC > 1 && ENC <= 2
+      ? "light"
+      : ENC > 2 && ENC <= 4
+      ? "medium"
+      : ENC > 4 && ENC <= 5
+      ? "heavy"
+      : ENC > 5
+      ? "immobile"
+      : "none";
+
+  $doc.system.encumbrance = encumbrance;
 
   Hooks.on("createItem", async (item) => {
     console.log(item);
@@ -60,8 +88,50 @@
   }
 
   function rowWeight(item) {
-    console.log(item);
     return parseFloat(item.system.quantity) * parseFloat(item.system.weight);
+  }
+
+  function validateQuantity(event, item, index) {
+    console.log("validate item");
+    console.log(event);
+    console.log(event.target.value);
+    console.log(typeof event.target.value);
+
+    if (event.key.includes("Arrow")) {
+      console.log("Arrow key");
+      if (event.key.includes("Down")) {
+        if (event.target.value > 0) return;
+      } else {
+        return;
+      }
+    }
+
+    if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 0].includes(parseInt(event.key))) {
+      console.log("Number key");
+      if (event.target.value == 0 && event.key != 0) {
+        return true;
+      } else {
+        if (event.target.value > 0) return true;
+        console.log("Negative value");
+      }
+    }
+
+    if (event.key == "Backspace") {
+      console.log("Backspace");
+      if (event.target.value.charAt(0) != 0) {
+        return true;
+      } else {
+        if (event.target.value.length > 1) return true;
+      }
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  function updateItem(event, item, index) {
+    //- via svelte
+    item.update({ "system.quantity": event.target.value });
   }
 </script>
 
@@ -91,7 +161,7 @@
             .flex3.left.ml-xl
               div {item.name}
             .flex1
-              DocumentTextInput(bind:value="{item.system.quantity}")
+              input(type="number" bind:value="{item.system.quantity}" on:keydown="{validateQuantity(event, item, index)}" on:keyup="{updateItem(event, item, index)}")
             .flex1
               div {rowWeight(item)}
             div.left.ml-sm {item.type}
@@ -106,18 +176,18 @@
             div.mr-sm Enc.
           .flex3.left
             div.flexrow
-              div.left.flex1 {$doc.system.ENC}
-              div.flex3.enc.center(class="{$doc.system.encumbrance}") {$doc.system.encumbrance}
+              div.left.flex1 {ENC}
+              div.flex3.enc.center(class="{encumbrance}") {encumbrance}
           .flex1
             div Weight
           .flex1
-            div {$doc.system.inventoryWeight}
+            div {inventoryWeight}
           div.flexrow.ml-sm 
             div AP 
             div.right {$doc.system.AP}
         
           div.actions.flex1.right 
-            div
+            div 
 
 </template>
 
@@ -147,6 +217,9 @@
     }
     &.heavy {
       background-color: var(--enc-heavy);
+    }
+    &.immobile {
+      background-color: var(--enc-immobile);
     }
   }
   .rowimgbutton {
@@ -233,4 +306,9 @@
   //   -webkit-box-shadow: inset 0 1px 1px #aaa, inset 0 8px 16px -4px #aaa, inset 0 -1px 1px #aaa;
   //   border-color: #888 #aaa #eee;
   // }
+
+  input {
+    background-color: white;
+    height: 1.2rem;
+  }
 </style>

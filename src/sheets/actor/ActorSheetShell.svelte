@@ -121,32 +121,12 @@
 
   $documentStore.system.SIZ = parseFloat($documentStore.system.siz.currentValue);
 
-  $documentStore.system.inventoryWeight = [...$documentStore.items].reduce((sum, item) => {
-    sum += parseFloat(item.system.weight) * parseInt(item.system.quantity);
-    return sum;
-  }, 0);
-
-  $documentStore.system.ENC = (
-    $documentStore.system.inventoryWeight /
-    parseFloat($documentStore.system.STR) /
-    ($documentStore.system.siz.currentValue * $documentStore.system.siz.currentValue)
-  ).toFixed(1);
-
   $documentStore.system.AP = Math.max(
     0,
     Math.round(parseFloat($documentStore.system.spd.currentValue) - $documentStore.system.ENC)
   );
-  if ($documentStore.system.ENC)
-    $documentStore.system.encumbrance =
-      $documentStore.system.ENC > 1 && $documentStore.system.ENC < 2
-        ? "light"
-        : $documentStore.system.ENC > 2 && $documentStore.system.ENC < 4
-        ? "medium"
-        : $documentStore.system.ENC > 4
-        ? "heavy"
-        : $documentStore.system.ENC > 5
-        ? "immobile"
-        : "none";
+
+  $: encumbrance = $documentStore.system.encumbrance;
 
   setContext("#doc", documentStore);
 </script>
@@ -184,7 +164,7 @@
             div AP 
             div.right {$documentStore.system.AP}
             div ENC 
-            div.right(class="{$documentStore.system.encumbrance}") {$documentStore.system.encumbrance}
+            div.right(class="{encumbrance}") {encumbrance}
 
 
         ul.origin-summary
@@ -226,6 +206,9 @@
   }
   .heavy {
     color: var(--enc-heavy);
+  }
+  .immobile {
+    color: var(--enc-immobile);
   }
 
   input {
