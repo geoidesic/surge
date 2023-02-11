@@ -1,59 +1,33 @@
 <script>
   import { getContext } from "svelte";
-  import { attributes } from "~/documents/AttributeStore.js";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
+  import { createFilterQuery } from "@typhonjs-fvtt/svelte-standard/store";
+  import { rippleFocus } from "@typhonjs-fvtt/svelte-standard/action";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
-  import DocInput from "~/components/item/ItemInput.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
 
   const doc = getContext("#doc");
+  console.log($doc);
 
-  $: items = [...$doc.items]; //- make the items iterable; //- @todo: does this re-render any time the document is updated?
+  const filterSearch = createFilterQuery("name");
+  const input = {
+    store: filterSearch,
+    efx: rippleFocus(),
+    placeholder: "wildcard",
+    type: "search",
+  };
+
+  /** @type {import('@typhonjs-fvtt/runtime/svelte/store').DynMapReducer<string, Item>} */
+  const wildcard = doc.embedded.create("Item", {
+    name: "wildcard",
+    filters: [filterSearch],
+    sort: (a, b) => a.name.localeCompare(b.name),
+  });
+
+  $: items = [...$wildcard];
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
 
-  // $: SIZ = parseFloat($doc.system.siz.currentValue);
-  // $: totalWeight = items.reduce((sum, item) => {
-  //   sum += parseFloat(item.system.weight);
-  //   return sum;
-  // }, 0);
-
-  // // console.log(typeof $attributes.STR);
-  // // console.log(typeof parseInt($attributes.STR));
-  // // console.log(parseInt($attributes.STR));
-
-  // $: ENC = (totalWeight / parseFloat($attributes.STR) / (SIZ * SIZ)).toFixed(1);
-
-  console.log($attributes);
-  // $: attributes.set(...$attributes, ENC);
-  $: totalWeight = $attributes.totalWeight;
-  $: ENC = $attributes.ENC;
-  $: encumbrance = $attributes.encumbrance;
-  $: console.log($attributes);
-  $: AP = $attributes.AP;
-
-  // $: enc = (function (weight) {
-  //   if (weight < stats.STR * 10) {
-  //     return "light";
-  //   }
-  //   if (weight > stats.STR * 10) {
-  //     return "heavy";
-  //   }
-  // })(totalWeight);
-
-  // console.log($enc);
-
-  // const itemStore = new TJSDocument(void 0, {});
-  // // itemStore.set($doc.items);
-
-  // console.log(itemStore);
-
-  /**
-   * @todo: hooks that are called when an item is dropped on the sheet
-   * dropActorSheetData
-   * preCreateItem
-   * createItem
-   */
   Hooks.on("createItem", async (item) => {
     console.log(item);
   });
@@ -132,15 +106,15 @@
             div.mr-sm Enc.
           .flex3.left
             div.flexrow
-              div.left.flex1 {ENC}
-              div.flex3.enc.center(class="{$encumbrance}") {$encumbrance}
+              div.left.flex1 {$doc.system.ENC}
+              div.flex3.enc.center(class="{$doc.system.encumbrance}") {$doc.system.encumbrance}
           .flex1
             div Weight
           .flex1
-            div {$totalWeight}
+            div {$doc.system.inventoryWeight}
           div.flexrow.ml-sm 
             div AP 
-            div.right {$AP}
+            div.right {$doc.system.AP}
         
           div.actions.flex1.right 
             div

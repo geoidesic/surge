@@ -3,7 +3,6 @@
 <script>
   import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
   import { setContext, getContext } from "svelte";
-  import { attributes } from "~/documents/AttributeStore.js";
   import DocTextArea from "~/components/DocTextArea.svelte";
   import DocInput from "~/components/actor/ActorInput.svelte";
   import Shield from "~/components/Shield.svelte";
@@ -58,8 +57,6 @@
     Tokenizer.tokenizeActor($documentStore);
   }
 
-  setContext("#doc", documentStore);
-
   console.log("game", game);
   console.log("documentStore", documentStore);
   console.log("document", document);
@@ -74,7 +71,7 @@
     { label: "journal", id: "journal", component: Journal },
   ];
 
-  $: STR =
+  $documentStore.system.STR =
     (parseInt($documentStore.system.siz.currentValue) +
       parseInt($documentStore.system.hid.currentValue) +
       parseInt($documentStore.system.mus.currentValue) +
@@ -82,7 +79,7 @@
       parseInt($documentStore.system.den.currentValue)) /
     5;
 
-  $: DEX =
+  $documentStore.system.DEX =
     (parseInt($documentStore.system.spd.currentValue) +
       parseInt($documentStore.system.flx.currentValue) +
       parseInt($documentStore.system.agl.currentValue) +
@@ -90,7 +87,7 @@
       parseInt($documentStore.system.coo.currentValue)) /
     5;
 
-  $: CHA =
+  $documentStore.system.CHA =
     (parseInt($documentStore.system.com.currentValue) +
       parseInt($documentStore.system.pre.currentValue) +
       parseInt($documentStore.system.gab.currentValue) +
@@ -98,7 +95,7 @@
       parseInt($documentStore.system.sta.currentValue)) /
     5;
 
-  $: INT =
+  $documentStore.system.INT =
     (parseInt($documentStore.system.mem.currentValue) +
       parseInt($documentStore.system.dsc.currentValue) +
       parseInt($documentStore.system.ins.currentValue) +
@@ -106,7 +103,7 @@
       parseInt($documentStore.system.cog.currentValue)) /
     5;
 
-  $: PER =
+  $documentStore.system.PER =
     (parseInt($documentStore.system.sig.currentValue) +
       parseInt($documentStore.system.hea.currentValue) +
       parseInt($documentStore.system.sml.currentValue) +
@@ -114,7 +111,7 @@
       parseInt($documentStore.system.tch.currentValue)) /
     5;
 
-  $: HLT =
+  $documentStore.system.HLT =
     (parseInt($documentStore.system.end.currentValue) +
       parseInt($documentStore.system.imm.currentValue) +
       parseInt($documentStore.system.ftg.currentValue) +
@@ -122,27 +119,36 @@
       parseInt($documentStore.system.dis.currentValue)) /
     5;
 
-  $: items = [...$documentStore.items];
-  $: SIZ = parseFloat($documentStore.system.siz.currentValue);
-  $: totalWeight = items.reduce((sum, item) => {
+  $documentStore.system.SIZ = parseFloat($documentStore.system.siz.currentValue);
+
+  $documentStore.system.inventoryWeight = [...$documentStore.items].reduce((sum, item) => {
     sum += parseFloat(item.system.weight) * parseInt(item.system.quantity);
     return sum;
   }, 0);
-  $: ENC = (totalWeight / parseFloat(STR) / (SIZ * SIZ)).toFixed(1);
-  $: AP = Math.max(0, Math.round(parseFloat($documentStore.system.spd.currentValue) - ENC));
-  $: encumbrance = (function (weight) {
-    if (ENC < 2) {
-      return "light";
-    }
-    if (weight > 2 && weight < 3) {
-      return "medium";
-    }
-    if (weight > 4) {
-      return "heavy";
-    }
-  })(totalWeight);
-  $: attributes.set({ STR, DEX, CHA, INT, PER, HLT, ENC, totalWeight, AP, encumbrance });
-  $: console.log($attributes);
+
+  $documentStore.system.ENC = (
+    $documentStore.system.inventoryWeight /
+    parseFloat($documentStore.system.STR) /
+    ($documentStore.system.siz.currentValue * $documentStore.system.siz.currentValue)
+  ).toFixed(1);
+
+  $documentStore.system.AP = Math.max(
+    0,
+    Math.round(parseFloat($documentStore.system.spd.currentValue) - $documentStore.system.ENC)
+  );
+  if ($documentStore.system.ENC)
+    $documentStore.system.encumbrance =
+      $documentStore.system.ENC > 1 && $documentStore.system.ENC < 2
+        ? "light"
+        : $documentStore.system.ENC > 2 && $documentStore.system.ENC < 4
+        ? "medium"
+        : $documentStore.system.ENC > 4
+        ? "heavy"
+        : $documentStore.system.ENC > 5
+        ? "immobile"
+        : "none";
+
+  setContext("#doc", documentStore);
 </script>
 
 <template lang="pug">
@@ -170,15 +176,15 @@
                   DocInput(className="md right transparent" attr="system.unspentXp" maxlength="6")
               tr
                 th(width="50%")
-                  label Skill
+                  label Lvl
                 td
                   DocInput(className="md right transparent" attr="system.spentXp" maxlength="6" disabled)  
         section.bonus-info
           .flexrow.ml-sm 
             div AP 
-            div.right {$attributes.AP}
+            div.right {$documentStore.system.AP}
             div ENC 
-            div.right(class="{encumbrance}") {$attributes.ENC}
+            div.right(class="{$documentStore.system.encumbrance}") {$documentStore.system.encumbrance}
 
 
         ul.origin-summary

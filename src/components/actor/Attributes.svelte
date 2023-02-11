@@ -4,7 +4,6 @@
   import Attribute from "~/components/actor/Attribute.svelte";
   import AttributeBlock from "~/components/actor/AttributeBlock.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
-  import { attributes } from "~/documents/AttributeStore.js";
   import { getContext } from "svelte";
 
   let cats = ["one", "two", "three"];
@@ -17,12 +16,12 @@
 
   const doc = getContext("#doc");
 
-  $: STR = $attributes.STR;
-  $: DEX = $attributes.DEX;
-  $: CHA = $attributes.CHA;
-  $: INT = $attributes.INT;
-  $: PER = $attributes.PER;
-  $: HLT = $attributes.HLT;
+  $: STR = $doc.system.STR;
+  $: DEX = $doc.system.DEX;
+  $: CHA = $doc.system.CHA;
+  $: INT = $doc.system.INT;
+  $: PER = $doc.system.PER;
+  $: HLT = $doc.system.HLT;
 
   // console.log("siz int", parseInt($doc.system.siz.currentValue));
 </script>

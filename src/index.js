@@ -8,7 +8,7 @@ import SurgeActorSheet from "./sheets/actor/ActorSheet";
 import SurgeItemSheet from "./sheets/item/ItemSheet";
 
 //- set to true to see which hooks get called
-CONFIG.debug.hooks = true;
+CONFIG.debug.hooks = false;
 
 Hooks.once("init", async () => {
   console.log("SURGE | Starting Surge VTTRPG System");
