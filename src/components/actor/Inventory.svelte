@@ -2,10 +2,12 @@
   import { getContext } from "svelte";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
-  import DocInput from "~/components/DocInput.svelte";
+  import DocInput from "~/components/actor/ActorInput.svelte";
 
   const doc = getContext("#doc");
+
   $: items = [...$doc.items]; //- make the items iterable; //- @todo: does this re-render any time the document is updated?
+
   console.log(typeof $doc.items);
   console.log(typeof items);
   console.log($doc.items);

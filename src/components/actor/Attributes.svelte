@@ -1,5 +1,5 @@
 <script>
-  import DocInput from "~/components/DocInput.svelte";
+  import DocInput from "~/components/actor/ActorInput.svelte";
   import DocTextArea from "~/components/DocTextArea.svelte";
   import Attribute from "~/components/actor/Attribute.svelte";
   import AttributeBlock from "~/components/actor/AttributeBlock.svelte";

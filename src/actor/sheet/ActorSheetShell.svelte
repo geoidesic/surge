@@ -4,7 +4,7 @@
   import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
   import { setContext, getContext } from "svelte";
   import DocTextArea from "~/components/DocTextArea.svelte";
-  import DocInput from "~/components/DocInput.svelte";
+  import DocInput from "~/components/actor/ActorInput.svelte";
   import Shield from "~/components/Shield.svelte";
   import Blobby from "~/components/Blobby.svelte";
   import Attributes from "~/components/actor/Attributes.svelte";
@@ -40,6 +40,8 @@
   }
 
   const application = getContext("external").application;
+  console.log(application);
+
   let activeTab = "attributes";
 
   //- provide Tokenizer support
@@ -79,7 +81,7 @@
         .profile.round
         .profile-buttons
         .portrait
-          img.profile(src="{$documentStore.img}" data-tooltip="{$documentStore.name}" on:click="{_launchStandardProfileEditor}")
+          img.profile(src="{$documentStore.img}" data-tooltip="{$documentStore.name}" on:click="{_editToken}")
           //- img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;")
 
               

@@ -1,6 +1,6 @@
 <script>
   import { getContext } from "svelte";
-  import DocInput from "~/components/DocInput.svelte";
+  import DocInput from "~/components/actor/ActorInput.svelte";
   import { debounce } from "@typhonjs-fvtt/runtime/svelte/util";
 
   export let xp = 0;

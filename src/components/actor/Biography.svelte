@@ -1,5 +1,5 @@
 <script>
-  import DocInput from "~/components/DocInput.svelte";
+  import DocInput from "~/components/actor/ActorInput.svelte";
   import DocTextArea from "~/components/DocTextArea.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import ProseMirror from "~/components/ProseMirror.svelte";
