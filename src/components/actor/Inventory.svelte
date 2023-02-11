@@ -11,7 +11,6 @@
   $: items = [...$doc.items]; //- make the items iterable; //- @todo: does this re-render any time the document is updated?
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
-  console.log($doc.system.siz);
 
   // $: SIZ = parseFloat($doc.system.siz.currentValue);
   // $: totalWeight = items.reduce((sum, item) => {
@@ -25,22 +24,13 @@
 
   // $: ENC = (totalWeight / parseFloat($attributes.STR) / (SIZ * SIZ)).toFixed(1);
 
+  console.log($attributes);
   // $: attributes.set(...$attributes, ENC);
-  $: ENC = $attributes.ENC;
   $: totalWeight = $attributes.totalWeight;
+  $: ENC = $attributes.ENC;
+  $: encumbrance = $attributes.encumbrance;
   $: console.log($attributes);
-
-  $: encumberance = (function (weight) {
-    if (ENC < 2) {
-      return "light";
-    }
-    if (weight > 2 && weight < 3) {
-      return "medium";
-    }
-    if (weight > 4) {
-      return "heavy";
-    }
-  })(totalWeight);
+  $: AP = $attributes.AP;
 
   // $: enc = (function (weight) {
   //   if (weight < stats.STR * 10) {
@@ -96,6 +86,7 @@
   }
 
   function rowWeight(item) {
+    console.log(item);
     return parseFloat(item.system.quantity) * parseFloat(item.system.weight);
   }
 </script>
@@ -142,14 +133,14 @@
           .flex3.left
             div.flexrow
               div.left.flex1 {ENC}
-              div.flex3.enc.center(class="{encumberance}") {encumberance}
+              div.flex3.enc.center(class="{$encumbrance}") {$encumbrance}
           .flex1
             div Weight
           .flex1
-            div {totalWeight}
+            div {$totalWeight}
           div.flexrow.ml-sm 
             div AP 
-            div.right {$attributes.AP}
+            div.right {$AP}
         
           div.actions.flex1.right 
             div
@@ -175,13 +166,13 @@
     border-radius: 3px;
     color: white;
     &.light {
-      background-color: #19762d;
+      background-color: var(--enc-light);
     }
     &.medium {
-      background-color: #9c510f;
+      background-color: var(--enc-medium);
     }
     &.heavy {
-      background-color: #9c0f0f;
+      background-color: var(--enc-heavy);
     }
   }
   .rowimgbutton {

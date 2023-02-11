@@ -125,12 +125,23 @@
   $: items = [...$documentStore.items];
   $: SIZ = parseFloat($documentStore.system.siz.currentValue);
   $: totalWeight = items.reduce((sum, item) => {
-    sum += parseFloat(item.system.weight) * parseFloat(item.system.quantity);
+    sum += parseFloat(item.system.weight) * parseInt(item.system.quantity);
     return sum;
   }, 0);
   $: ENC = (totalWeight / parseFloat(STR) / (SIZ * SIZ)).toFixed(1);
-  $: AP = Math.round(parseFloat($documentStore.system.spd.currentValue) - ENC);
-  $: attributes.set({ STR, DEX, CHA, INT, PER, HLT, ENC, totalWeight, AP });
+  $: AP = Math.max(0, Math.round(parseFloat($documentStore.system.spd.currentValue) - ENC));
+  $: encumbrance = (function (weight) {
+    if (ENC < 2) {
+      return "light";
+    }
+    if (weight > 2 && weight < 3) {
+      return "medium";
+    }
+    if (weight > 4) {
+      return "heavy";
+    }
+  })(totalWeight);
+  $: attributes.set({ STR, DEX, CHA, INT, PER, HLT, ENC, totalWeight, AP, encumbrance });
   $: console.log($attributes);
 </script>
 
@@ -167,7 +178,7 @@
             div AP 
             div.right {$attributes.AP}
             div ENC 
-            div.right {$attributes.ENC}
+            div.right(class="{encumbrance}") {$attributes.ENC}
 
 
         ul.origin-summary
@@ -199,6 +210,16 @@
     // border-radius: var(--border-radius);
     // margin-left: 1rem;
     // padding: 1rem;
+  }
+
+  .light {
+    color: var(--enc-light);
+  }
+  .medium {
+    color: var(--enc-medium);
+  }
+  .heavy {
+    color: var(--enc-heavy);
   }
 
   input {

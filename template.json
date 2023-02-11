@@ -463,7 +463,7 @@
     },
     "trait": {
       "templates": [
-        "base",
+        "base"
       ]
     }
   }

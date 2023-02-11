@@ -102,4 +102,9 @@ $cha-color-darker: darken($cha-color, 10%);
   --rare-color: #ffdeac;
   --legendary-color: #f7c2aa;
   --singular-color: #d3acff;
+
+  // Encumbrance colors
+  --enc-light: #19762d;
+  --enc-medium: #9c510f;
+  --enc-heavy: #9c0f0f;
 }
