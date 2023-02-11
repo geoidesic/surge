@@ -6,10 +6,29 @@
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
 
   const doc = getContext("#doc");
+  const STR = 3;
 
   $: items = [...$doc.items]; //- make the items iterable; //- @todo: does this re-render any time the document is updated?
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
+  $: totalWeight = items.reduce((sum, item) => {
+    console.log(sum);
+    console.log(items);
+    console.log(item);
+    console.log(item.system);
+    console.log(item.system.weight);
+    sum += parseFloat(item.system.weight);
+    return sum;
+  }, 0);
+
+  $: encumberance = (function (weight) {
+    if (weight < 3 * 10) {
+      return "light";
+    }
+    if (weight > 3 * 10) {
+      return "heavy";
+    }
+  })(totalWeight);
 
   console.log(typeof $doc.items);
   console.log(typeof items);
@@ -74,20 +93,19 @@
     div.pa-sm
       ol
         li.flexrow.header
-            div.flex0
-              div
-                img.left.flex0
-            .flex3.left.ml-xl
-              div Name
-            .flex1
-              div Quantity
-            .flex1
-              div lb.
-            div.left.ml-sm Type
-          
-            div.actions.flex1.right 
-              div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
-                i.fa(class="{faLockCSS}" on:click="{toggleLock}")
+          div.flex0
+            div
+              img.left.flex0
+          .flex3.left.ml-xl
+            div
+          .flex1
+            div Quantity
+          .flex1
+            div lb.
+          div.left.ml-sm Type
+          div.actions.flex1.right 
+            div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
+              i.fa(class="{faLockCSS}" on:click="{toggleLock}")
         +each("items as item, index")
           li.flexrow.relative
             div.flex0( on:click="{clickItem(index, item)}")
@@ -106,6 +124,23 @@
                   i.left.fa.fa-edit.mr-md( on:click="{editItem(index, item)}")
                 div.rowbutton.rowimgbezelbutton
                   i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, item)}")
+        li.flexrow.footer
+          div.flex0
+            div
+              img.left.flex0
+          .flex3.left.ml-xl
+            div.flexrow
+              div.flex1 Enc.
+              div.flex3.enc.center(class="{encumberance}") {encumberance}
+          .flex1
+            div Weight
+          .flex1
+            div {totalWeight}
+          div.left.ml-sm 
+        
+          div.actions.flex1.right 
+            div
+
 </template>
 
 <style lang="scss" scoped>
@@ -120,6 +155,17 @@
     justify-content: right;
     :not(:last-child) {
       margin-right: 2px;
+    }
+  }
+  .enc {
+    border: 1px solid grey;
+    border-radius: 3px;
+    color: white;
+    &.light {
+      background-color: #19762d;
+    }
+    &.heavy {
+      background-color: #9c0f0f;
     }
   }
   .rowimgbutton {
@@ -160,7 +206,7 @@
       padding: 3px;
       margin: 0 2px 2px 2px;
       align-items: center;
-      &:not(.header) {
+      &:not(.header):not(.footer) {
         background-color: #cdc8c7;
       }
       &.header {
