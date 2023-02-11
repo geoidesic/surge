@@ -140,6 +140,13 @@
 
 <template lang="pug">
   ScrollingContainer
+    .flexrow.pt-sm.pr-sm
+      .flexcol.flex1(style="justify-content: center")
+        label Search
+      .flex3.left
+        TJSInput {input} {$wildcard}
+    
+
     div.pa-sm
       ol
         li.flexrow.header

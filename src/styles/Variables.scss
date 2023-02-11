@@ -109,4 +109,10 @@ $cha-color-darker: darken($cha-color, 10%);
   --enc-medium: #ac9004;
   --enc-heavy: #c13c07;
   --enc-immobile: #660404;
+
+  //- Tabs
+  --tab-font-size: 0.8rem;
+  --tab-line-height: 1.2rem;
+  --tab-border-radius: 3px;
+
 }
