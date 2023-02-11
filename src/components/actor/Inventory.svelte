@@ -7,6 +7,7 @@
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
   import ItemInput from "~/components/item/ItemInput.svelte";
+  import Encumbrance from "~/components/actor/Encumbrance.svelte";
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
 
   const doc = getContext("#doc");
@@ -95,6 +96,10 @@
     console.log(event.target.value);
     console.log(typeof event.target.value);
 
+    if (event.key == "Tab") {
+      console.log("Tab");
+      return true;
+    }
     if (event.key.includes("Arrow")) {
       console.log("Arrow key");
       if (event.key.includes("Down")) {
@@ -175,7 +180,8 @@
           .flex3.left
             div.flexrow
               div.left.flex1 {ENC}
-              div.flex3.enc.center(class="{encumbrance}") {encumbrance}
+              div.flex3.enc.center
+                Encumbrance(className="bg")
           .flex1
             div Weight
           .flex1
@@ -203,23 +209,7 @@
       margin-right: 2px;
     }
   }
-  .enc {
-    border: 1px solid grey;
-    border-radius: 3px;
-    color: white;
-    &.light {
-      background-color: var(--enc-light);
-    }
-    &.medium {
-      background-color: var(--enc-medium);
-    }
-    &.heavy {
-      background-color: var(--enc-heavy);
-    }
-    &.immobile {
-      background-color: var(--enc-immobile);
-    }
-  }
+
   .rowimgbutton {
     position: absolute;
     top: -1px;

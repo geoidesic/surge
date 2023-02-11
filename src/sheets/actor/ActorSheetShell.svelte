@@ -13,6 +13,7 @@
   import Journal from "~/components/actor/Journal.svelte";
   import Traits from "~/components/actor/Traits.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
+  import Encumbrance from "../../components/actor/Encumbrance.svelte";
 
   export let elementRoot; //- passed in by SvelteApplication
   export let documentStore; //- passed in by DocumentSheet.js where it attaches DocumentShell to the DOM body
@@ -184,7 +185,8 @@
             div AP 
             div.right {$documentStore.system.AP}
             div ENC 
-            div.right(class="{encumbrance}") {encumbrance}
+            div.right
+              Encumbrance
 
 
         ul.origin-summary
@@ -216,19 +218,6 @@
     // border-radius: var(--border-radius);
     // margin-left: 1rem;
     // padding: 1rem;
-  }
-
-  .light {
-    color: var(--enc-light);
-  }
-  .medium {
-    color: var(--enc-medium);
-  }
-  .heavy {
-    color: var(--enc-heavy);
-  }
-  .immobile {
-    color: var(--enc-immobile);
   }
 
   input {
