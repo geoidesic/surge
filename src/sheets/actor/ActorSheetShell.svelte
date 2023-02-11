@@ -125,7 +125,7 @@
   $: items = [...$documentStore.items];
   $: SIZ = parseFloat($documentStore.system.siz.currentValue);
   $: totalWeight = items.reduce((sum, item) => {
-    sum += parseFloat(item.system.weight);
+    sum += parseFloat(item.system.weight) * parseFloat(item.system.quantity);
     return sum;
   }, 0);
   $: ENC = (totalWeight / parseFloat(STR) / (SIZ * SIZ)).toFixed(1);

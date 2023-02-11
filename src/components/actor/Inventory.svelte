@@ -94,6 +94,10 @@
       name: $doc.name,
     });
   }
+
+  function rowWeight(item) {
+    return parseFloat(item.system.quantity) * parseFloat(item.system.weight);
+  }
 </script>
 
 <template lang="pug">
@@ -124,7 +128,7 @@
             .flex1
               DocumentTextInput(bind:value="{item.system.quantity}")
             .flex1
-              div {item.system.weight}
+              div {rowWeight(item)}
             div.left.ml-sm {item.type}
             div.actions.flex1.right
               +if("!$doc.system.inventoryLocked")

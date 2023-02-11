@@ -421,6 +421,50 @@
       ],
       "AF": 0,
       "AP": 1
+    },
+    "armour": {
+      "templates": [
+        "base",
+        "equippable",
+        "object"
+      ],
+      "AF": 0,
+      "DR": []
+    },
+    "shield": {
+      "templates": [
+        "base",
+        "equippable",
+        "object"
+      ],
+      "AF": 0,
+      "DR": 1
+    },
+    "clothing": {
+      "templates": [
+        "base",
+        "equippable",
+        "object"
+      ]
+    },
+    "ammunition": {
+      "templates": [
+        "base",
+        "equippable",
+        "object"
+      ]
+    },
+    "container": {
+      "templates": [
+        "base",
+        "equippable",
+        "object"
+      ]
+    },
+    "trait": {
+      "templates": [
+        "base",
+      ]
     }
   }
 }
