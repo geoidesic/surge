@@ -126,7 +126,27 @@
     Math.round(parseFloat($documentStore.system.spd.currentValue) - $documentStore.system.ENC)
   );
 
-  $: encumbrance = $documentStore.system.encumbrance;
+  $: inventoryWeight = $documentStore.items.reduce((sum, item) => {
+    sum += parseFloat(item.system.weight) * parseInt(item.system.quantity);
+    return sum;
+  }, 0);
+
+  $: ENC = (
+    inventoryWeight /
+    parseFloat($documentStore.system.STR) /
+    ($documentStore.system.siz.currentValue * $documentStore.system.siz.currentValue)
+  ).toFixed(1);
+
+  $: encumbrance =
+    ENC > 1 && ENC <= 2
+      ? "light"
+      : ENC > 2 && ENC <= 4
+      ? "medium"
+      : ENC > 4 && ENC <= 5
+      ? "heavy"
+      : ENC > 5
+      ? "immobile"
+      : "none";
 
   setContext("#doc", documentStore);
 </script>

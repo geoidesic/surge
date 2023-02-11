@@ -32,7 +32,7 @@
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
 
-  $: inventoryWeight = items.reduce((sum, item) => {
+  $: inventoryWeight = $doc.items.reduce((sum, item) => {
     sum += parseFloat(item.system.weight) * parseInt(item.system.quantity);
     return sum;
   }, 0);
@@ -53,8 +53,6 @@
       : ENC > 5
       ? "immobile"
       : "none";
-
-  $doc.system.encumbrance = encumbrance;
 
   Hooks.on("createItem", async (item) => {
     console.log(item);
