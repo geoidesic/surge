@@ -388,6 +388,7 @@
     "types": [
       "trait",
       "weapon",
+      "ammunition",
       "shield",
       "clothing",
       "armour",
@@ -395,11 +396,15 @@
     ],
     "templates": {
       "base": {
-        "description": ""
+        "description": "",
+        "size": 1
       },
       "object": {
         "rarity": "common",
-        "value": 0
+        "price": 0,
+        "weight": 0,
+        "quantity": 1,
+        "location": ""
       },
       "equippable": {
         "equipped": false
@@ -411,7 +416,6 @@
         "equippable",
         "object"
       ],
-      "size": 1,
       "AF": 0,
       "AP": 1
     }
