@@ -12,6 +12,7 @@ export default class SurgeActorSheet extends SvelteDocumentSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       width: 500,
       height: 700,
+      minWidth: 400,
       svelte: {
         class: ActorSheetShell,
         target: document.body,
