@@ -7,6 +7,14 @@
     ],
     "templates": {
       "common": {
+        "STR": 0,
+        "DEX": 0,
+        "HLT": 0,
+        "CHA": 0,
+        "INT": 0,
+        "PER": 0,
+        "AP": 0,
+        "usedAP": 0,
         "appearance": "",
         "lore": "",
         "race": "",
