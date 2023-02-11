@@ -159,8 +159,10 @@
         .profile.round
         .profile-buttons
         .portrait
-          img.profile(src="{$documentStore.img}" data-tooltip="{$documentStore.name}" on:click="{_editToken}")
-          //- img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;")
+          +if("$documentStore.img !='icons/svg/mystery-man.svg'")
+            img.profile(src="{$documentStore.img}" data-tooltip="{$documentStore.name}" on:click="{_editToken}")
+            +else()
+              img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;" on:click="{_editToken}")
 
               
       section.character-details
