@@ -1,5 +1,10 @@
 {
   "TemplateESM": {
     "title": "Template Svelte (ESM)"
-  }
+  },
+  "LOCAL.common.label": "Common",
+  "LOCAL.uncommon.label": "Uncommon",
+  "LOCAL.rare.label": "Rare",
+  "LOCAL.legendary.label": "Legendary",
+  "LOCAL.singular.label": "Singular"
 }

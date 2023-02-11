@@ -96,6 +96,10 @@ $cha-color-darker: darken($cha-color, 10%);
   --per-color-darker: #{$per-color-darker};
   --int-color-darker: #{$int-color-darker};
   --cha-color-darker: #{$cha-color-darker};
-  //  --str-color-darker: hsl(from var(--str-color) h s calc(l - 5%)); 
-  //  --str-color-lighter: hsl(from var(--str-color) h s calc(l + 0%)); 
+  
+  // Rarity colors
+  --uncommon-color: #fffab1;
+  --rare-color: #ffdeac;
+  --legendary-color: #f7c2aa;
+  --singular-color: #d3acff;
 }
