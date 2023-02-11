@@ -8,6 +8,7 @@
   import Details from "~/components/item/Details.svelte";
   import Effects from "~/components/item/Effects.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
+  import DocumentRaritySelect from "~/components/elements/DocumentRaritySelect.svelte";
 
   export let elementRoot; //- passed in by SvelteApplication
   export let documentStore; //- passed in by DocumentSheet.js where it attaches DocumentShell to the DOM body
@@ -47,12 +48,10 @@
   }
 
   setContext("#doc", documentStore);
-  setContext("item", item);
 
   console.log("game", game);
   console.log("documentStore", documentStore);
   console.log("document", document);
-  console.log("item", item);
 
   // Tabs
   const tabs = [
@@ -73,21 +72,35 @@
           //- img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;")
 
               
-      section.character-details
+      section.item.details
         section.general-info.flexrow
           .flexcol.flex3
-            DocInput(className="lg transparent" attr="name" placeholder="Character Name" maxlength="40")
-            DocInput(className="md transparent" attr="system.race" placeholder="Character Race" maxlength="40")
+            DocInput(className="lg transparent" attr="name" placeholder="Item Name" maxlength="40")
           div.flex1.level-information
             table(style="text-align: center")
               tr
                 td
                   div {item.type}
 
-        ul.origin-summary
-        section.movement
-        section.character-stats
-          .header-attributes
+        section.extra-info.flexrow
+          DocInput(className="md transparent" attr="system.size" placeholder="Size" maxlength="40")
+          .stat
+            // Label
+            //- .label rarity
+
+            // Input
+            .input
+              DocumentRaritySelect(bind:value='{$documentStore.system.rarity}')
+
+          DocInput(className="md transparent" attr="system.AP" placeholder="0" maxlength="40" inputType="number")
+
+          DocInput(className="md transparent" attr="system.AF" placeholder="0" maxlength="40" inputType="number")
+        section.extra-info.flexrow
+          div Size
+          div Rarity
+          div Action Points
+          div Action Factor
+
 
     section.sheet-body
       Tabs( {tabs} bind:activeTab="{activeTab}")
@@ -155,7 +168,7 @@
     width: 100px;
     /* position: relative; */
   }
-  .character-details {
+  .details {
     margin-left: 1rem;
     -webkit-box-flex: 1;
     -ms-flex: 1;
