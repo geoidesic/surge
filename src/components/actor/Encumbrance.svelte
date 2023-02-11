@@ -16,6 +16,8 @@
     ($doc.system.siz.currentValue * $doc.system.siz.currentValue)
   ).toFixed(1);
 
+  $: ENCcalc = isNaN(ENC) ? 0 : ENC; //- prevents empty inventory from rendering NaN on sheet
+
   $: encumbrance =
     ENC > 1 && ENC <= 2
       ? "light"
@@ -32,7 +34,7 @@
 
 <template lang="pug">
   +if("className == 'value'")
-    div {ENC}
+    div {ENCcalc}
     +elseif("className == 'total'")
       div {inventoryWeight}
     +else()

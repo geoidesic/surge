@@ -35,6 +35,9 @@ $cha-color-darker: darken($cha-color, 10%);
   --border-width: 0.1rem;
   --border-color: rgb(45, 45, 45);
 
+  // Form styling
+  --form-field-height: auto;
+
   // Input styling
   --input-border-style: solid;
   --input-border-radius: 3px;
@@ -44,6 +47,7 @@ $cha-color-darker: darken($cha-color, 10%);
   --input-width: 100%;
   --input-background: white;
   --input-padding: 0 0.25rem;
+  
 
   --static-value-background: rgb(70, 70, 70);
   --font-color: rgba(255, 255, 255, 0.83);

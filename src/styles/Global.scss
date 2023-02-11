@@ -8,14 +8,12 @@
 }
 
 input {
-  max-height: 2rem;
   &.right {
     text-align: right
   }
   &.lg {
     font-size: 2rem;
     font-weight: 700;
-    max-height: 2rem;
   }
   &.md {
     font-size: 1.5rem;

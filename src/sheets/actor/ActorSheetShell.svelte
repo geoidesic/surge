@@ -119,13 +119,8 @@
       parseInt($documentStore.system.wnd.currentValue) +
       parseInt($documentStore.system.dis.currentValue)) /
     5;
-
+  console.log($documentStore);
   $documentStore.system.SIZ = parseFloat($documentStore.system.siz.currentValue);
-
-  $documentStore.system.AP = Math.max(
-    0,
-    Math.round(parseFloat($documentStore.system.spd.currentValue) - $documentStore.system.ENC)
-  );
 
   $: inventoryWeight = $documentStore.items.reduce((sum, item) => {
     sum += parseFloat(item.system.weight) * parseInt(item.system.quantity);
@@ -137,6 +132,8 @@
     parseFloat($documentStore.system.STR) /
     ($documentStore.system.siz.currentValue * $documentStore.system.siz.currentValue)
   ).toFixed(1);
+
+  $: AP = Math.max(0, Math.round(parseFloat($documentStore.system.spd.currentValue) - ENC)) || 0;
 
   $: encumbrance =
     ENC > 1 && ENC <= 2
@@ -293,6 +290,7 @@
     object-fit: cover;
     -o-object-position: top;
     object-position: top;
+    cursor: pointer;
   }
   img {
     border: none;
