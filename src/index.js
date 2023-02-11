@@ -4,8 +4,8 @@ import "./styles/Mixins.scss";
 import "./styles/Animations.scss";
 import "./styles/Global.scss";
 
-import SurgeActorSheet from "./actor/sheet/ActorSheet";
-import SurgeItemSheet from "./item/sheet/ItemSheet";
+import SurgeActorSheet from "./sheets/actor/ActorSheet";
+import SurgeItemSheet from "./sheets/item/ItemSheet";
 
 //- set to true to see which hooks get called
 CONFIG.debug.hooks = true;

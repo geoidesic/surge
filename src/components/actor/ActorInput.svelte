@@ -10,6 +10,7 @@
   export let className = "";
   export let document = false;
   export let disabled = false;
+  export let inputType = "text";
 
   const doc = document || getContext("#doc");
   // console.log($doc.items);
@@ -79,7 +80,7 @@
   div.flexrow
     +if('LABEL')
       label {label}
-    input.flex3(class="{className}" value="{data}" on:input="{updateDebounce}" placeholder="{placeholder}" maxlength="{maxlength}")
+    input.flex3(type="{inputType}" class="{className}" value="{data}" on:input="{updateDebounce}" placeholder="{placeholder}" maxlength="{maxlength}")
 </template>
 
 <style lang="scss" scoped>

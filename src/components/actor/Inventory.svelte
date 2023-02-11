@@ -82,6 +82,7 @@
             //- i.left.fa.fa-dice.mr-md
           //- div {item.sort}
           DocInput(attr=`items.{index}.name`)
+          DocInput(attr=`items.{index}.quantity` inputType="number")
           div.left.ml-sm {item.type}
           //- img.left.flex0(src="{item.img}" )
           //- div {Object.keys(item.ownership)}
