@@ -1,26 +1,27 @@
+<svelte:options accessors={true} />
+
 <script>
   import { getContext } from "svelte";
-  import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
-  import { createFilterQuery } from "@typhonjs-fvtt/svelte-standard/store";
   import { rippleFocus } from "@typhonjs-fvtt/svelte-standard/action";
+  import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
+  import { createFilterQuery } from "@typhonjs-fvtt/svelte-standard/store";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
   import ItemInput from "~/components/item/ItemInput.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
-  import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
-
-  const doc = getContext("#doc");
-  console.log($doc);
 
   const filterSearch = createFilterQuery("name");
 
   const input = {
     store: filterSearch,
     efx: rippleFocus(),
-    placeholder: "wildcard",
+    placeholder: "*",
     type: "search",
   };
+
+  // const doc = new TJSDocument();
+  const doc = getContext("#doc");
 
   /** @type {import('@typhonjs-fvtt/runtime/svelte/store').DynMapReducer<string, Item>} */
   const wildcard = doc.embedded.create("Item", {
@@ -33,27 +34,18 @@
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
 
-  $: inventoryWeight = $doc.items.reduce((sum, item) => {
-    sum += parseFloat(item.system.weight) * parseInt(item.system.quantity);
-    return sum;
-  }, 0);
-
-  $: ENC = (
-    inventoryWeight /
-    parseFloat($doc.system.STR) /
-    ($doc.system.siz.currentValue * $doc.system.siz.currentValue)
-  ).toFixed(1);
-
-  $: encumbrance =
-    ENC > 1 && ENC <= 2
-      ? "light"
-      : ENC > 2 && ENC <= 4
-      ? "medium"
-      : ENC > 4 && ENC <= 5
-      ? "heavy"
-      : ENC > 5
-      ? "immobile"
-      : "none";
+  /**
+   * Handles parsing the drop event and sets new document source.
+   *
+   * @param {DragEvent}   event -
+   */
+  function onDrop(event) {
+    try {
+      doc.setFromDataTransfer(JSON.parse(event.dataTransfer.getData("text/plain")));
+    } catch (err) {
+      /**/
+    }
+  }
 
   Hooks.on("createItem", async (item) => {
     console.log(item);
@@ -144,7 +136,7 @@
       .flexcol.flex1(style="justify-content: center")
         label Search
       .flex3.left
-        TJSInput {input} {$wildcard}
+        TJSInput({input}) {$wildcard}
     
 
     div.pa-sm
@@ -186,13 +178,14 @@
             div.mr-sm Enc.
           .flex3.left
             div.flexrow
-              div.left.flex1 {ENC}
+              div.left.flex1 
+                Encumbrance(className="value")
               div.flex3.enc.center
                 Encumbrance(className="bg")
           .flex1
             div Weight
           .flex1
-            div {inventoryWeight}
+            Encumbrance(className="total") 
           div.flexrow.ml-sm 
             div AP 
             div.right {$doc.system.AP}

@@ -31,7 +31,12 @@
 </script>
 
 <template lang="pug">
-  div(class="{classes}") {encumbrance}
+  +if("className == 'value'")
+    div {ENC}
+    +elseif("className == 'total'")
+      div {inventoryWeight}
+    +else()
+      div(class="{classes}") {encumbrance}
 </template>
 
 <style lang="scss" scoped>
