@@ -11,7 +11,8 @@
         "lore": "",
         "race": "",
         "unspentXp": 0,
-        "spentXp": 0
+        "spentXp": 0,
+        "inventoryLocked": true
       },
       "humanoid": {
         "body": {

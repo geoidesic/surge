@@ -8,6 +8,8 @@
   const doc = getContext("#doc");
 
   $: items = [...$doc.items]; //- make the items iterable; //- @todo: does this re-render any time the document is updated?
+  $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
+  $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
 
   console.log(typeof $doc.items);
   console.log(typeof items);
@@ -55,6 +57,16 @@
     console.log(index);
     console.log(item);
   }
+
+  function toggleLock() {
+    console.log("toggleLock");
+    $doc.system.inventoryLocked = !$doc.system.inventoryLocked;
+    $doc.update({
+      system: $doc.system,
+      flags: $doc.flags,
+      name: $doc.name,
+    });
+  }
 </script>
 
 <template lang="pug">
@@ -74,8 +86,8 @@
             div.left.ml-sm Type
           
             div.actions.flex1.right 
-              div.rowbutton.rowimgbezelbutton(:class="")
-                i.fa.fa-lock
+              div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
+                i.fa(class="{faLockCSS}" on:click="{toggleLock}")
         +each("items as item, index")
           li.flexrow.relative
             div.flex0
@@ -94,10 +106,11 @@
             //- div {Object.keys(item.ownership)}
             //- div {Object.keys(item.flags)}
             div.actions.flex1.right
-              div.rowbutton.rowimgbezelbutton
-                i.left.fa.fa-edit.mr-md( on:click="{editItem(index, item)}")
-              div.rowbutton.rowimgbezelbutton
-                i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, item)}")
+              +if("!$doc.system.inventoryLocked")
+                div.rowbutton.rowimgbezelbutton
+                  i.left.fa.fa-edit.mr-md( on:click="{editItem(index, item)}")
+                div.rowbutton.rowimgbezelbutton
+                  i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, item)}")
 </template>
 
 <style lang="scss" scoped>
@@ -181,6 +194,14 @@
     text-decoration: none;
     -webkit-border-radius: 3px;
     -webkit-box-shadow: inset 0 1px 1px #fff, inset 0 -1px 1px #aaa, 0 2px 4px -3px #666;
+    &.lock-open {
+      background-color: #19762d;
+      color: white;
+    }
+    &.lock {
+      background-color: #9c0f0f;
+      color: white;
+    }
   }
   .rowimgbezelbutton:active {
     -webkit-box-shadow: inset 0 1px 1px #aaa, inset 0 -1px 1px #aaa;
