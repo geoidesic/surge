@@ -8,7 +8,6 @@
 <template lang="pug">
   ScrollingContainer
     .flexcol.pa-sm
-      h1 Appearance
       .flexrow.split
         DocInput( className="right transparent sm border" label="gender" attr="system.gender" placeholder="?")
         DocInput( className="right transparent sm border" label="hair" attr="system.hair" placeholder="?")
@@ -58,5 +57,9 @@
   }
   .flexcol {
     gap: 10px;
+  }
+  .split {
+    margin-top: 4px;
+    color: #827777;
   }
 </style>

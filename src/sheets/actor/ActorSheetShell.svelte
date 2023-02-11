@@ -116,6 +116,12 @@
 </template>
 
 <style lang="scss" scoped>
+  .flexrow {
+    gap: 10px;
+  }
+  .flexcol {
+    gap: 10px;
+  }
   // @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap");
   .level-information {
     display: flex;

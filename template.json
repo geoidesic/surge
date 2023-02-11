@@ -397,9 +397,10 @@
     "templates": {
       "base": {
         "description": "",
-        "size": 1
+        "favourite": false
       },
       "object": {
+        "size": 1,
         "rarity": "common",
         "price": 0,
         "weight": 0,
@@ -407,7 +408,8 @@
         "location": ""
       },
       "equippable": {
-        "equipped": false
+        "equipped": false,
+        "elligibleLocations": []
       }
     },
     "weapon": {

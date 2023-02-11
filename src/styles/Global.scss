@@ -64,6 +64,10 @@ label {
   text-align: right;
 }
 
+.relative {
+  position: relative;
+}
+
 .inline {
   display: inline;
 }
@@ -107,6 +111,9 @@ article {
   .pa-sm {
     padding: 0.4rem;
   }
+  .pa-xs {
+    padding: 0.2rem;
+  }
   .pl-sm {
     padding-left: 0.4rem;
   }
@@ -134,6 +141,12 @@ article {
   }
   .ml-md {
     margin-left: 1rem;
+  }
+  .ml-lg {
+    margin-left: 1.5rem;
+  }
+  .ml-xl {
+    margin-left: 2rem;
   }
   .my-sm {
     margin-top: 0.4rem;
