@@ -73,7 +73,9 @@
               div lb.
             div.left.ml-sm Type
           
-            div.actions.flex1.right Actions
+            div.actions.flex1.right 
+              div.rowbutton.rowimgbezelbutton(:class="")
+                i.fa.fa-lock
         +each("items as item, index")
           li.flexrow.relative
             div.flex0
