@@ -6,7 +6,7 @@
   const doc = getContext("#doc");
 
   $: inventoryWeight = $doc.items.reduce((sum, item) => {
-    sum += parseFloat(item.system.weight) * parseInt(item.system.quantity);
+    sum += parseFloat(item.system.weight) || 0 * parseInt(item.system.quantity) || 0;
     return sum;
   }, 0);
 
