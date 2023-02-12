@@ -8,9 +8,9 @@
   .flexrow.attribute-block
     .flexcol
       .flexrow.header
-        .title &nbsp;
+        .title.flex1.mr-md
         .base Base
-        .current Current
+        .current Mod
         .xp XP
       
       +each("codes as code")
@@ -26,5 +26,6 @@
     padding: 0.6rem 0.2rem 0.2rem 0.2rem;
     text-transform: uppercase;
     font-family: "Signika";
+    font-size: 0.8rem;
   }
 </style>

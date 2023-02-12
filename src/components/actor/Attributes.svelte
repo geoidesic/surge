@@ -34,14 +34,14 @@
         .flexrow.title
           i.fas.fa-dice.flex0
           span.code STR 
-          span.flex0.pr-sm.caption (Strength) 
+          span.flex0.pr-sm.caption Strength
           span.val {STR}
         AttributeBlock( codes="{str}")
       .flexcol.dex
         .flexrow.title
           i.fas.fa-dice.flex0
           span.code DEX 
-          span.flex0.pr-sm.caption (Dexterity) 
+          span.flex0.pr-sm.caption Dexterity
           span.val {DEX}
         AttributeBlock( codes="{dex}")
 
@@ -50,14 +50,14 @@
         .flexrow.title
           i.fas.fa-dice.flex0
           span.code CHA 
-          span.flex0.pr-sm.caption (Charisma) 
+          span.flex0.pr-sm.caption Charisma
           span.val {CHA}
         AttributeBlock( codes="{cha}")
       .flexcol.int
         .flexrow.title
           i.fas.fa-dice.flex0
           span.code INT 
-          span.flex0.pr-sm.caption (Intellect) 
+          span.flex0.pr-sm.caption Intellect
           span.val {INT}
         AttributeBlock( codes="{int}")
 
@@ -66,14 +66,14 @@
         .flexrow.title
           i.fas.fa-dice.flex0
           span.code PER 
-          span.flex0.pr-sm.caption (Perception) 
+          span.flex0.pr-sm.caption Perception
           span.val {PER}
         AttributeBlock( codes="{per}")
       .flexcol.hlt
         .flexrow.title
           i.fas.fa-dice.flex0
           span.code HLT 
-          span.flex0.pr-sm.caption (Health) 
+          span.flex0.pr-sm.caption Health
           span.val {HLT}
         AttributeBlock( codes="{hlt}")
 
