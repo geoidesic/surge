@@ -24,9 +24,57 @@
   ],
   "packs": [
     {
-      "name": "traits",
-      "label": "Traits",
-      "path": "packs/traits.db",
+      "name": "backstories",
+      "label": "Back Stories",
+      "path": "packs/backstories.db",
+      "type": "Item"
+    },
+    {
+      "name": "equipment",
+      "label": "Equipment",
+      "path": "packs/equipment.db",
+      "type": "Item"
+    },
+    {
+      "name": "feats",
+      "label": "Feats",
+      "path": "packs/feats.db",
+      "type": "Item"
+    },
+    {
+      "name": "flaws",
+      "label": "Flaws",
+      "path": "packs/flaws.db",
+      "type": "Item"
+    },
+    {
+      "name": "magic-items",
+      "label": "Magic Items",
+      "path": "packs/magic-items.db",
+      "type": "Item"
+    },
+    {
+      "name": "races",
+      "label": "Races",
+      "path": "packs/races.db",
+      "type": "Item"
+    },
+    {
+      "name": "skills",
+      "label": "Skills",
+      "path": "packs/skills.db",
+      "type": "Item"
+    },
+    {
+      "name": "spells",
+      "label": "Spells",
+      "path": "packs/spells.db",
+      "type": "Item"
+    },
+    {
+      "name": "talents",
+      "label": "Talents",
+      "path": "packs/talents.db",
       "type": "Item"
     },
     {
