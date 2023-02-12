@@ -1,39 +1,57 @@
+<svelte:options accessors={true} />
+
 <script>
   import { getContext } from "svelte";
+  import { rippleFocus } from "@typhonjs-fvtt/svelte-standard/action";
+  import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
+  import { createFilterQuery } from "@typhonjs-fvtt/svelte-standard/store";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
-  import DocInput from "~/components/actor/ActorInput.svelte";
+  import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
+  import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
+  import ItemInput from "~/components/item/ItemInput.svelte";
+  import Encumbrance from "~/components/actor/Encumbrance.svelte";
 
-  const doc = getContext("#doc");
+  // const doc = getContext("#doc");
 
-  $: items = [...$doc.items]; //- make the items iterable; //- @todo: does this re-render any time the document is updated?
+  const Actor = getContext("#doc");
+  const doc = new TJSDocument($Actor);
 
-  console.log(typeof $doc.items);
-  console.log(typeof items);
-  console.log($doc.items);
-  console.log(doc.embedded);
-  console.log(items);
-  console.log(Object.getPrototypeOf($doc.items));
-  let prototype = Object.getPrototypeOf($doc);
-  console.log(prototype);
+  const nameSearch = createFilterQuery("name");
+  const typeSearch = createFilterQuery("type");
+  typeSearch.set("trait");
 
-  console.log(Object.prototype.toString.call($doc));
+  const input = {
+    store: nameSearch,
+    efx: rippleFocus(),
+    placeholder: "*",
+    type: "search",
+  };
 
-  if (prototype.hasOwnProperty("update")) {
-    console.log("update is defined on the prototype of the object");
-  }
+  /** @type {import('@typhonjs-fvtt/runtime/svelte/store').DynMapReducer<string, Item>} */
+  const wildcard = doc.embedded.create("Item", {
+    name: "wildcard",
+    filters: [nameSearch, typeSearch],
+    sort: (a, b) => a.name.localeCompare(b.name),
+  });
 
-  const itemStore = new TJSDocument(void 0, {});
-  // itemStore.set($doc.items);
-
-  console.log(itemStore);
+  $: items = [...$wildcard];
+  $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
+  $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
 
   /**
-   * @todo: hooks that are called when an item is dropped on the sheet
-   * dropActorSheetData
-   * preCreateItem
-   * createItem
+   * Handles parsing the drop event and sets new document source.
+   *
+   * @param {DragEvent}   event -
    */
+  function onDrop(event) {
+    try {
+      doc.setFromDataTransfer(JSON.parse(event.dataTransfer.getData("text/plain")));
+    } catch (err) {
+      /**/
+    }
+  }
+
   Hooks.on("createItem", async (item) => {
     console.log(item);
   });
@@ -54,43 +72,106 @@
     console.log(index);
     console.log(item);
   }
+
+  function toggleLock() {
+    console.log("toggleLock");
+    $doc.system.inventoryLocked = !$doc.system.inventoryLocked;
+    $doc.update({
+      system: $doc.system,
+      flags: $doc.flags,
+      name: $doc.name,
+    });
+  }
+
+  function rowWeight(item) {
+    const val = parseFloat(item.system.quantity) * parseFloat(item.system.weight);
+    return isNaN(val) ? 0 : val;
+  }
+
+  function validateQuantity(event, item, index) {
+    console.log("validate item");
+    console.log(event);
+    console.log(event.target.value);
+    console.log(typeof event.target.value);
+
+    if (event.key == "Tab") {
+      console.log("Tab");
+      return true;
+    }
+    if (event.key.includes("Arrow")) {
+      console.log("Arrow key");
+      if (event.key.includes("Down")) {
+        if (event.target.value > 0) return;
+      } else {
+        return;
+      }
+    }
+
+    if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 0].includes(parseInt(event.key))) {
+      console.log("Number key");
+      if (event.target.value == 0 && event.key != 0) {
+        return true;
+      } else {
+        if (event.target.value > 0) return true;
+        console.log("Negative value");
+      }
+    }
+
+    if (event.key == "Backspace") {
+      console.log("Backspace");
+      if (event.target.value.charAt(0) != 0) {
+        return true;
+      } else {
+        if (event.target.value.length > 1) return true;
+      }
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  function updateItem(event, item, index) {
+    //- via svelte
+    // item.update({ "system.quantity": event.target.value });
+  }
 </script>
 
 <template lang="pug">
   ScrollingContainer
+    .flexrow.pt-sm.pr-sm
+      .flexcol.flex1(style="justify-content: center")
+        label Search
+      .flex3.left
+        TJSInput({input}) {$wildcard}
+    
 
-    ol
-      li.flexrow.mb-sm.bold
-        div.flex0.rowbutton.hide
-          //- i.left.fa.fa-dice.mr-md
-          img.left.flex0.hide()
-        //- //- div.left Sort
-        div.left.flex2 Name
-        div.left.ml-sm Type
-        img.left.flex0.hide()
-        div.left
-        div.actions.flex0.hide
-          div.rowbutton
-            i.left.fa.fa-dice.mr-md
-        //- div Ownership
-        //- div Flags
-      +each("items as item, index")
-        li.flexrow
+    div.pa-sm
+      ol
+        li.flexrow.header
           div.flex0
-            div.rowimgbutton.rowimgbezelbutton( on:click="{clickItem(index, item)}")
-              img.left.flex0(src="{item.img}" )
-            //- i.left.fa.fa-dice.mr-md
-          //- div {item.sort}
-          DocInput(attr=`items.{index}.name`)
-          div.left.ml-sm {item.type}
-          //- img.left.flex0(src="{item.img}" )
-          //- div {Object.keys(item.ownership)}
-          //- div {Object.keys(item.flags)}
-          div.actions.flex1.right
-            div.rowbutton.rowimgbezelbutton
-              i.left.fa.fa-edit.mr-md( on:click="{editItem(index, item)}")
-            div.rowbutton.rowimgbezelbutton
-              i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, item)}")
+            div
+              img.left.flex0
+          .flex3.left.ml-xl
+            div Name
+          div.actions.flex1.right 
+            div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
+              i.fa(class="{faLockCSS}" on:click="{toggleLock}")
+        +each("items as item, index")
+          li.flexrow.relative
+            div.flex0( on:click="{clickItem(index, item)}")
+              div.rowimgbutton.rowimgbezelbutton
+                img.left.flex0(src="{item.img}" )
+            .flex3.left.ml-xl
+              div {item.name}
+            div.actions.flex1.right
+              +if("!$doc.system.inventoryLocked")
+                div.rowbutton.rowimgbezelbutton
+                  i.left.fa.fa-edit.mr-md( on:click="{editItem(index, item)}")
+                div.rowbutton.rowimgbezelbutton
+                  i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, item)}")
+        li.flexrow.footer
+          
+
 </template>
 
 <style lang="scss" scoped>
@@ -107,15 +188,23 @@
       margin-right: 2px;
     }
   }
+
   .rowimgbutton {
-    width: 20px;
-    height: 20px;
-    padding: 0 1px 20px 0;
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    padding: 0;
     object-fit: cover;
     border: 1px solid grey;
     border-radius: 3px;
     background-color: rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    img {
+      width: 30px;
+      height: 30px;
+    }
   }
   .rowbutton {
     display: inline-block;
@@ -132,14 +221,24 @@
   ol {
     height: 100%;
     margin: 0;
-    padding: 0.4rem;
+    padding: 0.1rem;
+    border: 1px solid grey;
     li {
       padding: 3px;
-      margin: 2px;
-      border: 1px solid grey;
-      border-radius: 2px;
+      margin: 0 2px 2px 2px;
       align-items: center;
-      div {
+      &:not(.header):not(.footer) {
+        background-color: #cdc8c7;
+      }
+      &.header {
+        padding: 0 3px;
+        line-height: 1rem;
+        text-align: top;
+        justify-content: top;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-bottom: 0;
+        border-bottom: none;
       }
     }
   }
@@ -157,6 +256,14 @@
     text-decoration: none;
     -webkit-border-radius: 3px;
     -webkit-box-shadow: inset 0 1px 1px #fff, inset 0 -1px 1px #aaa, 0 2px 4px -3px #666;
+    &.lock-open {
+      background-color: #19762d;
+      color: white;
+    }
+    &.lock {
+      background-color: #9c0f0f;
+      color: white;
+    }
   }
   .rowimgbezelbutton:active {
     -webkit-box-shadow: inset 0 1px 1px #aaa, inset 0 -1px 1px #aaa;
@@ -166,4 +273,9 @@
   //   -webkit-box-shadow: inset 0 1px 1px #aaa, inset 0 8px 16px -4px #aaa, inset 0 -1px 1px #aaa;
   //   border-color: #888 #aaa #eee;
   // }
+
+  input {
+    background-color: white;
+    height: 1.2rem;
+  }
 </style>

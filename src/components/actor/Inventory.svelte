@@ -5,47 +5,37 @@
   import { rippleFocus } from "@typhonjs-fvtt/svelte-standard/action";
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
   import { createFilterQuery } from "@typhonjs-fvtt/svelte-standard/store";
+  import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
   import ItemInput from "~/components/item/ItemInput.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
 
-  const filterSearch = createFilterQuery("name");
+  const Actor = getContext("#doc");
+  const doc = new TJSDocument($Actor);
+
+  const nameSearch = createFilterQuery("name");
+  const typeSearch = createFilterQuery("type");
+  typeSearch.set("");
 
   const input = {
-    store: filterSearch,
+    store: nameSearch,
     efx: rippleFocus(),
     placeholder: "*",
     type: "search",
   };
 
-  // const doc = new TJSDocument();
-  const doc = getContext("#doc");
-
   /** @type {import('@typhonjs-fvtt/runtime/svelte/store').DynMapReducer<string, Item>} */
   const wildcard = doc.embedded.create("Item", {
     name: "wildcard",
-    filters: [filterSearch],
+    filters: [nameSearch, typeSearch],
     sort: (a, b) => a.name.localeCompare(b.name),
   });
 
   $: items = [...$wildcard];
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
-
-  /**
-   * Handles parsing the drop event and sets new document source.
-   *
-   * @param {DragEvent}   event -
-   */
-  function onDrop(event) {
-    try {
-      doc.setFromDataTransfer(JSON.parse(event.dataTransfer.getData("text/plain")));
-    } catch (err) {
-      /**/
-    }
-  }
 
   Hooks.on("createItem", async (item) => {
     console.log(item);
@@ -79,7 +69,8 @@
   }
 
   function rowWeight(item) {
-    return parseFloat(item.system.quantity) * parseFloat(item.system.weight);
+    const val = parseFloat(item.system.quantity) * parseFloat(item.system.weight);
+    return isNaN(val) ? 0 : val;
   }
 
   function validateQuantity(event, item, index) {
