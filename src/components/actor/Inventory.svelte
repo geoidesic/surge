@@ -6,6 +6,7 @@
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
   import { createFilterQuery } from "@typhonjs-fvtt/svelte-standard/store";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
+  import { validateNumericInput } from "~/helpers/Utility.js";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
@@ -73,48 +74,6 @@
     return isNaN(val) ? 0 : val;
   }
 
-  function validateQuantity(event, item, index) {
-    console.log("validate item");
-    console.log(event);
-    console.log(event.target.value);
-    console.log(typeof event.target.value);
-
-    if (event.key == "Tab") {
-      console.log("Tab");
-      return true;
-    }
-    if (event.key.includes("Arrow")) {
-      console.log("Arrow key");
-      if (event.key.includes("Down")) {
-        if (event.target.value > 0) return;
-      } else {
-        return;
-      }
-    }
-
-    if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 0].includes(parseInt(event.key))) {
-      console.log("Number key");
-      if (event.target.value == 0 && event.key != 0) {
-        return true;
-      } else {
-        if (event.target.value > 0) return true;
-        console.log("Negative value");
-      }
-    }
-
-    if (event.key == "Backspace") {
-      console.log("Backspace");
-      if (event.target.value.charAt(0) != 0) {
-        return true;
-      } else {
-        if (event.target.value.length > 1) return true;
-      }
-    }
-
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
   function updateItem(event, item, index) {
     //- via svelte
     item.update({ "system.quantity": event.target.value });
@@ -154,7 +113,7 @@
             .flex3.left.ml-xl
               div {item.name}
             .flex1
-              input(type="number" bind:value="{item.system.quantity}" on:keydown="{validateQuantity(event, item, index)}" on:keyup="{updateItem(event, item, index)}")
+              input(type="number" bind:value="{item.system.quantity}" on:keydown="{validateNumericInput(event, item, index)}" on:keyup="{updateItem(event, item, index)}")
             .flex1
               div {rowWeight(item)}
             div.left.ml-sm {item.type}
