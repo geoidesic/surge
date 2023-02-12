@@ -1,13 +1,10 @@
 <script>
   import { getContext } from "svelte";
-  import DocInput from "~/components/actor/ActorInput.svelte";
   import { debounce } from "@typhonjs-fvtt/runtime/svelte/util";
+  import { validateNumericInput } from "~/helpers/Utility.js";
+  import DocInput from "~/components/actor/ActorInput.svelte";
 
-  export let xp = 0;
   export let code = "";
-  export let name = "";
-  export let baseValue = "";
-  export let currentValue = "";
 
   const doc = getContext("#doc");
   const updateCurrentDebounce = debounce(updateCurrent, 500);
@@ -19,16 +16,19 @@
   // console.log($doc.system?.[code]);
 
   function updateCurrent(event) {
+    console.log(event);
     if ($doc) {
       $doc.update({ [`system.${code}.currentValue`]: event.target.value });
     }
   }
   function updateBase(event) {
+    console.log(event);
     if ($doc) {
       $doc.update({ [`system.${code}.baseValue`]: event.target.value });
     }
   }
   function updateXP(event) {
+    console.log(event);
     if ($doc) {
       $doc.update({ [`system.${code}.xp`]: event.target.value });
     }
@@ -42,9 +42,12 @@
   .flexrow.attribute(style="max-height: 1.4rem" class="{$doc.system[code].group} {code}" )
     i.fas.fa-dice.flex0
     h2 {code}
-    input.base(type="number" value="{$doc.system[code].baseValue}" on:input="{updateBaseDebounce}")
-    input.current(type="number" value="{$doc.system[code].currentValue}" on:input="{updateCurrentDebounce}")
-    input.xp(type="number" value="{$doc.system[code].xp}" on:input="{updateXPDebounce}")
+    //- input.base(type="number" value="{$doc.system[code].baseValue}" on:input="{updateBaseDebounce}")
+    //- input.current(type="number" value="{$doc.system[code].currentValue}" on:input="{updateCurrentDebounce}")
+    //- input.xp(type="number" value="{$doc.system[code].xp}" on:input="{updateXPDebounce}")
+    input.base(type="number" value="{$doc.system[code].baseValue}" on:keydown="{validateNumericInput}" on:keyup="{updateBaseDebounce}")
+    input.current(type="number" value="{$doc.system[code].currentValue}" on:keydown="{validateNumericInput}" on:keyup="{updateCurrentDebounce}")
+    input.xp(type="number" value="{$doc.system[code].xp}" on:keydown="{validateNumericInput}" on:keyup="{updateXPDebounce}")
 </template>
 
 <style lang="scss" scoped>
