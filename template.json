@@ -472,7 +472,10 @@
     "trait": {
       "templates": [
         "base"
-      ]
+      ],
+      "code": "",
+      "xpOffset": 0,
+      "xpAssigned": 0
     }
   }
 }
