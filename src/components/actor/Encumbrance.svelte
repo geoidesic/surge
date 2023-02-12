@@ -34,11 +34,11 @@
 
 <template lang="pug">
   +if("className == 'value'")
-    div {ENCcalc}
+    .enc {ENCcalc}
     +elseif("className == 'total'")
-      div {inventoryWeight}
+      .enc {inventoryWeight}
     +else()
-      div(class="{classes}") {encumbrance}
+      .enc(class="{classes}") {encumbrance}
 </template>
 
 <style lang="scss" scoped>

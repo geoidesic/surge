@@ -18,8 +18,8 @@
         "appearance": "",
         "lore": "",
         "race": "",
-        "unspentXp": 0,
-        "spentXp": 0,
+        "unspentXP": 0,
+        "spentXP": 0,
         "inventoryLocked": true
       },
       "humanoid": {
@@ -475,7 +475,8 @@
       ],
       "code": "",
       "xpOffset": 0,
-      "xpAssigned": 0
+      "xpAssigned": 0,
+      "level": 0
     }
   }
 }

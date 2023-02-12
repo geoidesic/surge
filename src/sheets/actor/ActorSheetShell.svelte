@@ -14,6 +14,7 @@
   import Traits from "~/components/actor/Traits.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
+  import LevelBlock from "~/components/actor/LevelBlock.svelte";
 
   export let elementRoot; //- passed in by SvelteApplication
   export let documentStore; //- passed in by DocumentSheet.js where it attaches DocumentShell to the DOM body
@@ -160,25 +161,14 @@
             img.profile(src="{$documentStore.img}" data-tooltip="{$documentStore.name}" on:click="{_editToken}")
             +else()
               img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;" on:click="{_editToken}")
-
               
       section.character-details
         section.general-info.flexrow
           .flexcol.flex3
             DocInput(className="lg transparent" attr="name" placeholder="Character Name" maxlength="40")
             DocInput(className="md transparent" attr="system.race" placeholder="Character Race" maxlength="40")
-          div.flex1.level-information
-            table(style="text-align: right")
-              tr
-                th(width="50%")
-                  label.flex2 XP
-                td
-                  DocInput(className="md right transparent" attr="system.unspentXp" maxlength="6")
-              tr
-                th(width="50%")
-                  label Lvl
-                td
-                  DocInput(className="md right transparent" attr="system.spentXp" maxlength="6" disabled)  
+          LevelBlock  
+          
         section.bonus-info
           .flexrow.ml-sm 
             div AP 
@@ -205,18 +195,6 @@
   }
   .flexcol {
     gap: 10px;
-  }
-  // @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap");
-  .level-information {
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: reverse;
-    -ms-flex-direction: row-reverse;
-    flex-direction: row-reverse;
-    // border: 1px solid var(--border-color);
-    // border-radius: var(--border-radius);
-    // margin-left: 1rem;
-    // padding: 1rem;
   }
 
   input {
