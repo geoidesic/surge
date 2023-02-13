@@ -9,7 +9,7 @@
     .flexcol
       .flexrow.header
         .title.flex1.mr-md
-        .base Base
+        .base Lvl
         .current Mod
         .xp XP
       

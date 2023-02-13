@@ -10,11 +10,7 @@
     return sum;
   }, 0);
 
-  $: ENC = (
-    inventoryWeight /
-    parseFloat($doc.system.STR) /
-    ($doc.system.siz.currentValue * $doc.system.siz.currentValue)
-  ).toFixed(1);
+  $: ENC = (inventoryWeight / parseFloat($doc.system.STR) / ($doc.system.siz.level * $doc.system.siz.level)).toFixed(1);
 
   $: ENCcalc = isNaN(ENC) ? 0 : ENC; //- prevents empty inventory from rendering NaN on sheet
 

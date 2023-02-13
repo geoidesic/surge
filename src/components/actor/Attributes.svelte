@@ -23,7 +23,7 @@
   $: PER = $doc.system.PER;
   $: HLT = $doc.system.HLT;
 
-  // console.log("siz int", parseInt($doc.system.siz.currentValue));
+  // console.log("siz int", parseInt($doc.system.siz.level));
 </script>
 
 <template lang="pug">

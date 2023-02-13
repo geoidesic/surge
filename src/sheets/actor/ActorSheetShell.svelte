@@ -77,54 +77,54 @@
   ];
 
   $documentStore.system.STR =
-    (parseInt($documentStore.system.siz.currentValue) +
-      parseInt($documentStore.system.hid.currentValue) +
-      parseInt($documentStore.system.mus.currentValue) +
-      parseInt($documentStore.system.ton.currentValue) +
-      parseInt($documentStore.system.den.currentValue)) /
+    (parseInt($documentStore.system.siz.level) +
+      parseInt($documentStore.system.hid.level) +
+      parseInt($documentStore.system.mus.level) +
+      parseInt($documentStore.system.ton.level) +
+      parseInt($documentStore.system.den.level)) /
     5;
 
   $documentStore.system.DEX =
-    (parseInt($documentStore.system.spd.currentValue) +
-      parseInt($documentStore.system.flx.currentValue) +
-      parseInt($documentStore.system.agl.currentValue) +
-      parseInt($documentStore.system.bal.currentValue) +
-      parseInt($documentStore.system.coo.currentValue)) /
+    (parseInt($documentStore.system.spd.level) +
+      parseInt($documentStore.system.flx.level) +
+      parseInt($documentStore.system.agl.level) +
+      parseInt($documentStore.system.bal.level) +
+      parseInt($documentStore.system.coo.level)) /
     5;
 
   $documentStore.system.CHA =
-    (parseInt($documentStore.system.com.currentValue) +
-      parseInt($documentStore.system.pre.currentValue) +
-      parseInt($documentStore.system.gab.currentValue) +
-      parseInt($documentStore.system.chr.currentValue) +
-      parseInt($documentStore.system.sta.currentValue)) /
+    (parseInt($documentStore.system.com.level) +
+      parseInt($documentStore.system.pre.level) +
+      parseInt($documentStore.system.gab.level) +
+      parseInt($documentStore.system.chr.level) +
+      parseInt($documentStore.system.sta.level)) /
     5;
 
   $documentStore.system.INT =
-    (parseInt($documentStore.system.mem.currentValue) +
-      parseInt($documentStore.system.dsc.currentValue) +
-      parseInt($documentStore.system.ins.currentValue) +
-      parseInt($documentStore.system.wil.currentValue) +
-      parseInt($documentStore.system.cog.currentValue)) /
+    (parseInt($documentStore.system.mem.level) +
+      parseInt($documentStore.system.dsc.level) +
+      parseInt($documentStore.system.ins.level) +
+      parseInt($documentStore.system.wil.level) +
+      parseInt($documentStore.system.cog.level)) /
     5;
 
   $documentStore.system.PER =
-    (parseInt($documentStore.system.sig.currentValue) +
-      parseInt($documentStore.system.hea.currentValue) +
-      parseInt($documentStore.system.sml.currentValue) +
-      parseInt($documentStore.system.tst.currentValue) +
-      parseInt($documentStore.system.tch.currentValue)) /
+    (parseInt($documentStore.system.sig.level) +
+      parseInt($documentStore.system.hea.level) +
+      parseInt($documentStore.system.sml.level) +
+      parseInt($documentStore.system.tst.level) +
+      parseInt($documentStore.system.tch.level)) /
     5;
 
   $documentStore.system.HLT =
-    (parseInt($documentStore.system.end.currentValue) +
-      parseInt($documentStore.system.imm.currentValue) +
-      parseInt($documentStore.system.ftg.currentValue) +
-      parseInt($documentStore.system.wnd.currentValue) +
-      parseInt($documentStore.system.dis.currentValue)) /
+    (parseInt($documentStore.system.end.level) +
+      parseInt($documentStore.system.imm.level) +
+      parseInt($documentStore.system.ftg.level) +
+      parseInt($documentStore.system.wnd.level) +
+      parseInt($documentStore.system.dis.level)) /
     5;
   console.log($documentStore);
-  $documentStore.system.SIZ = parseFloat($documentStore.system.siz.currentValue);
+  $documentStore.system.SIZ = parseFloat($documentStore.system.siz.level);
 
   $: inventoryWeight = $documentStore.items.reduce((sum, item) => {
     sum += parseFloat(item.system.weight) * parseInt(item.system.quantity);
@@ -134,10 +134,10 @@
   $: ENC = (
     inventoryWeight /
     parseFloat($documentStore.system.STR) /
-    ($documentStore.system.siz.currentValue * $documentStore.system.siz.currentValue)
+    ($documentStore.system.siz.level * $documentStore.system.siz.level)
   ).toFixed(1);
 
-  $: AP = Math.max(0, Math.round(parseFloat($documentStore.system.spd.currentValue) - ENC)) || 0;
+  $: AP = Math.max(0, Math.round(parseFloat($documentStore.system.spd.level) - ENC)) || 0;
 
   $: encumbrance =
     ENC > 1 && ENC <= 2

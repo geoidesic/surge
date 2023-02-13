@@ -134,241 +134,211 @@
           "name": "size",
           "xp": 0,
           "group": "str",
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "hid": {
           "name": "hide",
           "group": "str",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "mus": {
           "name": "muscle",
           "group": "str",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "ton": {
           "name": "tone",
           "group": "str",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "den": {
           "name": "density",
           "group": "str",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "spd": {
           "name": "speed",
           "group": "dex",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "flx": {
           "name": "flexibility",
           "group": "dex",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "agl": {
           "name": "agility",
           "group": "dex",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "bal": {
           "name": "balance",
           "group": "dex",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "coo": {
           "name": "coordination",
           "group": "dex",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "com": {
           "name": "comeliness",
           "group": "cha",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "pre": {
           "name": "Presence",
           "group": "cha",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "gab": {
           "name": "eloquence",
           "group": "cha",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "chr": {
           "name": "charm",
           "group": "cha",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "sta": {
           "name": "status",
           "group": "cha",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "mem": {
           "name": "memory",
           "group": "int",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "dsc": {
           "name": "discipline",
           "group": "int",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "ins": {
           "name": "insight",
           "group": "int",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "wil": {
           "name": "willpower",
           "group": "int",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "cog": {
           "name": "cognition",
           "group": "int",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "end": {
           "name": "endurance",
           "group": "hlt",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "imm": {
           "name": "immunity",
           "group": "hlt",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "ftg": {
           "name": "fatigue",
           "group": "hlt",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "wnd": {
           "name": "wounds",
           "group": "hlt",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "dis": {
           "name": "disease",
           "group": "hlt",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "sig": {
           "name": "sight",
           "group": "per",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "hea": {
           "name": "hearing",
           "group": "per",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "sml": {
           "name": "smell",
           "group": "per",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "tst": {
           "name": "taste",
           "group": "per",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         },
         "tch": {
           "name": "touch",
           "group": "per",
           "xp": 0,
-          "traitDescription": "",
-          "baseValue": 0,
-          "currentValue": 0
+          "description": "",
+          "level": 0
         }
       }
     },

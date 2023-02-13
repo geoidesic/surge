@@ -1,6 +1,5 @@
 <script>
   import { getContext, onMount } from "svelte";
-  import { debounce } from "@typhonjs-fvtt/runtime/svelte/util";
   import { validateNumericInput } from "~/helpers/Utility.js";
   import DocInput from "~/components/actor/ActorInput.svelte";
   import XPcalc from "~/components/actor/XPcalc.js";
@@ -18,9 +17,6 @@
 
   const templates = getContext("#templates");
   const XP = new XPcalc($doc);
-  const updateCurrentDebounce = debounce(updateCurrent, 100);
-  const updateXPDebounce = debounce(updateXP, 150);
-  const updateBaseDebounce = debounce(updateBase, 150);
 
   // console.log("code", code);
   // console.log(doc);
@@ -35,7 +31,7 @@
   function updateBase(event) {
     console.log(event);
     if ($doc) {
-      $doc.update({ [`system.${code}.baseValue`]: event.target.value });
+      $doc.update({ [`system.${code}.level`]: event.target.value });
     }
   }
 
@@ -61,18 +57,18 @@
   }
 
   function updateLevel(value) {
-    //- if the total XP assigned including this value equals the next level cost, then increase the baseValue to next level
-    //- if it falls below, recuce the baseValue
+    //- if the total XP assigned including this value equals the next level cost, then increase the level to next level
+    //- if it falls below, recuce the level
 
-    const currentAttributeLevel = $doc.system[code].baseValue;
+    const currentAttributeLevel = $doc.system[code].level;
     const nextLevelCost = XP.levelCost(currentAttributeLevel + 1, attributeOffset);
     const currentLevelCost = XP.levelCost(currentAttributeLevel, attributeOffset);
 
     if (value >= nextLevelCost) {
-      $doc.update({ [`system.${code}.baseValue`]: currentAttributeLevel + 1 });
+      $doc.update({ [`system.${code}.level`]: currentAttributeLevel + 1 });
     }
     if (value < currentLevelCost) {
-      $doc.update({ [`system.${code}.baseValue`]: currentAttributeLevel - 1 });
+      $doc.update({ [`system.${code}.level`]: currentAttributeLevel - 1 });
     }
   }
 
@@ -97,9 +93,9 @@
       return;
     }
 
-    if (!typeof $doc.system[code].baseValue == "number") {
-      console.log("Invalid baseValue");
-      $doc.system[code].baseValue = 0;
+    if (!typeof $doc.system[code].level == "number") {
+      console.log("Invalid level");
+      $doc.system[code].level = 0;
     }
 
     let value = parseInt(event.target.value);
@@ -119,20 +115,28 @@
 </script>
 
 <template lang="pug">
-  .flexrow.attribute(style="max-height: 1.4rem" class="{$doc.system[code].group} {code}" )
+  .flexrow.attribute-row(style="max-height: 1.4rem" class="{$doc.system[code].group} {code}" )
     i.fas.fa-dice.flex0
     h2 {code}
-    //- input.base(type="number" value="{$doc.system[code].baseValue}" on:input="{updateBaseDebounce}")
-    //- input.current(type="number" value="{$doc.system[code].currentValue}" on:input="{updateCurrentDebounce}")
-    //- input.xp(type="number" value="{$doc.system[code].xp}" on:input="{updateXPDebounce}")
-    input.base(type="number" value="{$doc.system[code].baseValue}" on:keydown="{validate}" on:keyup="{updateBaseDebounce}")
-    input.current(type="number" value="{$doc.system[code].currentValue}" on:keydown="{validate}" on:keyup="{updateCurrentDebounce}")
-    input.xp(type="number" value="{$doc.system[code].xp}" on:keydown="{validate}" on:keyup="{updateXPDebounce}")
+    //- input.base(type="number" value="{$doc.system[code].level}" on:keydown="{validate}" on:keyup="{updateBase}" disabled)
+    .attribute {$doc.system[code].level}
+    input.current(type="number" value="{$doc.system[code].level}" on:keydown="{validate}" on:keyup="{updateCurrent}" disabled)
+    input.xp(type="number" value="{$doc.system[code].xp}" on:keydown="{validate}" on:keyup="{updateXP}")
 </template>
 
 <style lang="scss" scoped>
-  .attribute {
+  .attribute-row {
     padding: 0px 8px;
+  }
+  .attribute {
+    // border: 1px solid grey;
+    background: rgba(255, 255, 255, 0.2);
+    color: black;
+    border-radius: var(--input-border-radius);
+    padding: 3px 0 0 0;
+
+    line-height: 1rem;
+    max-height: 1.3rem;
   }
   h2 {
     border: none;
