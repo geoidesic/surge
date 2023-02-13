@@ -4,7 +4,7 @@
   import { getContext } from "svelte";
   import { rippleFocus } from "@typhonjs-fvtt/svelte-standard/action";
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
-  import { createFilterQuery } from "@typhonjs-fvtt/svelte-standard/store";
+  import { createFilterQuery } from "./filterQuery";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
   import { validateNumericInput } from "~/helpers/Utility.js";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
@@ -12,13 +12,54 @@
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
   import ItemInput from "~/components/item/ItemInput.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
+  import Select from "~/helpers/svelte-components/select/Select.svelte";
 
   const Actor = getContext("#doc");
   const doc = new TJSDocument($Actor);
 
   const nameSearch = createFilterQuery("name");
   const typeSearch = createFilterQuery("type");
-  typeSearch.set("");
+
+  if (!$doc.system.currentItemTypeFilter) {
+    $doc.system.currentItemTypeFilter = "all";
+  }
+
+  let typeFilterValue = $doc.system.currentItemTypeFilter;
+
+  $: $doc.system.currentItemTypeFilter = typeFilterValue;
+  $: typeSearch.set(typeFilterValue);
+
+  const typeFilterOptions = [
+    {
+      value: "all",
+      label: "All",
+    },
+    {
+      value: "ammunition",
+      label: "Ammunition",
+    },
+    {
+      value: "armour",
+      label: "Armour",
+    },
+    {
+      value: "clothing",
+      label: "Clothing",
+    },
+    {
+      value: "container",
+      label: "Container",
+    },
+    {
+      value: "shield",
+      label: "Shield",
+    },
+    {
+      value: "weapon",
+      label: "Weapon",
+    },
+  ];
+  //- @todo: change the type filter from some button tabs. Do we really need to see all the inventory at once?
 
   const input = {
     store: nameSearch,
@@ -74,7 +115,7 @@
     return isNaN(val) ? 0 : val;
   }
 
-  function updateItem(event, item, index) {
+  function updateQuantity(event, item, index) {
     //- via svelte
     item.update({ "system.quantity": event.target.value });
   }
@@ -83,10 +124,14 @@
 <template lang="pug">
   ScrollingContainer
     .flexrow.pt-sm.pr-sm
-      .flexcol.flex1(style="justify-content: center")
+      .flexcol.flex1.label-container 
         label Search
       .flex3.left
         TJSInput({input}) {$wildcard}
+      .flexcol.flex1.label-container 
+        label Type
+      .flex3.right
+        Select(options="{typeFilterOptions}" bind:value="{typeFilterValue}")
     
 
     div.pa-sm
@@ -113,7 +158,7 @@
             .flex3.left.ml-xl
               div {item.name}
             .flex1
-              input(type="number" bind:value="{item.system.quantity}" on:keydown="{validateNumericInput(event, item, index)}" on:keyup="{updateItem}")
+              input(type="number" bind:value="{item.system.quantity}" on:keydown="{validateNumericInput(event, item, index)}" on:keyup="{updateQuantity}")
             .flex1
               div {rowWeight(item)}
             div.left.ml-sm {item.type}
@@ -248,5 +293,9 @@
   input {
     background-color: white;
     height: 1.2rem;
+  }
+
+  .label-container {
+    justify-content: center;
   }
 </style>

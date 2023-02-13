@@ -6,6 +6,7 @@
   import { getContext } from "svelte";
 
   const doc = getContext("#doc");
+  console.log("Trait Descriptions");
   console.log($doc);
 </script>
 
@@ -15,16 +16,15 @@
       .flexrow
         .flexcol.flex1.left
           h1.flex0 Properties
-          label Equipped
-          DocumentCheckboxInput(bind:value='{$doc.system.equipped}')
-          label Price
-          DocInput(attr="system.price" inputType="number")
-          label Weight
-          DocInput(attr="system.weight" inputType="number")
-          label Quantity
-          DocInput(attr="system.quantity" inputType="number")
-          label Location
-          DocInput(attr="system.location")
+          
+          label Cost
+          DocInput(attr="system.xpOffset" inputType="number")
+          label Code
+          DocInput(attr="system.code")
+          label XP
+          DocInput(attr="system.xpAssigned")
+          label Level
+          DocInput(attr="system.level")
           
           
         .flexcol.flex3.left

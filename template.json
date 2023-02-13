@@ -21,7 +21,8 @@
         "xpUnspent": 0,
         "xpSpent": 0,
         "inventoryLocked": true,
-        "templates": {}
+        "templates": {},
+        "currentItemTypeFilter": "all"
       },
       "humanoid": {
         "body": {

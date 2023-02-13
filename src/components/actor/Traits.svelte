@@ -6,6 +6,7 @@
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
   import { createFilterQuery } from "@typhonjs-fvtt/svelte-standard/store";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
+  import { validateNumericInput } from "~/helpers/Utility.js";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
@@ -83,9 +84,17 @@
     });
   }
 
-  function updateItem(event, item, index) {
+  let key = "";
+
+  function validateXpAssigned(event, item) {
+    const principal = item.system.xpAssigned;
+    key = validateNumericInput(event, principal);
+  }
+
+  function updateXpAssigned(event, item) {
     //- via svelte
-    // item.update({ "system.quantity": event.target.value });
+    if (key == false) return;
+    item.update({ "system.xpAssigned": event.target.value });
   }
 </script>
 
@@ -106,16 +115,25 @@
               img.left.flex0
           .flex3.left.ml-xl
             div Name
+          .flex1
+            div Lvl.
+          .flex1
+            div XP
           div.actions.flex1.right 
             div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
               i.fa(class="{faLockCSS}" on:click="{toggleLock}")
         +each("items as item, index")
-          li.flexrow.relative
+          li.flexrow.relative.itemrow
             div.flex0( on:click="{clickItem(index, item)}")
               div.rowimgbutton.rowimgbezelbutton
                 img.left.flex0(src="{item.img}" )
             .flex3.left.ml-xl
               div {item.name}
+            .flex1
+              div {item.system.level}
+            .flex1
+              input(type="number" bind:value="{item.system.xpAssigned}" on:keydown!="{(event) => validateXpAssigned(event, item)}" on:keyup!="{(event) => updateXpAssigned(event, item)}")
+
             div.actions.flex1.right
               +if("!$doc.system.inventoryLocked")
                 div.rowbutton.rowimgbezelbutton
@@ -194,6 +212,10 @@
         border-bottom: none;
       }
     }
+  }
+
+  .itemrow {
+    height: 1.9rem;
   }
 
   .rowimgbezelbutton {
