@@ -14,7 +14,7 @@
   let key = "";
   let prevValue;
 
-  $: xpUnspent = parseInt($doc.system.xpUnspent);
+  $: xpUnspent = parseInt($doc.system.xpUnspent) || 0;
 
   const templates = getContext("#templates");
   const XP = new XPcalc($doc);
@@ -53,7 +53,7 @@
     if (key == false) return;
 
     const value = parseInt(event.target.value);
-    if (key == "up" && parseInt($doc.system.xpUnspent) <= 0) {
+    if (key == "up" && unspentXp <= 0) {
       console.log("validate failed because no unspentXP");
       event.preventDefault();
       event.stopPropagation();
@@ -87,7 +87,7 @@
     //- if the value has been deleted completely, then set it to zero
     if (event.target.value === "") {
       event.target.value = 0;
-      $doc.update({ [`system.xpUnspent`]: parseInt($doc.system.xpUnspent) - prevValue });
+      $doc.update({ [`system.xpUnspent`]: unspentXp - prevValue });
       $doc.update({ [`system.${code}.xp`]: parseInt(event.target.value) });
     }
 
@@ -96,9 +96,7 @@
       console.log("keydown validation failed: do not update");
       return;
     }
-    // console.log(event);
-    // console.log($doc);
-    // console.log(code);
+
     if (!typeof $doc.system[code].baseValue == "number") {
       console.log("Invalid baseValue");
       $doc.system[code].baseValue = 0;
@@ -112,9 +110,10 @@
       console.log("Update would result in negative unspent XP, revert value to min");
       diff = -xpUnspent;
       value = prevValue + xpUnspent;
-      event.target.value = value;
     }
     $doc.update({ [`system.xpUnspent`]: xpUnspent + diff });
+    $doc.update({ [`system.${code}.xp`]: value });
+
     updateLevel(value);
   }
 </script>

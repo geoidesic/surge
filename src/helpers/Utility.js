@@ -32,7 +32,6 @@ export function validateNumericInput(event, principal) {
       if (value > 0) return "down";
       reason = "Down target value < 0";
     } else if (event.key.includes("Up")) {
-      console.log('here')
       if (value >= 0 && principal > 0) return "up";
       reason = "Up target value < 0 or principal <= 0";
     } else if (event.key.includes("Left") || event.key.includes("Right")) {
