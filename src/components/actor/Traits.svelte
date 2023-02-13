@@ -6,12 +6,13 @@
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
   import { createFilterQuery } from "@typhonjs-fvtt/svelte-standard/store";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
-  import { validateNumericInput } from "~/helpers/Utility.js";
+  import NumericInputValidator from "./NumericInputValidator";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
   import ItemInput from "~/components/item/ItemInput.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
+  import XPcalc from "~/components/actor/XPcalc.js";
 
   // const doc = getContext("#doc");
 
@@ -39,6 +40,7 @@
   $: items = [...$wildcard];
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
+  $: xpUnspent = parseInt($doc.system.xpUnspent) || 0;
 
   /**
    * Handles parsing the drop event and sets new document source.
@@ -85,16 +87,77 @@
   }
 
   let key = "";
+  let keyUp = false;
+  let prevValue;
+  const xpValidator = new NumericInputValidator();
+  const XP = new XPcalc($doc);
 
   function validateXpAssigned(event, item) {
-    const principal = item.system.xpAssigned;
-    key = validateNumericInput(event, principal);
+    if (keyUp === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    key = xpValidator.validate(event, xpUnspent);
+    prevValue = parseInt(event.target.value);
+
+    if (key == false) return;
+
+    const value = parseInt(event.target.value);
+    if (key == "up" && xpUnspent <= 0) {
+      console.log("validate failed because no unspentXP");
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    keyUp = false;
   }
 
   function updateXpAssigned(event, item) {
-    //- via svelte
-    if (key == false) return;
-    item.update({ "system.xpAssigned": event.target.value });
+    keyUp = true;
+    //- if the value has been deleted completely, then set it to zero
+    if (event.target.value === "") {
+      event.target.value = 0;
+      $doc.update({ [`system.xpUnspent`]: unspentXp - prevValue });
+    }
+
+    //- if there was a keypress that failed validation return
+    if (key === false) {
+      console.log("keydown validation failed: do not update");
+      return;
+    }
+    if (!typeof item.system.level == "number") {
+      console.log("Invalid level");
+      item.system.level = 0;
+    }
+
+    let value = parseInt(event.target.value);
+
+    let dir = key == "up" || key == "down" ? key : XP.directionOfChange(value, item.system.xpAssigned);
+    let diff = prevValue - value;
+    if (diff < 0 && xpUnspent + diff < 0) {
+      console.log("Update would result in negative unspent XP, revert value to min");
+      diff = -xpUnspent;
+      value = prevValue + xpUnspent;
+    }
+    $doc.update({ [`system.xpUnspent`]: xpUnspent + diff });
+    item.update({ "system.xpAssigned": value });
+    updateLevel(value, item);
+  }
+
+  function updateLevel(value, item) {
+    //- if the total XP assigned including this value equals the next level cost, then increase the level to next level
+    //- if it falls below, recuce the level
+
+    const currentLevel = item.system.level;
+    const nextLevelCost = XP.levelCost(currentLevel + 1, item.system.cost);
+    const currentLevelCost = XP.levelCost(currentLevel, item.system.cost);
+
+    if (value >= nextLevelCost) {
+      item.update({ "system.level": currentLevel + 1 });
+    }
+    if (value < currentLevelCost) {
+      item.update({ "system.level": currentLevel - 1 });
+    }
   }
 </script>
 

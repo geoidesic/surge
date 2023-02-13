@@ -20,59 +20,7 @@
   const templates = getContext("#templates");
   const XP = new XPcalc($doc);
 
-  const xpValidator = new NumericInputValidator({
-    arrowHandler: function (event, principal) {
-      const value = parseInt(event.target.value);
-
-      if (event.key.includes("Arrow")) {
-        if (event.key.includes("Down")) {
-          if (value > 0) return "down";
-          return { reason: "Down target value < 0" };
-        } else if (event.key.includes("Up")) {
-          if (value >= 0 && principal > 0) return "up";
-          return { reason: "Up target value < 0 or principal <= 0" };
-        } else if (event.key.includes("Left") || event.key.includes("Right")) {
-          return false; //<-- don't stop left or right keys from propagating, else we lose cursor control
-        }
-      }
-    },
-    digitHandler: function (event, principal) {
-      const value = parseInt(event.target.value);
-
-      if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 0].includes(parseInt(event.key))) {
-        if (value == 0 && event.key != 0) {
-          return event.key;
-        } else {
-          if (value > 0) return event.key;
-        }
-        return { reason: "key pressed is zero and value is already zero" };
-      }
-    },
-    deleteHandler: function (event, principal) {
-      const value = parseInt(event.target.value);
-
-      if (event.key == "Backspace" || event.key == "Del" || event.key == "Delete") {
-        if (!isNaN(value)) {
-          const testVal = typeof value != "number" ? value : value.toString();
-          if (testVal.length > 1) {
-            return "delete";
-          }
-          if (testVal.charAt(0) == 0) {
-            return { reason: "value is zero, cannot delete 0" };
-          } else {
-            return "delete";
-          }
-        } else {
-          return { reason: "value is not a number" };
-        }
-      }
-    },
-    tabHandler: function (event, principal) {
-      if (event.key == "Tab") {
-        return false;
-      }
-    },
-  });
+  const xpValidator = new NumericInputValidator();
   // console.log("code", code);
   // console.log(doc);
   // console.log($doc.system?.[code]);
@@ -151,7 +99,7 @@
 
     let value = parseInt(event.target.value);
 
-    let dir = key == "up" || key == "down" ? key : XP.directionOfChange(value, code);
+    let dir = key == "up" || key == "down" ? key : XP.directionOfChange(value, $doc.system[code].xp);
     let diff = prevValue - value;
     if (diff < 0 && xpUnspent + diff < 0) {
       console.log("Update would result in negative unspent XP, revert value to min");
@@ -168,15 +116,15 @@
     //- if the total XP assigned including this value equals the next level cost, then increase the level to next level
     //- if it falls below, recuce the level
 
-    const currentAttributeLevel = $doc.system[code].level;
-    const nextLevelCost = XP.levelCost(currentAttributeLevel + 1, attributeOffset);
-    const currentLevelCost = XP.levelCost(currentAttributeLevel, attributeOffset);
+    const currentLevel = $doc.system[code].level;
+    const nextLevelCost = XP.levelCost(currentLevel + 1, attributeOffset);
+    const currentLevelCost = XP.levelCost(currentLevel, attributeOffset);
 
     if (value >= nextLevelCost) {
-      $doc.update({ [`system.${code}.level`]: currentAttributeLevel + 1 });
+      $doc.update({ [`system.${code}.level`]: currentLevel + 1 });
     }
     if (value < currentLevelCost) {
-      $doc.update({ [`system.${code}.level`]: currentAttributeLevel - 1 });
+      $doc.update({ [`system.${code}.level`]: currentLevel - 1 });
     }
   }
 </script>

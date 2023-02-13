@@ -22,21 +22,19 @@ export default class XpCalc {
     );
   };
 
-  directionOfChange(value, code = false) {
-    if (!code) {
-      throw TypeError('@param code must be of type string or int');
+  directionOfChange(newValue, oldValue) {
+
+    if (typeof newValue != 'number') {
+      throw TypeError('@param newValue must be of type number');
     }
-    if (typeof value != 'number') {
-      throw TypeError('@param value must be of type number');
-    }
-    if (isNaN(value)) {
+    if (isNaN(newValue)) {
       throw Error('directionOfXpChange could not be calculated due to faulty input');
     }
-    const currentXpAssignedToTraitOrAttribute = parseInt(this.#doc.system[code].xp)
+    const currentXpAssignedToTraitOrAttribute = parseInt(oldValue)
     const direction =
-      value > currentXpAssignedToTraitOrAttribute
+      newValue > currentXpAssignedToTraitOrAttribute
         ? "up"
-        : value < currentXpAssignedToTraitOrAttribute
+        : newValue < currentXpAssignedToTraitOrAttribute
           ? "down"
           : "same";
     this.dir = direction
