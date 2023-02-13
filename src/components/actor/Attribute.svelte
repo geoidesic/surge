@@ -49,7 +49,7 @@
     if (key == false) return;
 
     const value = parseInt(event.target.value);
-    if (key == "up" && unspentXp <= 0) {
+    if (key == "up" && xpUnspent <= 0) {
       console.log("validate failed because no unspentXP");
       event.preventDefault();
       event.stopPropagation();
