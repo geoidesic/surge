@@ -17,13 +17,13 @@
 
   $: attributeXp =
     Object.entries(templates.Actor.templates.attributes).reduce((acc = 0, [key, value]) => {
-      console.log(acc);
-      console.log($doc.system[key].xp);
+      // console.log(acc);
+      // console.log($doc.system[key].xp);
       const xpVal = parseInt($doc.system[key].xp) || 0;
-      console.log(xpVal);
-      console.log(typeof xpVal);
-      acc = acc + xpVal;
-      console.log(acc);
+      // console.log(xpVal);
+      // console.log(typeof xpVal);
+      // acc = acc + xpVal;
+      // console.log(acc);
       return acc;
     }, 0) || 0;
 
