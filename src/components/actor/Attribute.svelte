@@ -119,7 +119,6 @@
 </script>
 
 <template lang="pug">
-  pre {$doc.system[code].baseValue}
   .flexrow.attribute(style="max-height: 1.4rem" class="{$doc.system[code].group} {code}" )
     i.fas.fa-dice.flex0
     h2 {code}
