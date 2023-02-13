@@ -1,63 +1,54 @@
 <script>
-  import { getContext } from "svelte";
+  import { getContext, onMount } from "svelte";
   import { lvlCost } from "~/helpers/Constants.js";
+  import XPcalc from "~/components/actor/XPcalc.js";
+  const XP = new XPcalc($doc);
 
   export let className = "unspent";
 
   const doc = getContext("#doc");
-  console.log($doc);
-  console.log($doc.system);
-  console.log($doc.system.unspentXP);
+  const templates = getContext("#templates");
 
-  const traitLevelCost = function (trait, level) {
-    if (level <= 0) return 0;
-    return Array.from({ length: level + trait.system.xpOffset }, (_, i) => i + 1).reduce(
-      (sum, current) => sum + current,
-      0
-    );
-  };
-
-  const traitNextLevelCost = function (trait) {
-    //- find the currently held level of the trait from the Actor
-    const existingTrait = $doc.items.find((t) => (t.name = trait.name)) || false;
-    if (!existingTrait) return trait.system.xpOffset + 1;
-
-    //- calculate and return the cost of the next level
-    const nextLevel = existingTrait ? existingTrait.system.level + 1 : 1;
-    return traitLevelCost(trait, nextLevel);
-  };
-
-  const traitPreviousLevelCost = function (trait) {
-    //- find the currently held level of the trait from the Actor
-    const existingTrait = $doc.items.find((t) => (t.name = trait.name)) || false;
-    if (!existingTrait) return 0;
-
-    //- calculate and return the cost of the next level
-    const prevLevel = existingTrait ? existingTrait.system.level - 1 : 1;
-    return traitLevelCost(trait, prevLevel);
-  };
-
-  const releasedXP = function (trait) {
-    const existingTrait = $doc.items.find((t) => (t.name = trait.name)) || false;
-    return existingTrait ? existingTrait.assignedXP - traitPreviousLevelCost(trait) : 0;
-  };
-
-  $: spentXP =
+  $: itemXp =
     $doc.items.reduce((sum, item) => {
-      sum += parseFloat(item.system.assignedXP);
+      sum += parseInt(item.system.xpAssigned);
       return sum;
     }, 0) || 0;
 
-  $: level = Math.floor(spentXP / parseInt(lvlCost));
+  $: attributeXp =
+    Object.entries(templates.Actor.templates.attributes).reduce((acc = 0, [key, value]) => {
+      console.log(acc);
+      console.log($doc.system[key].xp);
+      const xpVal = parseInt($doc.system[key].xp) || 0;
+      console.log(xpVal);
+      console.log(typeof xpVal);
+      acc = acc + xpVal;
+      console.log(acc);
+      return acc;
+    }, 0) || 0;
+
+  $: xpUnspent = parseInt($doc.system.xpUnspent) || 0;
+  $: xpSpent = itemXp + attributeXp;
+
+  $: level = Math.floor(xpSpent / parseInt(lvlCost));
+
+  onMount(async () => {
+    console.log($doc.system.xpUnspent);
+    console.log(xpUnspent);
+    console.log(attributeXp);
+    console.log(itemXp);
+  });
 </script>
 
 <template lang="pug">
   +if("className == 'spent'")
-    .xp {spentXP}
+    .xp {xpSpent}
+    +elseif("className == 'attribute'")
+      .xp {attributeXp}
     +elseif("className == 'level'")
       .xp {level}
     +else()
-      .xp(class="{classes}") {unspentXP}
+      .xp(class="{classes}") {xpUnspent}
 </template>
 
 <style lang="scss" scoped>

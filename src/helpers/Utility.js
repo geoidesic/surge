@@ -11,44 +11,65 @@ export function getOptions() {
   return game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT) ? !retVal : retVal;
 }
 
-export  function validateNumericInput(event) {
-  console.log("validate numeric input");
-  console.log(event);
-  console.log(event.target.value);
-  console.log(typeof event.target.value);
-
+/**
+ * 
+ * @param {*} event 
+ * @param {int} principal 
+ * @returns {boolean, string} 
+ * - false indicates a key that should propagate but should not cause an update 
+ * - string indicates a key that should propagate and should process update
+ * NB: event.target.value represents previous value, before requested update
+ */
+export function validateNumericInput(event, principal) {
+  const value = parseInt(event.target.value);
+  let reason = ''
   if (event.key == "Tab") {
-    console.log("Tab");
-    return true;
+    return false;
   }
+
   if (event.key.includes("Arrow")) {
-    console.log("Arrow key");
     if (event.key.includes("Down")) {
-      if (event.target.value > 0) return;
-    } else {
-      return;
+      if (value > 0) return "down";
+      reason = "Down target value < 0";
+    } else if (event.key.includes("Up")) {
+      if (value >= 0 && principal > 0) return "up";
+      reason = "Up target value < 0 or principal <= 0";
+    } else if (event.key.includes("Left") || event.key.includes("Right")) {
+      return false; //<-- don't stop left or right keys from propagating, else we lose cursor control
     }
   }
+
 
   if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 0].includes(parseInt(event.key))) {
-    console.log("Number key");
-    if (event.target.value == 0 && event.key != 0) {
-      return true;
+    if (value == 0 && event.key != 0) {
+      return event.key;
     } else {
-      if (event.target.value > 0) return true;
+      if (value > 0) return event.key;
       console.log("Negative value");
     }
+    reason = "key pressed is zero and value is already zero";
   }
 
-  if (event.key == "Backspace") {
-    console.log("Backspace");
-    if (event.target.value.charAt(0) != 0) {
-      return true;
+  if (event.key == "Backspace" || event.key == "Del" || event.key == "Delete") {
+    if (!isNaN(value)) {
+      const testVal = typeof value != "number" ? value : value.toString();
+      if (testVal.length > 1) {
+        return "delete";
+      }
+      if (testVal.charAt(0) == 0) {
+        reason = "value is zero, cannot delete 0";
+      } else {
+        return "delete";
+      }
     } else {
-      if (event.target.value.length > 1) return true;
+      reason = "value is not a number"
     }
   }
-
+  console.log('validateNumericInput:- validation failed for reason: ' + reason)
+  //- stop the on:keyup event from triggering
   event.preventDefault();
   event.stopPropagation();
+
+  return false;
+
 }

@@ -113,7 +113,7 @@
             .flex3.left.ml-xl
               div {item.name}
             .flex1
-              input(type="number" bind:value="{item.system.quantity}" on:keydown="{validateNumericInput(event, item, index)}" on:keyup="{updateItem(event, item, index)}")
+              input(type="number" bind:value="{item.system.quantity}" on:keydown="{validateNumericInput(event, item, index)}" on:keyup="{updateItem}")
             .flex1
               div {rowWeight(item)}
             div.left.ml-sm {item.type}

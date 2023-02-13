@@ -18,9 +18,10 @@
         "appearance": "",
         "lore": "",
         "race": "",
-        "unspentXP": 0,
-        "spentXP": 0,
-        "inventoryLocked": true
+        "xpUnspent": 0,
+        "xpSpent": 0,
+        "inventoryLocked": true,
+        "templates": {}
       },
       "humanoid": {
         "body": {

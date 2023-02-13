@@ -16,6 +16,9 @@
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
   import LevelBlock from "~/components/actor/LevelBlock.svelte";
 
+  import templates from "../../../template.json";
+  console.log(templates);
+
   export let elementRoot; //- passed in by SvelteApplication
   export let documentStore; //- passed in by DocumentSheet.js where it attaches DocumentShell to the DOM body
   export let document; //- passed in by DocumentSheet.js where it attaches DocumentShell to the DOM body
@@ -147,7 +150,9 @@
       ? "immobile"
       : "none";
 
+  //- store a copy of the templates for usage as schemas in other places
   setContext("#doc", documentStore);
+  setContext("#templates", templates);
 </script>
 
 <template lang="pug">
