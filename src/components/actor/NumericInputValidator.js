@@ -28,11 +28,8 @@ export default class NumericInputValidator {
    * @param {*} params whatever the validator functions need to have passed in
    */
   validate(event, params) {
-    console.log(this.#handlers);
     for (const [key, handler] of Object.entries(this.#handlers)) {
       const result = handler(event, params);
-      console.log(result);
-      return;
 
       if (result === false || typeof result === 'string') {
         return result;
