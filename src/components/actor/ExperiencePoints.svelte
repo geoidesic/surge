@@ -1,63 +1,45 @@
 <script>
   import { getContext } from "svelte";
   import { lvlCost } from "~/helpers/Constants.js";
+  import XPcalc from "~/components/actor/XPcalc.js";
+  const XP = new XPcalc($doc);
 
   export let className = "unspent";
 
   const doc = getContext("#doc");
-  console.log($doc);
-  console.log($doc.system);
-  console.log($doc.system.unspentXP);
+  const templates = getContext("#templates");
 
-  const traitLevelCost = function (trait, level) {
-    if (level <= 0) return 0;
-    return Array.from({ length: level + trait.system.xpOffset }, (_, i) => i + 1).reduce(
-      (sum, current) => sum + current,
-      0
+  $: itemXp = () => {
+    return (
+      $doc.items.reduce((sum, item) => {
+        sum += parseInt(item.system.xpAssigned);
+        return sum;
+      }, 0) || 0
     );
   };
 
-  const traitNextLevelCost = function (trait) {
-    //- find the currently held level of the trait from the Actor
-    const existingTrait = $doc.items.find((t) => (t.name = trait.name)) || false;
-    if (!existingTrait) return trait.system.xpOffset + 1;
-
-    //- calculate and return the cost of the next level
-    const nextLevel = existingTrait ? existingTrait.system.level + 1 : 1;
-    return traitLevelCost(trait, nextLevel);
+  $: attributeXp = () => {
+    return (
+      Object.entries(templates.Actor.templates.attributes).reduce((acc, [key, value]) => {
+        acc += parseInt($doc.system[key].xp);
+        return acc;
+      }, 0) || 0
+    );
   };
 
-  const traitPreviousLevelCost = function (trait) {
-    //- find the currently held level of the trait from the Actor
-    const existingTrait = $doc.items.find((t) => (t.name = trait.name)) || false;
-    if (!existingTrait) return 0;
+  $: xpUnspent = parseInt($doc.system.xpUnspent);
+  $: xpSpent = itemXp() + attributeXp();
 
-    //- calculate and return the cost of the next level
-    const prevLevel = existingTrait ? existingTrait.system.level - 1 : 1;
-    return traitLevelCost(trait, prevLevel);
-  };
-
-  const releasedXP = function (trait) {
-    const existingTrait = $doc.items.find((t) => (t.name = trait.name)) || false;
-    return existingTrait ? existingTrait.assignedXP - traitPreviousLevelCost(trait) : 0;
-  };
-
-  $: spentXP =
-    $doc.items.reduce((sum, item) => {
-      sum += parseFloat(item.system.assignedXP);
-      return sum;
-    }, 0) || 0;
-
-  $: level = Math.floor(spentXP / parseInt(lvlCost));
+  $: level = Math.floor(xpSpent / parseInt(lvlCost));
 </script>
 
 <template lang="pug">
   +if("className == 'spent'")
-    .xp {spentXP}
+    .xp {xpSpent}
     +elseif("className == 'level'")
       .xp {level}
     +else()
-      .xp(class="{classes}") {unspentXP}
+      .xp(class="{classes}") {xpUnspent}
 </template>
 
 <style lang="scss" scoped>

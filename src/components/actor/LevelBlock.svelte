@@ -17,7 +17,7 @@ div.flex1.level-information
       th
         caption unspent
       td
-        DocInput(className="md right transparent" attr="system.unspentXP" maxlength="6")
+        DocInput(className="md right transparent" attr="system.xpUnspent" maxlength="6")
     tr
       th
         caption spent
