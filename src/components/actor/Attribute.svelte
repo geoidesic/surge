@@ -3,6 +3,7 @@
   import { validateNumericInput } from "~/helpers/Utility.js";
   import DocInput from "~/components/actor/ActorInput.svelte";
   import XPcalc from "~/components/actor/XPcalc.js";
+  import NumericInputValidator from "./NumericInputValidator";
 
   export let code = "";
 
@@ -11,6 +12,7 @@
 
   const doc = getContext("#doc");
   let key = "";
+  let keyUp = false;
   let prevValue;
 
   $: xpUnspent = parseInt($doc.system.xpUnspent) || 0;
@@ -18,6 +20,7 @@
   const templates = getContext("#templates");
   const XP = new XPcalc($doc);
 
+  const xpValidator = new NumericInputValidator();
   // console.log("code", code);
   // console.log(doc);
   // console.log($doc.system?.[code]);
@@ -39,11 +42,21 @@
    * event.target.value contains the previous value before update
    */
   function validate(event) {
+    if (keyUp === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+
     console.log("function: validate");
     console.log(" event.target.value: ", event.target.value);
 
     //- store some reference values for the updateXP callback
-    key = validateNumericInput(event, xpUnspent);
+    // key = validateNumericInput(event, xpUnspent);
+    key = xpValidator.validate(event, xpUnspent);
+    console.log("key");
+    console.log(key);
+
     prevValue = parseInt(event.target.value);
 
     if (key == false) return;
@@ -54,28 +67,14 @@
       event.preventDefault();
       event.stopPropagation();
     }
-  }
-
-  function updateLevel(value) {
-    //- if the total XP assigned including this value equals the next level cost, then increase the level to next level
-    //- if it falls below, recuce the level
-
-    const currentAttributeLevel = $doc.system[code].level;
-    const nextLevelCost = XP.levelCost(currentAttributeLevel + 1, attributeOffset);
-    const currentLevelCost = XP.levelCost(currentAttributeLevel, attributeOffset);
-
-    if (value >= nextLevelCost) {
-      $doc.update({ [`system.${code}.level`]: currentAttributeLevel + 1 });
-    }
-    if (value < currentLevelCost) {
-      $doc.update({ [`system.${code}.level`]: currentAttributeLevel - 1 });
-    }
+    keyUp = false;
   }
 
   /**
    * event.target.value contains the new value after update
    */
   function updateXP(event) {
+    keyUp = true;
     if (!$doc) {
       console.warn("Cannot proceed without Actor");
       return;
@@ -100,7 +99,7 @@
 
     let value = parseInt(event.target.value);
 
-    let dir = key == "up" || key == "down" ? key : XP.directionOfChange(value, code);
+    let dir = key == "up" || key == "down" ? key : XP.directionOfChange(value, $doc.system[code].xp);
     let diff = prevValue - value;
     if (diff < 0 && xpUnspent + diff < 0) {
       console.log("Update would result in negative unspent XP, revert value to min");
@@ -111,6 +110,22 @@
     $doc.update({ [`system.${code}.xp`]: value });
 
     updateLevel(value);
+  }
+
+  function updateLevel(value) {
+    //- if the total XP assigned including this value equals the next level cost, then increase the level to next level
+    //- if it falls below, recuce the level
+
+    const currentLevel = $doc.system[code].level;
+    const nextLevelCost = XP.levelCost(currentLevel + 1, attributeOffset);
+    const currentLevelCost = XP.levelCost(currentLevel, attributeOffset);
+
+    if (value >= nextLevelCost) {
+      $doc.update({ [`system.${code}.level`]: currentLevel + 1 });
+    }
+    if (value < currentLevelCost) {
+      $doc.update({ [`system.${code}.level`]: currentLevel - 1 });
+    }
   }
 </script>
 
