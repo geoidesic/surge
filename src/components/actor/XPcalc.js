@@ -16,8 +16,8 @@ export default class XpCalc {
    */
   levelCost(level, offset = 0,) {
     if (parseInt(level) <= 0) return 0;
-    return Array.from({ length: parseInt(level) + offset }, (_, i) => i + 1).reduce(
-      (sum, current) => parseInt(sum) + parseInt(current),
+    return Array.from({ length: parseInt(level) }, (_, i) => i + 1).reduce(
+      (sum, current) => parseInt(sum) + parseInt(current) + parseInt(offset),
       0
     );
   };

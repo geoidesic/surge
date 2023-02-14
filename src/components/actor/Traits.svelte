@@ -149,10 +149,9 @@
   function updateLevel(value, item) {
     //- if the total XP assigned including this value equals the next level cost, then increase the level to next level
     //- if it falls below, recuce the level
-
     const currentLevel = item.system.level;
-    const nextLevelCost = XP.levelCost(currentLevel + 1, item.system.cost);
-    const currentLevelCost = XP.levelCost(currentLevel, item.system.cost);
+    const nextLevelCost = XP.levelCost(currentLevel + 1, item.system.xpOffset);
+    const currentLevelCost = XP.levelCost(currentLevel, item.system.xpOffset);
 
     if (value >= nextLevelCost) {
       item.update({ "system.level": currentLevel + 1 });
