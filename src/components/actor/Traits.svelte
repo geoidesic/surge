@@ -62,6 +62,8 @@
   function deleteItem(index, item) {
     console.log(index);
     console.log(item);
+    //- first re-assign XP from this trait back to the unspent pool
+    $doc.update({ "system.xpUnspent": xpUnspent + parseInt(item.system.xpAssigned) });
     item.delete();
   }
 
