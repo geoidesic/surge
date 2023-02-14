@@ -12,7 +12,7 @@
 
   const doc = getContext("#doc");
   let key = false;
-  let keyUp = false;
+  let keyUp = true;
   let prevValue;
 
   $: xpUnspent = parseInt($doc.system.xpUnspent) || 0;

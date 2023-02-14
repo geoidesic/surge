@@ -87,7 +87,7 @@
   }
 
   let key = false;
-  let keyUp = false;
+  let keyUp = true;
   let prevValue;
   const xpValidator = new NumericInputValidator();
   const XP = new XPcalc($doc);
