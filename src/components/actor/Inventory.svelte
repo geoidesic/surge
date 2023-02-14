@@ -13,6 +13,7 @@
   import ItemInput from "~/components/item/ItemInput.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
   import Select from "~/helpers/svelte-components/select/Select.svelte";
+  import RollCalc from "./RollCalc";
 
   const Actor = getContext("#doc");
   const doc = new TJSDocument($Actor);
@@ -153,7 +154,7 @@
         +each("items as item, index")
           li.flexrow.relative
             div.flex0( on:click="{clickItem(index, item)}")
-              div.rowimgbutton.rowimgbezelbutton(on:click!="{new RollCalc({doc: $doc, code: item.code, rollType: 'trait'})}")
+              div.rowimgbutton.rowimgbezelbutton(on:click!="{new RollCalc({doc: $doc, code: item.code, rollType: 'inventory'})}")
                 img.left.flex0(src="{item.img}" )
             .flex3.left.ml-xl
               div {item.name}
