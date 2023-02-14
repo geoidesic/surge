@@ -57,12 +57,12 @@ export default class RollCalc {
   }
   //- rolls for a Traits
   async trait(Item, code) {
-    this.roll(Item.system[code].level, 1)
+    this.roll(Item.system[code], 1)
     ChatMessage.create({
       user: game.user.id,
       flags: {
         'surge': {        // Use your module ID instead of `essential-svelte-esm`.
-          data: { doc: this.#params.doc, code: this.#params.code, chatTemplate: 'TraitRollChat', roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
+          data: { doc: this.#params.doc, Item, Actor: this.#params.Actor, code: this.#params.code, chatTemplate: 'TraitRollChat', roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
         }
       }
     });

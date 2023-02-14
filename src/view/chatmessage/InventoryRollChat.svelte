@@ -11,8 +11,6 @@
   export let className = void 0;
   export let Item = void 0;
   export let Actor = void 0;
-
-  import RollChat from "./RollChat.svelte";
 </script>
 
 <template lang="pug">
@@ -22,12 +20,10 @@
     .flex3
       h1 {Actor.name}
       .flexcol
-        .flexrow
-          div Attacked with: 
-          .flexrow.lozenge 
-            img.flex0.item.mr-xs(src="{Item.img}")
-            div {Item.name} 
-            .right d{die}
+        .flexrow.lozenge 
+          img.flex0.item.mr-xs(src="{Item.img}")
+          div.flex3.mt-xxs {Item.name} 
+          .right.mt-xxs d{die}
   .roll-container
     .emboss.flexrow
       .flex2

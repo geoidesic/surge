@@ -13,6 +13,7 @@
   import ItemInput from "~/components/item/ItemInput.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
   import XPcalc from "~/components/actor/XPcalc.js";
+  import RollCalc from "./RollCalc";
 
   // const doc = getContext("#doc");
 
@@ -188,7 +189,7 @@
               i.fa(class="{faLockCSS}" on:click="{toggleLock}")
         +each("items as item, index")
           li.flexrow.relative.itemrow
-            div.flex0( on:click="{clickItem(index, item)}")
+            div.flex0(on:click!="{new RollCalc({doc: item, Actor: $doc, code: 'level', rollType: 'trait'})}")
               div.rowimgbutton.rowimgbezelbutton
                 img.left.flex0(src="{item.img}" )
             .flex3.left.ml-xl
