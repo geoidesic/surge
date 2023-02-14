@@ -1,10 +1,11 @@
 <script>
+  import { getContext } from "svelte";
   import DocInput from "~/components/actor/ActorInput.svelte";
   import DocTextArea from "~/components/DocTextArea.svelte";
   import Attribute from "~/components/actor/Attribute.svelte";
   import AttributeBlock from "~/components/actor/AttributeBlock.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
-  import { getContext } from "svelte";
+  import { attributeRoll } from "~/helpers/Utility.js";
 
   let cats = ["one", "two", "three"];
   let str = ["siz", "hid", "mus", "ton", "den"];
@@ -72,7 +73,7 @@
     .flexrow
       .flexcol.str
         .flexrow.title
-          i.fas.fa-dice.flex0
+          i.fas.fa-dice.flex0(on:click!="{attributeRoll($doc, 'STR')}")
           span.code STR 
           span.flex0.pr-sm.caption Strength
           span.val {STR}

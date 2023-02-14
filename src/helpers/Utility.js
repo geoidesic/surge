@@ -11,6 +11,28 @@ export function getOptions() {
   return game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT) ? !retVal : retVal;
 }
 
+
+export function attributeRoll(Actor, code) {
+  ChatMessage.create({
+    user: game.user.id,
+    flags: {
+      'surge': {        // Use your module ID instead of `essential-svelte-esm`.
+        data: { Actor, code }
+      }
+    }
+  });
+}
+
+
+// export async function attributeRoll(Actor, code) {
+//   let roll = new Roll("1d22");
+//   await roll.roll({ async: false });
+//   let rollMessage = {
+//     content: `The result of the roll is: ${roll.result}`
+//   };
+//   ChatMessage.create(rollMessage);
+// }
+
 /**
  * 
  * @param {*} event 
