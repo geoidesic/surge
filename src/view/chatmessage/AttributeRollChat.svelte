@@ -8,16 +8,10 @@
   export let die = void 0;
 
   import RollChat from "./RollChat.svelte";
-
-  // console.log("AttributeRollChat");
-  // console.log(Roll);
-  // console.log(Roll.result);
 </script>
 
 <template lang="pug">
     RollChat(name="{doc.name}" img="{doc.img}" roll="{roll}" code="{code}" noOfDice="{noOfDice}" die="{die}" className="{code}" superScript="" level="{doc.system[code]}")
-
-
 </template>
 
 <style lang="scss" scoped>
