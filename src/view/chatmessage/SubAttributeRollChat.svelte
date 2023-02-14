@@ -15,8 +15,6 @@
   // console.log(Roll.result);
   $: ATT = Actor.system[code];
 
-  $: group = attributes[code];
-
   function attributeGroup(code) {
     for (const attribute in attributes) {
       if (attributes[attribute].includes(code)) {
@@ -25,6 +23,7 @@
     }
     return null; // Element not found in any property
   }
+  $: group = attributeGroup(code).toUpperCase();
 </script>
 
 <template lang="pug">
@@ -37,9 +36,12 @@
         caption Rolled: {code}
         caption.flex0 ({ATT})
         caption {noOfDice}d{die}
-  .roll-container(class="{attributeGroup(code).toUpperCase()}")
+  .roll-container(class="{group}")
     .emboss.flexrow
-      .flex1.code-container {code.toUpperCase()}
+      .flex2
+        .flexrow
+          .code-container {code.toUpperCase()}
+          .sub {group}
       .flex3.right.roll-result {roll}
 
 </template>
@@ -53,6 +55,9 @@
     border-radius: var(--border-radius);
     padding: 0.5rem;
     font-size: 2rem;
+    .sub {
+      font-size: 0.7rem;
+    }
     &.STR {
       background-color: var(--str-color-lighter);
     }
