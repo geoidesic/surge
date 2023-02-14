@@ -89,7 +89,7 @@ export default class SvelteDocumentSheet extends SvelteApplication {
   _canDragDrop(selector) {
     return this.reactive.document.isOwner || game.user.isGM;
   }
-  _onDragOver(event) {}
+  _onDragOver(event) { }
 
   _onDragStart(event) {
     {

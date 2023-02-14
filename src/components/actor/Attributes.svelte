@@ -16,13 +16,53 @@
 
   const doc = getContext("#doc");
 
-  $: STR = $doc.system.STR;
-  $: DEX = $doc.system.DEX;
-  $: CHA = $doc.system.CHA;
-  $: INT = $doc.system.INT;
-  $: PER = $doc.system.PER;
-  $: HLT = $doc.system.HLT;
+  $: STR =
+    (parseInt($doc.system.siz.level) +
+      parseInt($doc.system.hid.level) +
+      parseInt($doc.system.mus.level) +
+      parseInt($doc.system.ton.level) +
+      parseInt($doc.system.den.level)) /
+    5;
 
+  $: DEX =
+    (parseInt($doc.system.spd.level) +
+      parseInt($doc.system.flx.level) +
+      parseInt($doc.system.agl.level) +
+      parseInt($doc.system.bal.level) +
+      parseInt($doc.system.coo.level)) /
+    5;
+
+  $: CHA =
+    (parseInt($doc.system.com.level) +
+      parseInt($doc.system.pre.level) +
+      parseInt($doc.system.gab.level) +
+      parseInt($doc.system.chr.level) +
+      parseInt($doc.system.sta.level)) /
+    5;
+
+  $: INT =
+    (parseInt($doc.system.mem.level) +
+      parseInt($doc.system.dsc.level) +
+      parseInt($doc.system.ins.level) +
+      parseInt($doc.system.wil.level) +
+      parseInt($doc.system.cog.level)) /
+    5;
+
+  $: PER =
+    (parseInt($doc.system.sig.level) +
+      parseInt($doc.system.hea.level) +
+      parseInt($doc.system.sml.level) +
+      parseInt($doc.system.tst.level) +
+      parseInt($doc.system.tch.level)) /
+    5;
+
+  $: HLT =
+    (parseInt($doc.system.end.level) +
+      parseInt($doc.system.imm.level) +
+      parseInt($doc.system.ftg.level) +
+      parseInt($doc.system.wnd.level) +
+      parseInt($doc.system.dis.level)) /
+    5;
   // console.log("siz int", parseInt($doc.system.siz.level));
 </script>
 

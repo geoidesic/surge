@@ -26,13 +26,6 @@
   $: xpSpent = itemXp + attributeXp;
 
   $: level = Math.floor(xpSpent / parseInt(lvlCost));
-
-  onMount(async () => {
-    console.log($doc.system.xpUnspent);
-    console.log(xpUnspent);
-    console.log(attributeXp);
-    console.log(itemXp);
-  });
 </script>
 
 <template lang="pug">

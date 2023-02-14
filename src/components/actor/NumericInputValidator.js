@@ -63,8 +63,6 @@ export default class NumericInputValidator {
    * - {string}: means that the result 
    */
   constructor(handlers) {
-    console.log(typeof handlers);
-    console.log(typeof handlers === 'undefined');
     if (typeof handlers === 'undefined') {
       handlers = { ...this.#defaultHandlers };
     }
