@@ -153,7 +153,7 @@
         +each("items as item, index")
           li.flexrow.relative
             div.flex0( on:click="{clickItem(index, item)}")
-              div.rowimgbutton.rowimgbezelbutton
+              div.rowimgbutton.rowimgbezelbutton(on:click!="{new RollCalc({doc: $doc, code: item.code, rollType: 'trait'})}")
                 img.left.flex0(src="{item.img}" )
             .flex3.left.ml-xl
               div {item.name}

@@ -46,6 +46,10 @@ input {
   }
 }
 
+.bg-lighten {
+  background: rgba(255,255,255, 0.3)
+}
+
 .flexrow.split > div {
   padding: 0 4px;
   border-right: 1px solid grey;
@@ -140,6 +144,9 @@ article {
   }
   .mr-sm {
     margin-right: 0.4rem;
+  }
+  .mr-xs {
+    margin-right: 0.2rem;
   }
   .mr-md {
     margin-right: 1rem;

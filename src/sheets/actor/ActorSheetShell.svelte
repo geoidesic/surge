@@ -175,12 +175,14 @@
           LevelBlock  
           
         section.bonus-info
-          .flexrow.ml-sm 
-            div AP 
-            div.right {$documentStore.system.AP}
-            div ENC 
-            div.right
-              Encumbrance
+          .flexrow
+            .flexrow.bg-lighten.pa-xs
+              div.flex2 Action Points 
+              div.right.mr-xs {$documentStore.system.AP}
+            .flexrow.bg-lighten.pa-xs
+              div Encumbrance
+              div.right
+                Encumbrance
 
 
         ul.origin-summary

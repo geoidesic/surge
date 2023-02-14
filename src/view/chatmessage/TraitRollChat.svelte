@@ -8,13 +8,15 @@
   export let die = void 0;
 
   import { attributes } from "~/helpers/Constants.js";
-  import RollChat from "./RollChat.svelte";
 
-  // console.log("AttributeRollChat");
+  console.log("AttributeRollChat");
+  console.log(Actor.system[code]);
   // console.log(Actor);
   // console.log(Roll);
   // console.log(Roll.result);
   $: ATT = Actor.system[code];
+  $: console.log(ATT);
+  $: console.log("ATT");
 
   function attributeGroup(code) {
     for (const attribute in attributes) {
@@ -28,7 +30,22 @@
 </script>
 
 <template lang="pug">
-  RollChat(Actor="{Actor}" roll="{roll}" code="{code}" noOfDice="{noOfDice}" die="{die}" className="{group}")
+  .flexrow
+    .flex1
+      img(src="{Actor.img}")
+    .flex3
+      h1 {Actor.name}
+      .flexrow
+        caption Rolled: {code}
+        caption.flex0 ({ATT.level})
+        caption {noOfDice}d{die}
+  .roll-container(class="{group}")
+    .emboss.flexrow
+      .flex2
+        .flexrow
+          .code-container {code.toUpperCase()}
+          .sub {group}
+      .flex3.right.roll-result {roll}
 
 </template>
 
