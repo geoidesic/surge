@@ -248,6 +248,7 @@
     width: 100px;
     /* position: relative; */
   }
+
   .character-details {
     margin-left: 1rem;
     -webkit-box-flex: 1;
@@ -265,15 +266,20 @@
     -ms-flex: 0;
     flex: 0;
   }
-  .portrait img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    -o-object-position: top;
-    object-position: top;
-    cursor: pointer;
+  .portrait {
+    border-radius: 100%;
+    border: 9px solid var(--actor-profile-border-color);
+    overflow: overlay;
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      -o-object-position: top;
+      object-position: top;
+      cursor: pointer;
+    }
   }
   img {
     border: none;
