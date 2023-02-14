@@ -1,41 +1,36 @@
 <!-- Super simple Svelte component that takes in a prop and outputs it. -->
 <script>
   // this can be modified to include different templates based on the received data
-  export let Actor = void 0;
+  export let img = void 0;
+  export let name = void 0;
   export let roll = void 0;
   export let code = void 0;
   export let noOfDice = void 0;
   export let die = void 0;
   export let className = void 0;
-
-  import { attributes } from "~/helpers/Constants.js";
-
-  // console.log("AttributeRollChat");
-  // console.log(Actor);
-  // console.log(Roll);
-  // console.log(Roll.result);
-  $: ATT = Actor.system[code];
+  export let superScript = void 0;
+  export let level = void 0;
 </script>
 
 <template lang="pug">
   .flexrow
     .flex1
-      img(src="{Actor.img}")
+      img(src="{img}")
     .flex3
-      h1 {Actor.name}
+      h1 {name}
       .flexrow
         caption Rolled: {code.toUpperCase()}
         caption.flex1
           .flexrow
             div.right.mr-sm Lvl.
-            .lozenge.flex0.left(class="{className}") {ATT.level}
+            .lozenge.flex0.left(class="{className} {code}") {level}
         caption {noOfDice}d{die}
-  .roll-container(class="{className}")
+  .roll-container(class="{className} {code}")
     .emboss.flexrow
       .flex2
         .flexrow
           .code-container {code.toUpperCase()}
-          .sub {className}
+          .sub {superScript}
       .flex3.right.roll-result {roll}
 
 </template>
@@ -56,22 +51,22 @@
   .roll-container,
   .lozenge {
     &.STR {
-      background-color: var(--str-color-lighter);
+      background-color: var(--str-color);
     }
     &.DEX {
-      background-color: var(--dex-color-lighter);
+      background-color: var(--dex-color);
     }
     &.CHA {
-      background-color: var(--cha-color-lighter);
+      background-color: var(--cha-color);
     }
     &.INT {
-      background-color: var(--int-color-lighter);
+      background-color: var(--int-color);
     }
     &.HLT {
-      background-color: var(--hlt-color-lighter);
+      background-color: var(--hlt-color);
     }
     &.PER {
-      background-color: var(--per-color-lighter);
+      background-color: var(--per-color);
     }
   }
   .lozenge {

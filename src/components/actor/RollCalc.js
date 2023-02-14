@@ -1,5 +1,5 @@
 
-export default class RolCalc {
+export default class RollCalc {
 
 
   #level = 0;
@@ -13,6 +13,7 @@ export default class RolCalc {
   constructor(params) {
     console.log(params);
     if (params.doc) this.#doc = params.doc;
+
     if (params.level) this.#level = params.level;
     if (params.code) this.#code = params.code;
 
@@ -36,12 +37,13 @@ export default class RolCalc {
 
   //- rolls for an Attribute
   async attribute(Actor, code) {
+    console.log(Actor);
     this.roll(Actor.system[code], 1)
     ChatMessage.create({
       user: game.user.id,
       flags: {
         'surge': {        // Use your module ID instead of `essential-svelte-esm`.
-          data: { Actor: this.#doc, code: this.#code, chatTemplate: 'AttributeRollChat', roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
+          data: { doc: this.#doc, code: this.#code, chatTemplate: 'AttributeRollChat', roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
         }
       }
     });
@@ -53,31 +55,31 @@ export default class RolCalc {
       user: game.user.id,
       flags: {
         'surge': {        // Use your module ID instead of `essential-svelte-esm`.
-          data: { Actor: this.#doc, code: this.#code, chatTemplate: 'SubAttributeRollChat', roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
+          data: { doc: this.#doc, code: this.#code, chatTemplate: 'SubAttributeRollChat', roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
         }
       }
     });
   }
   //- rolls for a Traits
-  async trait(Actor, code) {
-    this.roll(Actor.system[code].level, 1)
+  async trait(Item, code) {
+    this.roll(Item.system[code].level, 1)
     ChatMessage.create({
       user: game.user.id,
       flags: {
         'surge': {        // Use your module ID instead of `essential-svelte-esm`.
-          data: { Actor: this.#doc, code: this.#code, chatTemplate: 'traitRollChat', roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
+          data: { doc: this.#doc, code: this.#code, chatTemplate: 'traitRollChat', roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
         }
       }
     });
   }
   //- rolls for a Traits
-  async inventory(Actor, code) {
-    this.roll(Actor.system[code].level, 1)
+  async inventory(Item, code) {
+    this.roll(Item.system[code].level, 1)
     ChatMessage.create({
       user: game.user.id,
       flags: {
         'surge': {        // Use your module ID instead of `essential-svelte-esm`.
-          data: { Actor: this.#doc, code: this.#code, chatTemplate: 'inventoryRollChat', roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
+          data: { doc: this.#doc, code: this.#code, chatTemplate: 'inventoryRollChat', roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
         }
       }
     });

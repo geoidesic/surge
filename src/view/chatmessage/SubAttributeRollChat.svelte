@@ -1,7 +1,7 @@
 <!-- Super simple Svelte component that takes in a prop and outputs it. -->
 <script>
   // this can be modified to include different templates based on the received data
-  export let Actor = void 0;
+  export let doc = void 0;
   export let roll = void 0;
   export let code = void 0;
   export let noOfDice = void 0;
@@ -10,11 +10,11 @@
   import { attributes } from "~/helpers/Constants.js";
   import RollChat from "./RollChat.svelte";
 
-  // console.log("AttributeRollChat");
-  // console.log(Actor);
+  console.log("AttributeRollChat");
+  console.log(doc);
   // console.log(Roll);
   // console.log(Roll.result);
-  $: ATT = Actor.system[code];
+  $: ATT = doc.system[code];
 
   function attributeGroup(code) {
     for (const attribute in attributes) {
@@ -28,49 +28,9 @@
 </script>
 
 <template lang="pug">
-  RollChat(Actor="{Actor}" roll="{roll}" code="{code}" noOfDice="{noOfDice}" die="{die}" className="{group}")
+  RollChat(name="{doc.name}" img="{doc.img}" roll="{roll}" code="{code}" noOfDice="{noOfDice}" die="{die}" className="{group}" superScript="{group}" level="{ATT.level}")
 
 </template>
 
 <style lang="scss" scoped>
-  img {
-    border: 5px solid var(--actor-profile-border-color);
-    border-radius: 100%;
-  }
-  .roll-container {
-    border-radius: var(--border-radius);
-    padding: 0.5rem;
-    font-size: 2rem;
-    .sub {
-      font-size: 0.7rem;
-    }
-    &.STR {
-      background-color: var(--str-color-lighter);
-    }
-    &.DEX {
-      background-color: var(--dex-color-lighter);
-    }
-    &.CHA {
-      background-color: var(--cha-color-lighter);
-    }
-    &.INT {
-      background-color: var(--int-color-lighter);
-    }
-    &.HLT {
-      background-color: var(--hlt-color-lighter);
-    }
-    &.PER {
-      background-color: var(--per-color-lighter);
-    }
-  }
-  .emboss {
-    padding: 0.5rem;
-    border-radius: var(--border-radius);
-    background-color: rgba(0, 0, 0, 0.1);
-    color: white;
-    -webkit-box-shadow: inset 5px -6px 50px -13px rgba(2, 0, 25, 0.73);
-    box-shadow: inset 5px -6px 50px -13px rgba(2, 0, 25, 0.73);
-  }
-  .roll-result {
-  }
 </style>
