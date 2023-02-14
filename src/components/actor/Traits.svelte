@@ -86,7 +86,7 @@
     });
   }
 
-  let key = "";
+  let key = false;
   let keyUp = false;
   let prevValue;
   const xpValidator = new NumericInputValidator();

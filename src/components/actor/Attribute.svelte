@@ -11,7 +11,7 @@
   const attributeOffset = 0;
 
   const doc = getContext("#doc");
-  let key = "";
+  let key = false;
   let keyUp = false;
   let prevValue;
 
