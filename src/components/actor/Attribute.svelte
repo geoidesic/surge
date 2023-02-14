@@ -4,6 +4,7 @@
   import DocInput from "~/components/actor/ActorInput.svelte";
   import XPcalc from "~/components/actor/XPcalc.js";
   import NumericInputValidator from "./NumericInputValidator";
+  import RollCalc from "./RollCalc";
 
   export let code = "";
 
@@ -131,7 +132,7 @@
 
 <template lang="pug">
   .flexrow.attribute-row(style="max-height: 1.4rem" class="{$doc.system[code].group} {code}" )
-    i.fas.fa-dice.flex0
+    i.fas.fa-dice.flex0(on:click!="{new RollCalc({doc: $doc, code: code, rollType: 'subAttribute'})}")
     h2 {code}
     //- input.base(type="number" value="{$doc.system[code].level}" on:keydown="{validate}" on:keyup="{updateBase}" disabled)
     .attribute {$doc.system[code].level}

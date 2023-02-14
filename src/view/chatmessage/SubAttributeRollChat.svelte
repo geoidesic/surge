@@ -6,11 +6,25 @@
   export let code = void 0;
   export let noOfDice = void 0;
   export let die = void 0;
+
+  import { attributes } from "~/helpers/Constants.js";
+
   // console.log("AttributeRollChat");
   // console.log(Actor);
   // console.log(Roll);
   // console.log(Roll.result);
   $: ATT = Actor.system[code];
+
+  $: group = attributes[code];
+
+  function attributeGroup(code) {
+    for (const attribute in attributes) {
+      if (attributes[attribute].includes(code)) {
+        return attribute;
+      }
+    }
+    return null; // Element not found in any property
+  }
 </script>
 
 <template lang="pug">
@@ -23,7 +37,7 @@
         caption Rolled: {code}
         caption.flex0 ({ATT})
         caption {noOfDice}d{die}
-  .roll-container(class="{code}")
+  .roll-container(class="{attributeGroup(code).toUpperCase()}")
     .emboss.flexrow
       .flex1.code-container {code.toUpperCase()}
       .flex3.right.roll-result {roll}
@@ -40,28 +54,28 @@
     padding: 0.5rem;
     font-size: 2rem;
     &.STR {
-      background-color: var(--str-color);
+      background-color: var(--str-color-lighter);
     }
     &.DEX {
-      background-color: var(--dex-color);
+      background-color: var(--dex-color-lighter);
     }
     &.CHA {
-      background-color: var(--cha-color);
+      background-color: var(--cha-color-lighter);
     }
     &.INT {
-      background-color: var(--int-color);
+      background-color: var(--int-color-lighter);
     }
     &.HLT {
-      background-color: var(--hlt-color);
+      background-color: var(--hlt-color-lighter);
     }
     &.PER {
-      background-color: var(--per-color);
+      background-color: var(--per-color-lighter);
     }
   }
   .emboss {
     padding: 0.5rem;
     border-radius: var(--border-radius);
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.1);
     color: white;
     -webkit-box-shadow: inset 5px -6px 50px -13px rgba(2, 0, 25, 0.73);
     box-shadow: inset 5px -6px 50px -13px rgba(2, 0, 25, 0.73);

@@ -46,5 +46,17 @@ export default class RolCalc {
       }
     });
   }
+  //- rolls for a SubAttribute
+  async subAttribute(Actor, code) {
+    this.roll(Actor.system[code].level, 1)
+    ChatMessage.create({
+      user: game.user.id,
+      flags: {
+        'surge': {        // Use your module ID instead of `essential-svelte-esm`.
+          data: { Actor: this.#doc, code: this.#code, chatTemplate: 'SubAttributeRollChat', roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
+        }
+      }
+    });
+  }
 
 }
