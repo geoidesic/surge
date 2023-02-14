@@ -6,7 +6,7 @@ import "./styles/Global.scss";
 
 import SurgeActorSheet from "./sheets/actor/ActorSheet";
 import SurgeItemSheet from "./sheets/item/ItemSheet";
-import MyChatMessage from './view/chatmessage/MyChatMessage.svelte';
+import SurgeRoll from './view/chatmessage/SurgeRoll.svelte';
 
 
 //- set to true to see which hooks get called
@@ -27,7 +27,7 @@ Hooks.once("init", async () => {
 
 
 /**
- * Used by chat message demo to manually attach a Svelte component, MyChatMessage, to a chat message.
+ * Used by chat message demo to manually attach a Svelte component, SurgeRoll, to a chat message.
  *
  * Note: You must manually destroy this Svelte component in an associated `preDeleteChatMessage` like the one provided
  * below. The reason being is that you are manually / conditionally creating a Svelte component that is not monitored /
@@ -37,10 +37,12 @@ Hooks.on('renderChatMessage', (message, html) => {
   // Find associated flag data scoped to your module ID. This is the easiest way to determine that this message is
   // associated with your module and has a Svelte component attached to the message content.
   const flagData = message.getFlag('surge', 'data');
+  console.log('renderChatMessage');
+  console.log(flagData);
 
   if (typeof flagData === 'object') {
     // Add the svelte component to the message instance loaded in client side memory.
-    message._svelteComponent = new MyChatMessage({ target: html[0], props: flagData });
+    message._svelteComponent = new SurgeRoll({ target: html[0], props: flagData });
   }
 });
 

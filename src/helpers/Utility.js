@@ -12,12 +12,16 @@ export function getOptions() {
 }
 
 
-export function attributeRoll(Actor, code) {
+export async function attributeRoll(Actor, code) {
+  let roll = new Roll("1d22");
+  await roll.roll({ async: false });
+  console.log("roll: ");
+  console.log(roll.result)
   ChatMessage.create({
     user: game.user.id,
     flags: {
       'surge': {        // Use your module ID instead of `essential-svelte-esm`.
-        data: { Actor, code }
+        data: { Actor, code, chatTemplate: 'AttributeRollChat', roll: roll.result }
       }
     }
   });
