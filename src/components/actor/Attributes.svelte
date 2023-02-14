@@ -5,7 +5,7 @@
   import Attribute from "~/components/actor/Attribute.svelte";
   import AttributeBlock from "~/components/actor/AttributeBlock.svelte";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
-  import { attributeRoll } from "~/helpers/Utility.js";
+  import RollCalc from "./RollCalc";
 
   let cats = ["one", "two", "three"];
   let str = ["siz", "hid", "mus", "ton", "den"];
@@ -73,14 +73,14 @@
     .flexrow
       .flexcol.str
         .flexrow.title
-          i.fas.fa-dice.flex0(on:click!="{attributeRoll($doc, 'STR')}")
+          i.fas.fa-dice.flex0(on:click!="{new RollCalc({doc: $doc, code: 'STR', rollType: 'attribute'})}")
           span.code STR 
           span.flex0.pr-sm.caption Strength
           span.val {STR}
         AttributeBlock( codes="{str}")
       .flexcol.dex
         .flexrow.title
-          i.fas.fa-dice.flex0
+          i.fas.fa-dice.flex0(on:click!="{new RollCalc({doc: $doc, code: 'DEX', rollType: 'attribute'})}")
           span.code DEX 
           span.flex0.pr-sm.caption Dexterity
           span.val {DEX}
@@ -89,14 +89,14 @@
     .flexrow
       .flexcol.cha
         .flexrow.title
-          i.fas.fa-dice.flex0
+          i.fas.fa-dice.flex0(on:click!="{new RollCalc({doc: $doc, code: 'CHA', rollType: 'attribute'})}")
           span.code CHA 
           span.flex0.pr-sm.caption Charisma
           span.val {CHA}
         AttributeBlock( codes="{cha}")
       .flexcol.int
         .flexrow.title
-          i.fas.fa-dice.flex0
+          i.fas.fa-dice.flex0(on:click!="{new RollCalc({doc: $doc, code: 'INT', rollType: 'attribute'})}")
           span.code INT 
           span.flex0.pr-sm.caption Intellect
           span.val {INT}
@@ -105,14 +105,14 @@
     .flexrow
       .flexcol.per
         .flexrow.title
-          i.fas.fa-dice.flex0
+          i.fas.fa-dice.flex0(on:click!="{new RollCalc({doc: $doc, code: 'PER', rollType: 'attribute'})}")
           span.code PER 
           span.flex0.pr-sm.caption Perception
           span.val {PER}
         AttributeBlock( codes="{per}")
       .flexcol.hlt
         .flexrow.title
-          i.fas.fa-dice.flex0
+          i.fas.fa-dice.flex0(on:click!="{new RollCalc({doc: $doc, code: 'HLT', rollType: 'attribute'})}")
           span.code HLT 
           span.flex0.pr-sm.caption Health
           span.val {HLT}
@@ -131,6 +131,7 @@
   i {
     padding: 0.2rem 0 0 0.4rem;
     margin: 0;
+    cursor: pointer;
   }
   .caption {
     font-size: 0.8rem;

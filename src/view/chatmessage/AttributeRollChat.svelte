@@ -4,11 +4,13 @@
   export let Actor = void 0;
   export let roll = void 0;
   export let code = void 0;
+  export let noOfDice = void 0;
+  export let die = void 0;
   // console.log("AttributeRollChat");
   // console.log(Actor);
   // console.log(Roll);
   // console.log(Roll.result);
-  $: STR = Actor.system[code];
+  $: ATT = Actor.system[code];
 </script>
 
 <template lang="pug">
@@ -17,8 +19,11 @@
       img(src="{Actor.img}")
     .flex3
       h1 {Actor.name}
-      p Rolled {code}
-  .roll-container
+      .flexrow
+        caption Rolled: {code}
+        caption.flex0 ({ATT})
+        caption {noOfDice}d{die}
+  .roll-container(class="{code}")
     .emboss.flexrow
       .flex1.code-container {code}
       .flex3.right.roll-result {roll}
@@ -32,9 +37,26 @@
   }
   .roll-container {
     border-radius: var(--border-radius);
-    background-color: red;
     padding: 0.5rem;
     font-size: 2rem;
+    &.STR {
+      background-color: var(--str-color);
+    }
+    &.DEX {
+      background-color: var(--dex-color);
+    }
+    &.CHA {
+      background-color: var(--cha-color);
+    }
+    &.INT {
+      background-color: var(--int-color);
+    }
+    &.HLT {
+      background-color: var(--hlt-color);
+    }
+    &.PER {
+      background-color: var(--per-color);
+    }
   }
   .emboss {
     padding: 0.5rem;
