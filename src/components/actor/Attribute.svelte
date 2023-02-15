@@ -160,6 +160,9 @@
     margin-right: 0.3rem;
     font-size: 1rem;
   }
+  .fa-dice {
+    cursor: pointer;
+  }
   input {
     padding: 0;
     margin: 0 1px;

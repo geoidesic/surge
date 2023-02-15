@@ -13,6 +13,10 @@ export function getOptions() {
   return game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT) ? !retVal : retVal;
 }
 
+export function isNumber(value) {
+  return typeof value === 'number' && isFinite(value);
+}
+
 
 // export async function attributeRoll(Actor, code) {
 //   let roll = new Roll("1d22");

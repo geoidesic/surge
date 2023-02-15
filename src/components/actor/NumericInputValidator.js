@@ -12,7 +12,7 @@ export default class NumericInputValidator {
           return { reason: "Down target value < 0" };
         } else if (event.key.includes("Up")) {
           if (value >= 0 && principal > 0) return "up";
-          return { reason: "Up target value < 0 or principal <= 0" };
+          return { reason: "There is no unspent XP available to make this change." };
         } else if (event.key.includes("Left") || event.key.includes("Right")) {
           return false; //<-- don't stop left or right keys from propagating, else we lose cursor control
         }
@@ -93,8 +93,7 @@ export default class NumericInputValidator {
       }
 
       if (typeof result !== 'undefined') {
-        console.log("validateAttributeXpInput:- validation failed for reason: " + result.reason);
-
+        ui.notifications.notify(result.reason, 'warning');
         event.preventDefault();
         event.stopPropagation();
         return false;
