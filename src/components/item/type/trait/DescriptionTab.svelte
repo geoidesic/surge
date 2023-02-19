@@ -6,8 +6,7 @@
   import { getContext } from "svelte";
 
   const doc = getContext("#doc");
-  console.log("Trait Descriptions");
-  console.log($doc);
+  $: parentIsActor = $doc.parent?.constructor?.name == "Actor" ? true : false;
 </script>
 
 <template lang="pug">
@@ -17,14 +16,18 @@
         .flexcol.flex1.left
           h1.flex0 Properties
           
-          label Cost
-          DocInput(attr="system.xpOffset" inputType="number")
-          label Code
-          DocInput(attr="system.code")
-          label XP
-          DocInput(attr="system.xpAssigned")
-          label Level
-          DocInput(attr="system.level")
+          div
+            label Cost
+            DocInput(attr="system.xpOffset" inputType="number")
+          div
+            label Code
+            DocInput(attr="system.code")
+          +if("parentIsActor")
+            label XP
+            DocInput(attr="system.xpAssigned")
+          +if("parentIsActor")
+            label Level
+            DocInput(attr="system.level")
           
           
         .flexcol.flex3.left
