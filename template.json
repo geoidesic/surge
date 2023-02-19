@@ -445,10 +445,20 @@
       "templates": [
         "base"
       ],
-      "code": "",
       "xpOffset": 0,
-      "xpAssigned": 0,
-      "level": 0
+      "contestedBy": [],
+      "range": 0,
+      "dmg": 0,
+      "aoe": 0,
+      "aoeType": "none",
+      "isBuff": false,
+      "isDebuff": false,
+      "isAttack": false,
+      "effectType": "active",
+      "mods": [],
+      "target": "self",
+      "reqs": [],
+      "reqType": 0
     }
   }
 }
