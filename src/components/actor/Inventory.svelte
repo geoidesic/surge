@@ -95,10 +95,9 @@
     console.log(index);
     console.log(item);
   }
+
   function editItem(index, item) {
-    console.log("editItem");
-    console.log(index);
-    console.log(item);
+    item.sheet.render(true);
   }
 
   function toggleLock() {
