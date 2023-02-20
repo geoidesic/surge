@@ -367,13 +367,17 @@
   },
   "Item": {
     "types": [
-      "trait",
-      "weapon",
       "ammunition",
-      "shield",
-      "clothing",
       "armour",
-      "container"
+      "clothing",
+      "container",
+      "feat",
+      "flaw",
+      "shield",
+      "skill",
+      "spell",
+      "talent",
+      "weapon"
     ],
     "templates": {
       "base": {
@@ -391,6 +395,19 @@
       "equippable": {
         "equipped": false,
         "elligibleLocations": []
+      },
+      "trait": {
+        "xpOffset": 0,
+        "xp": 0,
+        "level": 0,
+        "contestedBy": [],
+        "APcost": 1,
+        "mods": [],
+        "reqs": [],
+        "effectType": "",
+        "effectStatus": "active",
+        "target": "self",
+        "reqType": 0
       }
     },
     "weapon": {
@@ -441,24 +458,42 @@
         "object"
       ]
     },
-    "trait": {
+    "spell": {
       "templates": [
-        "base"
+        "base",
+        "trait"
       ],
-      "xpOffset": 0,
-      "contestedBy": [],
+      "manaType": "",
       "range": 0,
       "dmg": 0,
-      "aoe": 0,
       "aoeType": "none",
-      "isBuff": false,
-      "isDebuff": false,
-      "isAttack": false,
-      "effectType": "active",
-      "mods": [],
-      "target": "self",
-      "reqs": [],
-      "reqType": 0
+      "aoe": 0,
+      "duration": "instant"
+    },
+    "skill": {
+      "templates": [
+        "base",
+        "trait"
+      ]
+    },
+    "feat": {
+      "templates": [
+        "base",
+        "trait"
+      ]
+    },
+    "talent": {
+      "templates": [
+        "base",
+        "trait"
+      ]
+    },
+    "flaw": {
+      "templates": [
+        "base",
+        "trait"
+      ],
+      "xpBonus": 1
     }
   }
 }

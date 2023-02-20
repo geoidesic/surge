@@ -16,6 +16,8 @@
   import ContainerTabs from "~/components/item/type/container/ContainerTabs.svelte";
   import ShieldHeader from "~/components/item/type/shield/ShieldHeader.svelte";
   import ShieldTabs from "~/components/item/type/shield/ShieldTabs.svelte";
+  import SpellHeader from "~/components/item/type/spell/SpellHeader.svelte";
+  import SpellTabs from "~/components/item/type/spell/SpellTabs.svelte";
   import TraitHeader from "~/components/item/type/trait/TraitHeader.svelte";
   import TraitTabs from "~/components/item/type/trait/TraitTabs.svelte";
 
@@ -24,22 +26,24 @@
   export let document; //- passed in by DocumentSheet.js where it attaches DocumentShell to the DOM body
 
   const headerMap = {
-    weapon: WeaponHeader,
-    ammunition: AmmunitionHeader,
     armour: ArmourHeader,
+    ammunition: AmmunitionHeader,
     clothing: ClothingHeader,
     container: ContainerHeader,
     shield: ShieldHeader,
+    spell: SpellHeader,
     trait: TraitHeader,
+    weapon: WeaponHeader,
   };
   const tabMap = {
-    weapon: WeaponTabs,
     ammunition: AmmunitionTabs,
     armour: ArmourTabs,
     clothing: ClothingTabs,
     container: ContainerTabs,
     shield: ShieldTabs,
+    spell: SpellTabs,
     trait: TraitTabs,
+    weapon: WeaponTabs,
   };
   // console.log("game", game);
   // console.log("documentStore", documentStore);

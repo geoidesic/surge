@@ -4,7 +4,7 @@
   import { getContext } from "svelte";
   import { rippleFocus } from "@typhonjs-fvtt/svelte-standard/action";
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
-  import { createFilterQuery } from "./filterQuery";
+  import { createFilterQuery } from "~/filters/inventoryFilterQuery";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
   import { validateNumericInput } from "~/helpers/Utility.js";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
@@ -22,7 +22,7 @@
   const typeSearch = createFilterQuery("type");
 
   if (!$doc.system.currentItemTypeFilter) {
-    $doc.system.currentItemTypeFilter = "all";
+    $doc.system.currentItemTypeFilter = "all-inventory";
   }
 
   let typeFilterValue = $doc.system.currentItemTypeFilter;
@@ -60,7 +60,6 @@
       label: "Weapon",
     },
   ];
-  //- @todo: change the type filter from some button tabs. Do we really need to see all the inventory at once?
 
   const input = {
     store: nameSearch,

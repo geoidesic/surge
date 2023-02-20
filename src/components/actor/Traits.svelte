@@ -4,7 +4,7 @@
   import { getContext } from "svelte";
   import { rippleFocus } from "@typhonjs-fvtt/svelte-standard/action";
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
-  import { createFilterQuery } from "@typhonjs-fvtt/svelte-standard/store";
+  import { createFilterQuery } from "~/filters/traitsFilterQuery";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
   import NumericInputValidator from "./NumericInputValidator";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
@@ -13,16 +13,52 @@
   import ItemInput from "~/components/item/ItemInput.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
   import XPcalc from "~/components/actor/XPcalc.js";
+  import Select from "~/helpers/svelte-components/select/Select.svelte";
   import RollCalc from "./RollCalc";
-
-  // const doc = getContext("#doc");
 
   const Actor = getContext("#doc");
   const doc = new TJSDocument($Actor);
 
   const nameSearch = createFilterQuery("name");
   const typeSearch = createFilterQuery("type");
-  typeSearch.set("trait");
+
+  // typeSearch.set("trait"); //- @deprecated as Trait is now a collective term for other types
+
+  if (!$doc.system.currentItemTypeFilter) {
+    $doc.system.currentItemTypeFilter = "all-traits";
+  }
+
+  let typeFilterValue = $doc.system.currentItemTypeFilter;
+
+  $: $doc.system.currentItemTypeFilter = typeFilterValue;
+  $: typeSearch.set(typeFilterValue);
+
+  const typeFilterOptions = [
+    {
+      value: "all",
+      label: "All",
+    },
+    {
+      value: "feat",
+      label: "Feat",
+    },
+    {
+      value: "flaw",
+      label: "Flaw",
+    },
+    {
+      value: "skill",
+      label: "Skill",
+    },
+    {
+      value: "spell",
+      label: "Spell",
+    },
+    {
+      value: "talent",
+      label: "Talent",
+    },
+  ];
 
   const input = {
     store: nameSearch,
@@ -42,6 +78,10 @@
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
   $: xpUnspent = parseInt($doc.system.xpUnspent) || 0;
+
+  Hooks.on("createItem", async (item) => {
+    console.log(item);
+  });
 
   /**
    * Handles parsing the drop event and sets new document source.
@@ -166,10 +206,14 @@
 <template lang="pug">
   ScrollingContainer
     .flexrow.pt-sm.pr-sm
-      .flexcol.flex1(style="justify-content: center")
+      .flexcol.flex1.label-container 
         label Search
       .flex3.left
         TJSInput({input}) {$wildcard}
+      .flexcol.flex1.label-container 
+        label Type
+      .flex3.right
+        Select(options="{typeFilterOptions}" bind:value="{typeFilterValue}")
     
 
     div.pa-sm

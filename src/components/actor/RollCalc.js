@@ -22,13 +22,17 @@ export default class RollCalc {
   }
 
   isContest() {
-    return !!canvas.tokens.controlled?.length || false;
+
+    //- targeted tokens
+    // console.log(Array.from(game.user.targets));
+
+    //- selected tokens
+    // console.log(canvas.tokens.controlled);
+    return !!Array.from(game.user.targets)?.length || false;
   }
 
-  async roll(level, noOfDice = 1) {
-
-    level = isNumber(level) ? parseInt(level) : parseInt(this.#params.level);
-
+  async roll(level = Number(this.#params?.level) || 0, noOfDice = 1) {
+    level = Number(level);
     this.#noOfDice = noOfDice;
     this.#die = this.getLevelDie(level);
     this.#roll = new Roll(`${this.#noOfDice}d${this.#die}`);
@@ -41,7 +45,7 @@ export default class RollCalc {
       user: game.user.id,
       flags: {
         'surge': {        // Use your module ID instead of `essential-svelte-esm`.
-          data: { ...props, doc: this.#params.doc, roll: this.#roll.result, noOfDice: this.#noOfDice, die: this.#die }
+          data: { ...props, doc: this.#params.doc, noOfDice: this.#noOfDice, die: this.#die }
         }
       }
     });
@@ -51,25 +55,35 @@ export default class RollCalc {
   async attribute(Actor, code) {
     console.log(Actor);
     this.roll(Actor.system[code], 1)
-    this.createChatMessage({ code: this.#params.code, chatTemplate: 'AttributeRollChat', })
+    this.createChatMessage({ code: this.#params.code, roll: this.#roll.result, chatTemplate: 'AttributeRollChat', })
   }
   //- rolls for a SubAttribute
   async subAttribute(Actor, code) {
     console.log(Actor);
     console.log(code);
     this.roll(Actor.system[code].level, 1)
-    this.createChatMessage({ code: this.#params.code, chatTemplate: 'SubAttributeRollChat' })
+    this.createChatMessage({ code: this.#params.code, roll: this.#roll.result, chatTemplate: 'SubAttributeRollChat' })
   }
   //- rolls for a Traits
   async trait(Item, code) {
     this.roll(Item.system[code], 1)
-    this.createChatMessage({ Item, Actor: this.#params.Actor, code: this.#params.code, chatTemplate: 'TraitRollChat' });
+    this.createChatMessage({ Item, Actor: this.#params.Actor, code: this.#params.code, roll: this.#roll.result, chatTemplate: 'TraitRollChat' });
   };
 
   //- rolls for a Traits
   async inventory(Item, code) {
-    this.roll(Item.system[code], 1)
-    this.createChatMessage({ Item, Actor: this.#params.Actor, code: this.#params.code, chatTemplate: 'InventoryRollChat' });
+    if (!this.isContest()) {
+      console.log('NO CONTEST')
+      console.log(Item.system[code])
+      this.roll(Item.system[code], 1)
+      this.createChatMessage({ Item, Actor: this.#params.Actor, code: this.#params.code, roll: this.#roll.result, chatTemplate: 'InventoryRollChat' });
+    } else {
+      const itemRollResult = this.roll(Item.system[code], 1)
+      const results = Array.from(game.user.targets).map((target) => {
+        return this.roll(target.system.DEX, 1);
+      });
+      this.createChatMessage({ Item, Actor: this.#params.Actor, code: this.#params.code, roll: itemRollResult, targetResults: results, chatTemplate: 'ContestedInventoryRollChat' });
+    }
   }
 }
 

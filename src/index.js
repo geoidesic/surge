@@ -10,7 +10,7 @@ import SurgeRoll from './view/chatmessage/SurgeRoll.svelte';
 
 
 //- set to true to see which hooks get called
-CONFIG.debug.hooks = false;
+CONFIG.debug.hooks = true;
 
 Hooks.once("init", async () => {
   console.log("SURGE | Starting Surge VTTRPG System");
@@ -37,8 +37,6 @@ Hooks.on('renderChatMessage', (message, html) => {
   // Find associated flag data scoped to your module ID. This is the easiest way to determine that this message is
   // associated with your module and has a Svelte component attached to the message content.
   const flagData = message.getFlag('surge', 'data');
-  console.log('renderChatMessage');
-  console.log(flagData);
 
   if (typeof flagData === 'object') {
     // Add the svelte component to the message instance loaded in client side memory.
