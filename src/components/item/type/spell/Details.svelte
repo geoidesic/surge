@@ -114,6 +114,8 @@
       vertical-align: -webkit-baseline-middle;
     }
   }
+
+  //- example of child selector
   .block :global(.cheeky) {
     margin: 0 0 0 -2px;
   }
