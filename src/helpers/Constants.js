@@ -141,6 +141,27 @@ export const timeUnits = [
   },
 ]
 
+export const effectType = [
+  {
+    value: "active",
+    label: "active"
+  },
+  {
+    value: "passive",
+    label: "passive"
+  },
+]
+export const effectStatus = [
+  {
+    value: "on",
+    label: "on"
+  },
+  {
+    value: "off",
+    label: "off"
+  },
+]
+
 export default {
   lvlCost,
   attributes

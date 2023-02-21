@@ -382,7 +382,9 @@
     "templates": {
       "base": {
         "description": "",
-        "favourite": false
+        "gmNotes": "",
+        "favourite": false,
+        "chatFlavour": ""
       },
       "object": {
         "size": 1,
@@ -471,7 +473,16 @@
       "aoeScale": 0,
       "hasAOE": false,
       "duration": "0",
-      "durationUnits": "rounds"
+      "durationUnits": "rounds",
+      "componentsM": false,
+      "componentsV": true,
+      "componentsS": true,
+      "Mcomponents": "",
+      "McomponentConsumed": true,
+      "concentration": true,
+      "concentrationCost": 0,
+      "ritual": false,
+      "rune": false
     },
     "skill": {
       "templates": [

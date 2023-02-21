@@ -40,8 +40,6 @@
           div 
             label Target
               TJSSelect(options="{targets}" bind:value="{$doc.system.target}")
-
-
           
         .flexcol.flex3.left
           h1.flex0 Description

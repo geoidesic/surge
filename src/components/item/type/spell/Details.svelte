@@ -4,7 +4,7 @@
   import DocInput from "~/components/item/ItemInput.svelte";
   import { TJSSelect } from "@typhonjs-fvtt/svelte-standard/component";
   import { getContext } from "svelte";
-  import { AOEshapes, timeUnits } from "~/helpers/Constants.js";
+  import { AOEshapes, timeUnits, effectType } from "~/helpers/Constants.js";
 
   const doc = getContext("#doc");
   $: parentIsActor = $doc.parent?.constructor?.name == "Actor" ? true : false;
@@ -28,7 +28,7 @@
               div
                 input
               div
-                select
+                TJSSelect(options="{effectType}" bind:value="{$doc.system.durationUnits}")
               div
                 select
       .flexcol

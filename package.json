@@ -13,6 +13,7 @@
     "@typhonjs-fvtt/svelte-standard": "^0.0.17",
     "lodash": "^4.17.21",
     "svelte": "^3.52.0",
+    "svelte-multiselect": "^8.3.0",
     "tippy.js": "^6.3.7",
     "uuid": "^9.0.0"
   },
