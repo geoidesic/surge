@@ -5,9 +5,7 @@
   let Template;
 
   onMount(async () => {
-    import(`./${chatTemplate}.svelte`).then((module) => {
-      Template = module.default;
-    });
+    Template = (await import(`./${chatTemplate}.svelte`)).default;
   });
 </script>
 

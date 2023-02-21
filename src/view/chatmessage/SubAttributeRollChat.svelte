@@ -1,4 +1,3 @@
-<!-- Super simple Svelte component that takes in a prop and outputs it. -->
 <script>
   // this can be modified to include different templates based on the received data
   export let doc = void 0;
@@ -10,7 +9,7 @@
   import { attributes } from "~/helpers/Constants.js";
   import RollChat from "./RollChat.svelte";
 
-  console.log("AttributeRollChat");
+  console.log("SubAttributeRollChat");
   console.log(doc);
   // console.log(Roll);
   // console.log(Roll.result);
