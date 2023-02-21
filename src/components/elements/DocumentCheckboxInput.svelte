@@ -13,6 +13,7 @@
 </script>
 
 <input
+  class={$$props.class}
   type="checkbox"
   bind:checked={value}
   disabled={disabled || !$document.isOwner}

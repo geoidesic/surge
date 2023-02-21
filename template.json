@@ -403,6 +403,7 @@
         "contestedBy": [],
         "APcost": 1,
         "mods": [],
+        "hasReqs": false,
         "reqs": [],
         "effectType": "",
         "effectStatus": "active",
@@ -467,8 +468,10 @@
       "range": 0,
       "dmg": 0,
       "aoeType": "none",
-      "aoe": 0,
-      "duration": "instant"
+      "aoeScale": 0,
+      "hasAOE": false,
+      "duration": "0",
+      "durationUnits": "rounds"
     },
     "skill": {
       "templates": [

@@ -1,4 +1,3 @@
-<!-- Super simple Svelte component that takes in a prop and outputs it. -->
 <script>
   // this can be modified to include different templates based on the received data
   export let img = void 0;
