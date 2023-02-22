@@ -406,8 +406,11 @@
         "APcost": 1,
         "mods": [],
         "hasReqs": false,
-        "reqType": 0,
-        "reqs": []
+        "reqs": [],
+        "effectType": "",
+        "effectStatus": "active",
+        "target": "self",
+        "reqType": 0
       },
       "activatedEffect": {
         "activation": {
@@ -442,7 +445,7 @@
           "target": null,
           "amount": null
         }
-      }
+      },
     },
     "weapon": {
       "templates": [

@@ -6,5 +6,9 @@
   "LOCAL.uncommon.label": "Uncommon",
   "LOCAL.rare.label": "Rare",
   "LOCAL.legendary.label": "Legendary",
-  "LOCAL.singular.label": "Singular"
+  "LOCAL.singular.label": "Singular",
+  "SURGE.DurationUnits": "Duration Units",
+  "SURGE.DurationType": "Duration Type",
+  "SURGE.TargetUnits": "Target Units",
+  "SURGE.TargetType": "Target Type"
 }
