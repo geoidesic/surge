@@ -141,7 +141,7 @@ export const timeUnits = [
   },
 ]
 
-export const effectType = [
+export const effectTypes = [
   {
     value: "active",
     label: "active"

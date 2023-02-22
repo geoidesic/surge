@@ -1,10 +1,13 @@
 <script>
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentCheckboxInput from "~/components/elements/DocumentCheckboxInput.svelte";
+  import DocumentSelect from "~/components/elements/DocumentSelect.svelte";
+  import DocumentRaritySelect from "~/components/elements/DocumentRaritySelect.svelte";
   import DocInput from "~/components/item/ItemInput.svelte";
-  import { TJSSelect } from "@typhonjs-fvtt/svelte-standard/component";
+  import Select from "~/helpers/svelte-components/select/Select.svelte";
+  import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
   import { getContext } from "svelte";
-  import { AOEshapes, timeUnits, effectType, targets } from "~/helpers/Constants.js";
+  import { AOEshapes, manaTypes, timeUnits, effectTypes, targets } from "~/helpers/Constants.js";
 
   const doc = getContext("#doc");
   $: parentIsActor = $doc.parent?.constructor?.name == "Actor" ? true : false;
@@ -21,34 +24,34 @@
             .form-group.stacked
               h2 Spell Components
               label.checkbox
-                DocumentCheckboxInput(name='system.components.vocal' bind:value="{$doc.system.componentsM.vocal}") 
+                DocumentCheckboxInput(name='system.components.vocal' bind:value="{$doc.system.components.vocal}") 
                 | Verbal
 
               label.checkbox
-                DocumentCheckboxInput(name='system.components.somatic' bind:value="{$doc.system.componentsM.somatic}") 
+                DocumentCheckboxInput(name='system.components.somatic' bind:value="{$doc.system.components.somatic}") 
                 | Somatic
 
               label.checkbox
-                DocumentCheckboxInput(name='system.components.material' bind:value="{$doc.system.componentsM.material}") 
+                DocumentCheckboxInput(name='system.components.material' bind:value="{$doc.system.components.material}") 
                 | Material
 
               label.checkbox
-                DocumentCheckboxInput(name='system.components.concentration' bind:value="{$doc.system.componentsM.concentration}") 
+                DocumentCheckboxInput(name='system.components.concentration' bind:value="{$doc.system.components.concentration}") 
                 | Concentration
 
               label.checkbox
-                DocumentCheckboxInput(name='system.components.ritual' bind:value="{$doc.system.componentsM.ritual}") 
+                DocumentCheckboxInput(name='system.components.ritual' bind:value="{$doc.system.components.ritual}") 
                 | Ritual
 
               label.checkbox
-                DocumentCheckboxInput(name='system.components.rune' bind:value="{$doc.system.componentsM.rune}") 
+                DocumentCheckboxInput(name='system.components.rune' bind:value="{$doc.system.components.rune}") 
                 | Rune
 
          
           .form-group.stacked
             label.left Spellcasting Materials
             label 
-              DocInput(style="width: 100%" attr="system.Mcomponents" placeholder="@todo: link this to a compendium and make it a select. Add `consumed` checkbox. Make it auto-consume resource if present. And it should not allow casting unless material is present. ")
+              DocInput( attr="system.Mcomponents" placeholder="@todo: link this to a compendium and make it a select. Add `consumed` checkbox. Make it auto-consume resource if present. And it should not allow casting unless material is present. ")
         .envelope
           h2.mt-none Detail
           .flexrow
@@ -89,10 +92,17 @@
             DocInput(attr="system.APcost")
 
           .flexrow.left.mt-xs
+            label.flex1 Rarity
+            DocumentRaritySelect(bind:value='{$doc.system.rarity}')
+          .flexrow.left.mt-xs
+            label.flex1 Mana Type
+            DocumentSelect(bind:value="{$doc.system.manaType}" options="{manaTypes}")
+
+          .flexrow.left.mt-xs
             label.flex1 Duration
-            .form-fields.flex3.flexrow
-              input.flex0(type='number' step='any' name='system.target.value' bind:value="{$doc.system.duration.value}" placeholder='—')
-              select(name='system.duration.units' data-tooltip='SURGE.DurationUnits' aria-describedby='tooltip' bind:value="{$doc.system.target.units}")
+            .form-fields.flexrow
+              input.flex1(type="number" name="system.duration.value" step='any' placeholder='—' bind:value="{$doc.system.duration.value}" data-tooltip="SURGE.DurationValue" aria-describedby="tooltip")
+              select(name='system.duration.units' data-tooltip='SURGE.DurationUnits' aria-describedby='tooltip' bind:value="{$doc.system.duration.units}")
                 option(value)
                 option(value='inst') Instantaneous
                 option(value='turn') Turns
@@ -149,7 +159,19 @@
                 option(value='touch') Touch
                 option(value='spec') Special
                 option(value='any') Any
-
+          .flexrow.left.mt-xs
+            label Limited Uses
+            .form-fields
+              input(type='number' step='any' name='system.uses.value' data-tooltip='DND5E.UsesAvailable' bind:value="{$doc.system.uses.value}")
+              span.sep of
+              input(type='text' name='system.uses.max' data-tooltip='DND5E.UsesMax'  aria-describedby='tooltip' bind:value="{$doc.system.uses.max}")
+              span.sep per
+              select(name='system.uses.per' data-tooltip='DND5E.UsesPeriod' aria-describedby='tooltip' bind:value="{$doc.system.uses.per}")
+                option(value selected)
+                option(value='sr') Short Rest
+                option(value='lr') Long Rest
+                option(value='day') Day
+                option(value='charges') Charges
       .px-xs
         .flexcol
           .envelope
@@ -166,7 +188,7 @@
                 div
                   input(type="number bind:value")
                 div
-                  TJSSelect(options="{effectType}" bind:value="{$doc.system.durationUnits}")
+                  Select(options="{effectTypes}" value="{$doc.system.durationUnits}")
                 div
                   select
               

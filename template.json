@@ -495,16 +495,11 @@
     "spell": {
       "templates": [
         "base",
-        "trait"
+        "trait",
+        "activatedEffect"
       ],
       "manaType": "",
-      "range": 0,
-      "dmg": 0,
-      "aoeType": "none",
-      "aoeScale": 0,
-      "hasAOE": false,
-      "duration": "0",
-      "durationUnits": "rounds",
+      "school": "",
       "components": {
         "vocal": false,
         "somatic": false,

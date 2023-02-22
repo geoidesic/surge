@@ -10,16 +10,18 @@
 
 <template lang="pug">
 section.extra-info.flexrow
-  .stat
-    .input
-      DocumentRaritySelect(bind:value='{$doc.system.rarity}')
-  .stat
-    .input
-      TJSSelect(options="{manaTypes}" bind:value='{$doc.system.manaType}')
+//-   .stat
+//-     .input
+//-       DocumentRaritySelect(bind:value='{$doc.system.rarity}')
+//-   .stat
+//-     .input
+//-       select(bind:value="{$doc.system.manaType}")
+//-         +each("manaTypes as manaType")
+//-           option(value="{manaType.value}") {manaType.label}
 
-section.extra-info.flexrow
-  div Rarity
-  div Mana Type
+//- section.extra-info.flexrow
+//-   div Rarity
+//-   div Mana Type
 </template>
 
 <style lang="scss" scoped>
