@@ -10,7 +10,8 @@ export default class SurgeItemSheet extends SvelteDocumentSheet {
     // Hooks.off('renderApplication', this._onRenderApplication);
 
     console.log('>>>>>>>>>> close Item Sheet >>>>>>>>>>')
-
+    console.log(arguments);
+    console.log(this);
     return super.close(options);
   }
 

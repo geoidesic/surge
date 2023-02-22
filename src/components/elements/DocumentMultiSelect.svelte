@@ -1,8 +1,8 @@
 <script>
-  import Select from "~/helpers/svelte-components/select/Select.svelte";
+  import MultiSelect from "svelte-multiselect";
+  import PrerequisiteSelectImage from "~/components/elements/PrerequisiteSelectImage.svelte";
   import { getContext } from "svelte";
 
-  // The value of the input
   export let value;
   export let options = undefined;
 
@@ -12,18 +12,19 @@
   const document = getContext("#doc");
 </script>
 
-<Select
+<MultiSelect
   {...$$restProps}
   bind:options
   bind:value
   disabled={disabled || !$document.isOwner}
-  on:change
   on:change={async () => {
     $document.update({
       system: $document.system,
       flags: $document.flags,
     });
+    console.log($document);
+    console.log($document);
   }}
 >
-  <slot />
-</Select>
+  <PrerequisiteSelectImage let:idx {idx} let:option {option} slot="option" />
+</MultiSelect>

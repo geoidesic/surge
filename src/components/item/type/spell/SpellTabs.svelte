@@ -7,9 +7,9 @@
   let activeTab = "description";
   // Tabs
   const tabs = [
-    { label: "description", id: "description", component: Description },
-    { label: "details", id: "details", component: Details },
-    { label: "effects", id: "effects", component: Effects },
+    { label: "Description", id: "description", component: Description },
+    { label: "Details", id: "details", component: Details },
+    { label: "Effects", id: "effects", component: Effects },
   ];
 </script>
 

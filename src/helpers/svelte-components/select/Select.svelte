@@ -5,7 +5,7 @@
   export let disabled = false;
 </script>
 
-<select bind:value on:change selected={value} {disabled}>
+<select {...$$restProps} bind:value on:change selected={value} {disabled}>
   {#if options && options.length}
     {#each options as option}
       <option value={option.value}>

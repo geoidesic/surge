@@ -21,6 +21,7 @@
   const nameSearch = createFilterQuery("name");
   const typeSearch = createFilterQuery("type");
 
+  //- @todo: is this necessary / correct?
   if (!$doc.system.currentItemTypeFilter) {
     $doc.system.currentItemTypeFilter = "all-inventory";
   }

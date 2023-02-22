@@ -24,6 +24,7 @@
 
   // typeSearch.set("trait"); //- @deprecated as Trait is now a collective term for other types
 
+  //- @todo: is this necessary / correct?
   if (!$doc.system.currentItemTypeFilter) {
     $doc.system.currentItemTypeFilter = "all-traits";
   }
