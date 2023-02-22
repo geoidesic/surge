@@ -122,6 +122,78 @@ export const manaTypes = [
   },
 ]
 
+export const distanceUnits = [
+  {
+    value: "",
+    label: "",
+    selected: true
+  },
+
+  {
+    value: "ft",
+    label: "Feet"
+  },
+  {
+    value: "mi",
+    label: "Miles"
+  },
+  {
+    value: "m",
+    label: "Meters"
+  },
+  {
+    value: "km",
+    label: "Kilometers"
+  }
+]
+
+export const durationTypes = [
+  {
+    value: "",
+    label: "",
+  },
+  {
+    value: 'inst',
+    label: "Instantaneous",
+  },
+  {
+    value: 'turn',
+    label: "Turns",
+  },
+  {
+    value: 'round',
+    label: "Rounds",
+  },
+  {
+    value: 'minute',
+    label: "Minutes",
+  },
+  {
+    value: 'hour',
+    label: "Hours",
+  },
+  {
+    value: 'day',
+    label: "Days",
+  },
+  {
+    value: 'month',
+    label: "Months",
+  },
+  {
+    value: 'year',
+    label: "Years",
+  },
+  {
+    value: 'perm',
+    label: "Permanent",
+  },
+  {
+    value: 'spec',
+    label: "Special",
+  },
+]
+
 export const timeUnits = [
   {
     value: "rounds",

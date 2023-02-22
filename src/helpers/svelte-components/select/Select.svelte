@@ -6,11 +6,14 @@
 </script>
 
 <select bind:value on:change selected={value} {disabled}>
-  {#each options as option}
-    <option value={option.value}>
-      {option.label}
-    </option>
-  {/each}
+  {#if options && options.length}
+    {#each options as option}
+      <option value={option.value}>
+        {option.label}
+      </option>
+    {/each}
+  {/if}
+  <slot />
 </select>
 
 <style lang="scss">

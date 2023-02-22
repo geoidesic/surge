@@ -23,4 +23,6 @@
       flags: $document.flags,
     });
   }}
-/>
+>
+  <slot />
+</Select>

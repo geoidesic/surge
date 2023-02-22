@@ -2,12 +2,20 @@
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentCheckboxInput from "~/components/elements/DocumentCheckboxInput.svelte";
   import DocumentSelect from "~/components/elements/DocumentSelect.svelte";
+  import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
   import DocumentRaritySelect from "~/components/elements/DocumentRaritySelect.svelte";
   import DocInput from "~/components/item/ItemInput.svelte";
-  import Select from "~/helpers/svelte-components/select/Select.svelte";
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
   import { getContext } from "svelte";
-  import { AOEshapes, manaTypes, timeUnits, effectTypes, targets } from "~/helpers/Constants.js";
+  import {
+    AOEshapes,
+    manaTypes,
+    timeUnits,
+    effectTypes,
+    targets,
+    durationTypes,
+    distanceUnits,
+  } from "~/helpers/Constants.js";
 
   const doc = getContext("#doc");
   $: parentIsActor = $doc.parent?.constructor?.name == "Actor" ? true : false;
@@ -101,31 +109,15 @@
           .flexrow.left.mt-xs
             label.flex1 Duration
             .form-fields.flexrow
-              input.flex1(type="number" name="system.duration.value" step='any' placeholder='—' bind:value="{$doc.system.duration.value}" data-tooltip="SURGE.DurationValue" aria-describedby="tooltip")
-              select(name='system.duration.units' data-tooltip='SURGE.DurationUnits' aria-describedby='tooltip' bind:value="{$doc.system.duration.units}")
-                option(value)
-                option(value='inst') Instantaneous
-                option(value='turn') Turns
-                option(value='round') Rounds
-                option(value='minute' selected) Minutes
-                option(value='hour') Hours
-                option(value='day') Days
-                option(value='month') Months
-                option(value='year') Years
-                option(value='perm') Permanent
-                option(value='spec') Special
+              DocumentTextInput.flex1(type="number" name="system.duration.value" step='any' placeholder='—' bind:value="{$doc.system.duration.value}" data-tooltip="SURGE.DurationValue" aria-describedby="tooltip")
+              DocumentSelect(name='system.duration.units' data-tooltip='SURGE.DurationUnits' aria-describedby='tooltip' bind:value="{$doc.system.duration.units}" options="{durationTypes}")
              
           .flexrow.left.mt-xs
             label.flex1 Target
             .form-fields.flex3.flexrow
-              input.flex0(type='number' step='any' name='system.target.value'  placeholder='—' bind:value="{$doc.system.target.value}")
-              select(name='system.target.units' data-tooltip='SURGE.TargetUnits' aria-describedby='tooltip' bind:value="{$doc.system.target.units}")
-                option(value selected)
-                option(value='ft') Feet
-                option(value='mi') Miles
-                option(value='m') Meters
-                option(value='km') Kilometers
-              select(name='system.target.type' data-tooltip='SURGE.TargetType' aria-describedby='tooltip' bind:value="{$doc.system.target.type}")
+              DocumentTextInput.flex0(type='number' step='any' name='system.target.value'  placeholder='—' bind:value="{$doc.system.target.value}")
+              DocumentSelect(name='system.target.units' data-tooltip='SURGE.TargetUnits' aria-describedby='tooltip' bind:value="{$doc.system.target.units}" options="{distanceUnits}")
+              DocumentSelect(name='system.target.type' data-tooltip='SURGE.TargetType' aria-describedby='tooltip' bind:value="{$doc.system.target.type}")
                 option(value) None
                 optgroup(label='Individual')
                   option(value='self') Self
@@ -146,9 +138,9 @@
           .flexrow.left.mt-xs
             label.flex1 Range
             .form-fields.flex3.flexrow
-              input(type="number" step="any" name="system.range.value" placeholder="Normal" data-tooltip="DND5E.RangeNormal" aria-describedby="tooltip" bind:value="{$doc.system.range.value}")
+              DocumentTextInput(type="number" step="any" name="system.range.value" placeholder="Normal" data-tooltip="DND5E.RangeNormal" aria-describedby="tooltip" bind:value="{$doc.system.range.value}")
               span.flex0 /
-              input(type='number' step='any' name='system.range.long' value='0' placeholder='Long' data-tooltip='DND5E.RangeLong' aria-describedby='tooltip')
+              DocumentTextInput(type='number' step='any' name='system.range.long' value='0' placeholder='Long' data-tooltip='DND5E.RangeLong' aria-describedby='tooltip')
               select(name='system.range.units' data-tooltip='DND5E.RangeUnits' aria-describedby='tooltip' bind:value="{$doc.system.range.units}")
                 option(value) None
                 option(value='ft' selected) Feet
@@ -162,9 +154,9 @@
           .flexrow.left.mt-xs
             label Limited Uses
             .form-fields
-              input(type='number' step='any' name='system.uses.value' data-tooltip='DND5E.UsesAvailable' bind:value="{$doc.system.uses.value}")
+              DocumentTextInput(type='number' step='any' name='system.uses.value' data-tooltip='DND5E.UsesAvailable' bind:value="{$doc.system.uses.value}")
               span.sep of
-              input(type='text' name='system.uses.max' data-tooltip='DND5E.UsesMax'  aria-describedby='tooltip' bind:value="{$doc.system.uses.max}")
+              DocumentTextInput(type='text' name='system.uses.max' data-tooltip='DND5E.UsesMax'  aria-describedby='tooltip' bind:value="{$doc.system.uses.max}")
               span.sep per
               select(name='system.uses.per' data-tooltip='DND5E.UsesPeriod' aria-describedby='tooltip' bind:value="{$doc.system.uses.per}")
                 option(value selected)
@@ -188,7 +180,7 @@
                 div
                   input(type="number bind:value")
                 div
-                  Select(options="{effectTypes}" value="{$doc.system.durationUnits}")
+                  select(options="{effectTypes}" value="{$doc.system.effectTypes}")
                 div
                   select
               

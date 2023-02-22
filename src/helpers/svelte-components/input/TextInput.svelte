@@ -6,7 +6,7 @@
   export let disabled = false;
 </script>
 
-<input bind:value on:change {disabled} />
+<input {...$$restProps} bind:value on:change {disabled} />
 
 <style lang="scss">
   @import "../../../styles/Mixins.scss";

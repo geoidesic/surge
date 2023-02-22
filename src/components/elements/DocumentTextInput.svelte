@@ -14,6 +14,7 @@
 </script>
 
 <TextInput
+  {...$$restProps}
   bind:value
   disabled={disabled || !$document.isOwner}
   on:change
