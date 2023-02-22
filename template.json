@@ -392,7 +392,8 @@
         "price": 0,
         "weight": 0,
         "quantity": 1,
-        "location": ""
+        "location": "",
+        "HP": 1
       },
       "equippable": {
         "equipped": false,
@@ -405,9 +406,12 @@
         "contestedBy": [],
         "APcost": 1,
         "mods": [],
-        "hasReqs": false,
-        "reqType": 0,
-        "reqs": []
+        "reqs": {
+          "value": false,
+          "type": "",
+          "min": 1,
+          "list": []
+        }
       },
       "activatedEffect": {
         "activation": {
@@ -427,8 +431,9 @@
           "type": ""
         },
         "range": {
-          "value": null,
-          "long": null,
+          "PB": null,
+          "RF": null,
+          "ER": "",
           "units": ""
         },
         "uses": {
@@ -451,7 +456,8 @@
         "object"
       ],
       "AF": 0,
-      "AP": 1
+      "AP": 1,
+      "damageType": ""
     },
     "armour": {
       "templates": [
@@ -514,7 +520,8 @@
         "consumed": false,
         "cost": 0,
         "supply": 0
-      }
+      },
+      "damageType": ""
     },
     "skill": {
       "templates": [

@@ -15,11 +15,11 @@
     targets,
     durationTypes,
     distanceUnits,
+    damageTypes,
   } from "~/helpers/Constants.js";
 
   const doc = getContext("#doc");
   $: parentIsActor = $doc.parent?.constructor?.name == "Actor" ? true : false;
-  $: hasReqs = $doc.system.hasReqs;
 </script>
 
 <template lang="pug">
@@ -55,11 +55,13 @@
                 DocumentCheckboxInput(name='system.components.rune' bind:value="{$doc.system.components.rune}") 
                 | Rune
 
-         
-          .form-group.stacked
+          .flexrow.mt-md
             label.left Spellcasting Materials
-            label 
-              DocInput( attr="system.Mcomponents" placeholder="@todo: link this to a compendium and make it a select. Add `consumed` checkbox. Make it auto-consume resource if present. And it should not allow casting unless material is present. ")
+            
+          .flexrow
+            DocInput( attr="system.Mcomponents" placeholder="@todo: link this to a compendium and make it a select. Add `consumed` checkbox. Make it auto-consume resource if present. And it should not allow casting unless material is present. ")
+            label.flex0.mt-xs.ml-xs Consumed
+            DocumentCheckboxInput(name='system.materials.consumed' bind:value="{$doc.system.materials.consumed}") 
         .envelope
           h2.mt-none Detail
           .flexrow
@@ -138,10 +140,12 @@
           .flexrow.left.mt-xs
             label.flex1 Range
             .form-fields.flex3.flexrow
-              DocumentTextInput(type="number" step="any" name="system.range.value" placeholder="Normal" data-tooltip="DND5E.RangeNormal" aria-describedby="tooltip" bind:value="{$doc.system.range.value}")
+              DocumentTextInput(type="number" step="any" name="system.range.PB" placeholder="Point Blank" data-tooltip="DND5E.RangePointBlank" aria-describedby="tooltip" bind:value="{$doc.system.range.PB}")
               span.flex0 /
-              DocumentTextInput(type='number' step='any' name='system.range.long' value='0' placeholder='Long' data-tooltip='DND5E.RangeLong' aria-describedby='tooltip')
-              select(name='system.range.units' data-tooltip='DND5E.RangeUnits' aria-describedby='tooltip' bind:value="{$doc.system.range.units}")
+              DocumentTextInput(type='number' step='any' name='system.range.RF' placeholder='Range Factor' data-tooltip='DND5E.RangeFactor' aria-describedby='tooltip' bind:value="{$doc.system.range.RF}")
+              span.flex0 /
+              DocumentTextInput(type='number' step='any' name='system.range.ER' placeholder='Effective Range' data-tooltip='DND5E.EffectiveRange' aria-describedby='tooltip' bind:value="{$doc.system.range.ER}")
+              DocumentSelect(name='system.range.units' data-tooltip='DND5E.RangeUnits' aria-describedby='tooltip' bind:value="{$doc.system.range.units}")
                 option(value) None
                 option(value='ft' selected) Feet
                 option(value='mi') Miles
@@ -153,12 +157,12 @@
                 option(value='any') Any
           .flexrow.left.mt-xs
             label Limited Uses
-            .form-fields
+            .form-fields.flex3.flexrow
               DocumentTextInput(type='number' step='any' name='system.uses.value' data-tooltip='DND5E.UsesAvailable' bind:value="{$doc.system.uses.value}")
-              span.sep of
-              DocumentTextInput(type='text' name='system.uses.max' data-tooltip='DND5E.UsesMax'  aria-describedby='tooltip' bind:value="{$doc.system.uses.max}")
-              span.sep per
-              select(name='system.uses.per' data-tooltip='DND5E.UsesPeriod' aria-describedby='tooltip' bind:value="{$doc.system.uses.per}")
+              span.flex0 of
+              DocumentTextInput(type='number' name='system.uses.max' data-tooltip='DND5E.UsesMax' aria-describedby='tooltip' bind:value="{$doc.system.uses.max}")
+              span.flex0 per
+              DocumentSelect(name='system.uses.per' data-tooltip='DND5E.UsesPeriod' aria-describedby='tooltip' bind:value="{$doc.system.uses.per}")
                 option(value selected)
                 option(value='sr') Short Rest
                 option(value='lr') Long Rest
@@ -168,17 +172,21 @@
         .flexcol
           .envelope
             h2.mt-none Effects
-            .flexrow
+            .flexrow.left.mt-xs
+              label Damage Type
+              DocumentSelect(name='system.uses.per' data-tooltip='DND5E.UsesPeriod' aria-describedby='tooltip' bind:value="{$doc.system.damageType}" options="{damageTypes}")
+                
+            .flexrow.left.mt-xs
               .labels.flexcol.left
                 div
-                  label AF (Action Factor)
+                  label Level
                 div
                   label Effect Type
                 div
                   label Effect Status
               .values.flexcol.left
                 div
-                  input(type="number bind:value")
+                  DocumentTextInput(type="number" step="any" name="system.level" placeholder="Point Blank" data-tooltip="DND5E.RangePointBlank" aria-describedby="tooltip" bind:value="{$doc.system.level}")
                 div
                   select(options="{effectTypes}" value="{$doc.system.effectTypes}")
                 div
@@ -196,18 +204,26 @@
             .labels.flexcol.left
               div
                 label Prerequisites?
-              +if("$doc.system.hasReqs")
+              +if("$doc.system.reqs.value")
                 div
               div
                 label Prerequisite Type
-              +if("$doc.system.hasReqs")
-                label Prerequisite Traits
+              +if("$doc.system.reqs.type === 'some'")
+                label Prerequisites Minimum
+              +if("$doc.system.reqs.value")
+                label Prerequisites List
             .values.flexcol.left
               div
-                DocumentCheckboxInput(class="cheeky" bind:value='{$doc.system.hasReqs}')
-              +if("hasReqs")
-                div yo
-              +if("hasReqs")
+                DocumentCheckboxInput(class="cheeky" bind:value='{$doc.system.reqs.value}')
+              +if("$doc.system.reqs.value")
+                DocumentSelect(name='system.reqs.type' data-tooltip='DND5E.PrerequisitesType' aria-describedby='tooltip' bind:value="{$doc.system.reqs.type}")
+                  option(value selected)
+                  option(value='all') All
+                  option(value='any') Any
+                  option(value='some') At least
+              +if("$doc.system.reqs.type === 'some'")
+                DocumentTextInput(type="number" step="any" name="system.reqs.min" placeholder="Point Blank" data-tooltip="DND5E.MinimumPrerequisites" aria-describedby="tooltip" bind:value="{$doc.system.reqs.min}")
+              +if("$doc.system.reqs.value")
                 div no
         
 

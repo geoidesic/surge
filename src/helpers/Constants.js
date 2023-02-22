@@ -128,7 +128,6 @@ export const distanceUnits = [
     label: "",
     selected: true
   },
-
   {
     value: "ft",
     label: "Feet"
@@ -145,6 +144,62 @@ export const distanceUnits = [
     value: "km",
     label: "Kilometers"
   }
+]
+
+export const damageTypes = [
+  {
+    value: "",
+    label: "",
+    selected: true
+  },
+  {
+    value: "slice",
+    label: "Slice"
+  },
+  {
+    value: "cudgel",
+    label: "Cudgel"
+  },
+  {
+    value: "impale",
+    label: "Impale"
+  },
+  {
+    value: "cold",
+    label: "Cold"
+  },
+  {
+    value: "heat",
+    label: "Heat"
+  },
+  {
+    value: "flame",
+    label: "Flame"
+  },
+  {
+    value: "acid",
+    label: "Acid"
+  },
+  {
+    value: "lightning",
+    label: "Lightning"
+  },
+  {
+    value: "necrotic",
+    label: "Necrotic"
+  },
+  {
+    value: "radiant",
+    label: "Radiant"
+  },
+  {
+    value: "poison",
+    label: "Poison"
+  },
+  {
+    value: "psychic",
+    label: "Psychic"
+  },
 ]
 
 export const durationTypes = [
