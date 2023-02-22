@@ -180,17 +180,11 @@
               .labels.flexcol.left
                 div
                   label Level
-                div
-                  label Effect Type
-                div
-                  label Effect Status
+               
               .values.flexcol.left
                 div
                   DocumentTextInput(type="number" step="any" name="system.level" placeholder="Point Blank" data-tooltip="DND5E.RangePointBlank" aria-describedby="tooltip" bind:value="{$doc.system.level}")
-                div
-                  select(options="{effectTypes}" value="{$doc.system.effectTypes}")
-                div
-                  select
+              
               
             .form-group.stacked
               label.left Chat Flavour
