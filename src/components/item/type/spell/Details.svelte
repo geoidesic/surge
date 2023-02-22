@@ -142,12 +142,12 @@
           .flexrow.left.mt-xs
             label.flex1 Range
             .form-fields.flex3.flexrow
-              DocumentTextInput(type="number" step="any" name="system.range.PB" placeholder="Point Blank" data-tooltip="DND5E.RangePointBlank" aria-describedby="tooltip" bind:value="{$doc.system.range.PB}")
+              DocumentTextInput(type="number" step="any" name="system.range.PB" placeholder="Point Blank" data-tooltip="SURGE.RangePointBlank" aria-describedby="tooltip" bind:value="{$doc.system.range.PB}")
               span.flex0 /
-              DocumentTextInput(type='number' step='any' name='system.range.RF' placeholder='Range Factor' data-tooltip='DND5E.RangeFactor' aria-describedby='tooltip' bind:value="{$doc.system.range.RF}")
+              DocumentTextInput(type='number' step='any' name='system.range.RF' placeholder='Range Factor' data-tooltip='SURGE.RangeFactor' aria-describedby='tooltip' bind:value="{$doc.system.range.RF}")
               span.flex0 /
-              DocumentTextInput(type='number' step='any' name='system.range.ER' placeholder='Effective Range' data-tooltip='DND5E.EffectiveRange' aria-describedby='tooltip' bind:value="{$doc.system.range.ER}")
-              DocumentSelect(name='system.range.units' data-tooltip='DND5E.RangeUnits' aria-describedby='tooltip' bind:value="{$doc.system.range.units}")
+              DocumentTextInput(type='number' step='any' name='system.range.ER' placeholder='Effective Range' data-tooltip='SURGE.EffectiveRange' aria-describedby='tooltip' bind:value="{$doc.system.range.ER}")
+              DocumentSelect(name='system.range.units' data-tooltip='SURGE.RangeUnits' aria-describedby='tooltip' bind:value="{$doc.system.range.units}")
                 option(value) None
                 option(value='ft' selected) Feet
                 option(value='mi') Miles
@@ -160,11 +160,11 @@
           .flexrow.left.mt-xs
             label Limited Uses
             .form-fields.flex3.flexrow
-              DocumentTextInput(type='number' step='any' name='system.uses.value' data-tooltip='DND5E.UsesAvailable' bind:value="{$doc.system.uses.value}")
+              DocumentTextInput(type='number' step='any' name='system.uses.value' data-tooltip='SURGE.UsesAvailable' bind:value="{$doc.system.uses.value}")
               span.flex0 of
-              DocumentTextInput(type='number' name='system.uses.max' data-tooltip='DND5E.UsesMax' aria-describedby='tooltip' bind:value="{$doc.system.uses.max}")
+              DocumentTextInput(type='number' name='system.uses.max' data-tooltip='SURGE.UsesMax' aria-describedby='tooltip' bind:value="{$doc.system.uses.max}")
               span.flex0 per
-              DocumentSelect(name='system.uses.per' data-tooltip='DND5E.UsesPeriod' aria-describedby='tooltip' bind:value="{$doc.system.uses.per}")
+              DocumentSelect(name='system.uses.per' data-tooltip='SURGE.UsesPeriod' aria-describedby='tooltip' bind:value="{$doc.system.uses.per}")
                 option(value selected)
                 option(value='sr') Short Rest
                 option(value='lr') Long Rest
@@ -176,7 +176,7 @@
             h2.mt-none Effects
             .flexrow.left.mt-xs
               label Damage Type
-              DocumentSelect(name='system.uses.per' data-tooltip='DND5E.UsesPeriod' aria-describedby='tooltip' bind:value="{$doc.system.damageType}" options="{damageTypes}")
+              DocumentSelect(name='system.uses.per' data-tooltip='SURGE.DamageType' aria-describedby='tooltip' bind:value="{$doc.system.damageType}" options="{damageTypes}")
                 
             .flexrow.left.mt-xs
               .labels.flexcol.left
@@ -185,7 +185,7 @@
                
               .values.flexcol.left
                 div
-                  DocumentTextInput(type="number" step="any" name="system.level" placeholder="Point Blank" data-tooltip="DND5E.RangePointBlank" aria-describedby="tooltip" bind:value="{$doc.system.level}")
+                  DocumentTextInput(type="number" step="any" name="system.level" placeholder="Point Blank" data-tooltip="SURGE.RangePointBlank" aria-describedby="tooltip" bind:value="{$doc.system.level}")
               
               
             .form-group.stacked
@@ -202,7 +202,7 @@
           .flexrow.left.mt-xs
             +if("$doc.system.reqs.value")
               label.flex1 Prerequisite Type
-              DocumentSelect(name='system.reqs.type' data-tooltip='DND5E.PrerequisitesType' aria-describedby='tooltip' bind:value="{$doc.system.reqs.type}")
+              DocumentSelect(name='system.reqs.type' data-tooltip='SURGE.PrerequisitesType' aria-describedby='tooltip' bind:value="{$doc.system.reqs.type}")
                 option(value selected)
                 option(value='all') All
                 option(value='any') Any
@@ -210,7 +210,7 @@
           .flexrow.left.mt-xs
             +if("$doc.system.reqs.value && $doc.system.reqs.type === 'some'")
               label.flex1 Prerequisites Minimum
-              DocumentTextInput(type="number" step="any" name="system.reqs.min" placeholder="Point Blank" data-tooltip="DND5E.MinimumPrerequisites" aria-describedby="tooltip" bind:value="{$doc.system.reqs.min}")
+              DocumentTextInput(type="number" step="any" name="system.reqs.min" placeholder="Point Blank" data-tooltip="SURGE.MinimumPrerequisites" aria-describedby="tooltip" bind:value="{$doc.system.reqs.min}")
           .flexrow.left.mt-xs
             +if("$doc.system.reqs.value")
               .flexcol

@@ -10,5 +10,15 @@
   "SURGE.DurationUnits": "Duration Units",
   "SURGE.DurationType": "Duration Type",
   "SURGE.TargetUnits": "Target Units",
-  "SURGE.TargetType": "Target Type"
+  "SURGE.TargetType": "Target Type",
+  "SURGE.UsesPeriod": "Period",
+  "SURGE.DamageType": "Damage Type",
+  "SURGE.UsesAvailable": "Uses Available",
+  "SURGE.RangePointBlank": "Point Blank Range",
+  "SURGE.PrerequisitesType": "Prerequisites Type",
+  "SURGE.RangeUnits": "Range Units",
+  "SURGE.RangeFactor": "Range Factor",
+  "SURGE.EffectiveRange": "Effective Range",
+  "SURGE.MinimumPrerequisites": "Minimum number of Prerequisites Required",
+  "SURGE.UsesMax": "Maximum Uses during Period"
 }
