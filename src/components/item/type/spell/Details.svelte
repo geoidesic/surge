@@ -18,6 +18,7 @@
     durationTypes,
     distanceUnits,
     damageTypes,
+    magicSchools,
   } from "~/helpers/Constants.js";
 
   const doc = getContext("#doc");
@@ -28,6 +29,45 @@
   ScrollingContainer  
     .px-xs
       .flexcol
+        .envelope
+          h2.mt-none Detail
+
+          .flexrow.left.mt-xs
+            label.flex1 Magic School
+            DocumentSelect(bind:value="{$doc.system.school}" options="{magicSchools}")
+          .flexrow.left.mt-xs.mb-xs
+            label.flex1 Rarity
+            DocumentRaritySelect(bind:value='{$doc.system.rarity}')
+          .flexrow
+            .labels.flexcol.left
+              div
+                label XP Cost (for level 0)
+              div
+                label Code
+              +if("parentIsActor")
+                label XP
+              +if("parentIsActor")
+                label Level
+              div 
+                label AP cost
+              
+
+            .values.flexcol.left.form-group-stacked
+                div
+                  DocInput(attr="system.xpOffset" inputType="number")
+                div
+                  DocInput(attr="system.code")
+                +if("parentIsActor")
+                  div
+                    DocInput(attr="system.xpAssigned")
+                +if("parentIsActor")
+                  div
+                    //- DocInput(attr="system.level")
+                    DocumentTextInput(type="number" step="any" name="system.level" placeholder="Point Blank" data-tooltip="SURGE.TraitLevel" aria-describedby="tooltip" bind:value="{$doc.system.level}")
+
+                div
+                  DocInput(attr="system.APcost")
+              
         .envelope
           .flexrow
 
@@ -63,39 +103,8 @@
           .flexrow
             DocInput( attr="system.Mcomponents" placeholder="@todo: link this to a compendium and make it a select. Add `consumed` checkbox. Make it auto-consume resource if present. And it should not allow casting unless material is present. ")
             label.flex0.mt-xs.ml-xs Consumed
-            DocumentCheckboxInput(name='system.materials.consumed' bind:value="{$doc.system.materials.consumed}") 
-        .envelope
-          h2.mt-none Detail
-          .flexrow
-            .labels.flexcol.left
-              div
-                label XP Cost (for level 0)
-              div
-                label Code
-              +if("parentIsActor")
-                label XP
-              +if("parentIsActor")
-                label Level
-              div 
-                label AP cost
-              
+            DocumentCheckboxInput(name='system.materials.consumed' bind:value="{$doc.system.materials.consumed}")   
 
-            .values.flexcol.left.form-group-stacked
-                div
-                  DocInput(attr="system.xpOffset" inputType="number")
-                div
-                  DocInput(attr="system.code")
-                +if("parentIsActor")
-                  div
-                    DocInput(attr="system.xpAssigned")
-                +if("parentIsActor")
-                  div
-                    DocInput(attr="system.level")
-                div
-                  DocInput(attr="system.APcost")
-                
-
-      .flexcol
         .envelope
           h2.mt-none Casting
           
@@ -103,9 +112,6 @@
             label.flex1 Action Point Cost (AP)
             DocInput(attr="system.APcost")
 
-          .flexrow.left.mt-xs
-            label.flex1 Rarity
-            DocumentRaritySelect(bind:value='{$doc.system.rarity}')
           .flexrow.left.mt-xs
             label.flex1 Mana Type
             DocumentSelect(bind:value="{$doc.system.manaType}" options="{manaTypes}")
@@ -170,30 +176,17 @@
                 option(value='lr') Long Rest
                 option(value='day') Day
                 option(value='charges') Charges
-      .px-xs
-        .flexcol
-          .envelope
-            h2.mt-none Effects
-            .flexrow.left.mt-xs
-              label Damage Type
-              DocumentSelect(name='system.uses.per' data-tooltip='SURGE.DamageType' aria-describedby='tooltip' bind:value="{$doc.system.damageType}" options="{damageTypes}")
-                
-            .flexrow.left.mt-xs
-              .labels.flexcol.left
-                div
-                  label Level
-               
-              .values.flexcol.left
-                div
-                  DocumentTextInput(type="number" step="any" name="system.level" placeholder="Point Blank" data-tooltip="SURGE.RangePointBlank" aria-describedby="tooltip" bind:value="{$doc.system.level}")
+        .envelope
+          h2.mt-none Effects
+          .flexrow.left.mt-xs
+            label Damage Type
+            DocumentSelect(name='system.uses.per' data-tooltip='SURGE.DamageType' aria-describedby='tooltip' bind:value="{$doc.system.damageType}" options="{damageTypes}")
               
-              
-            .form-group.stacked
-              label.left Chat Flavour
-              label 
-                DocInput(style="width: 100%" attr="system.chatFlavour")
+          .form-group.stacked
+            label.left Chat Flavour
+            label 
+              DocInput(style="width: 100%" attr="system.chatFlavour")
      
-      .flexcol
         .envelope
           h2.mt-none Prerequisites
           .flexrow.left.mt-xs

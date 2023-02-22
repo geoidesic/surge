@@ -122,6 +122,49 @@ export const manaTypes = [
   },
 ]
 
+export const magicSchools = [
+  {
+    label: "Abjuration",
+    description: "Magic that protects, blocks, or banishes.This includes spells like shield and protection from energy.",
+    value: "abjuration"
+  },
+  {
+    label: "Conjuration",
+    description: "Magic that creates objects, creatures, or effects out of thin air.This includes spells like mage armor and summon monster.",
+    value: "conjuration"
+  },
+  {
+    label: "Divination",
+    description: "Magic that allows you to gain information, see the unseen, or predict the future.This includes spells like identify and detect magic.",
+    value: "divination"
+  },
+  {
+    label: "Enchantment",
+    description: "Magic that manipulates the minds of others, influencing their thoughts or emotions.This includes spells like charm person and suggestion.",
+    value: "enchantment"
+  },
+  {
+    label: "Evocation",
+    description: "Magic that unleashes raw elemental energy to deal damage to enemies.This includes spells like fireball and lightning bolt.",
+    value: "evocation"
+  },
+  {
+    label: "Illusion",
+    description: "Magic that creates false images or sounds, deceiving the senses of others.This includes spells like invisibility and phantasmal force.",
+    value: "illusion"
+  },
+  {
+    label: "Necromancy",
+    description: "Magic that deals with life and death, including raising undead creatures and draining the life from others.This includes spells like animate dead and vampiric touch.",
+    value: "necromancy"
+  },
+  {
+    label: "Transmutation",
+    description: "Magic that alters the physical world, changing or transforming objects and creatures.This includes spells like polymorph and stone shape.",
+    value: "transmutation"
+  }
+]
+
 export const distanceUnits = [
   {
     value: "",

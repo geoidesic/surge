@@ -19,6 +19,7 @@
   "SURGE.RangeUnits": "Range Units",
   "SURGE.RangeFactor": "Range Factor",
   "SURGE.EffectiveRange": "Effective Range",
+  "SURGE.TraitLevel": "Trait Level",
   "SURGE.MinimumPrerequisites": "Minimum number of Prerequisites Required",
   "SURGE.UsesMax": "Maximum Uses during Period"
 }
