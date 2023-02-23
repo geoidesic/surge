@@ -1,30 +1,30 @@
 <script>
   import DocumentRaritySelect from "~/components/elements/DocumentRaritySelect.svelte";
   import DocInput from "~/components/item/ItemInput.svelte";
+  import XPcalc from "~/helpers/XPcalc.js";
+
   import { getContext } from "svelte";
 
   const doc = getContext("#doc");
+  $: parentIsActor = $doc.parent?.constructor?.name == "Actor" ? true : false;
 </script>
 
 <template lang="pug">
 section.extra-info.flexrow
-  DocInput(className="md transparent" attr="system.size" placeholder="Size" maxlength="40")
-  .stat
-    // Label
-    //- .label rarity
+  +if("parentIsActor")
+    .stat.pa-xs {XPcalc($doc).level()}
+  .stat.pa-xs {$doc.system.rarity}
 
-    // Input
-    .input
-      DocumentRaritySelect(bind:value='{$doc.system.rarity}')
-
-  DocInput(className="md transparent" attr="system.AP" placeholder="0" maxlength="40" inputType="number")
-  DocInput(className="md transparent" attr="system.AF" placeholder="0" maxlength="40" inputType="number")
 section.extra-info.flexrow
-  div Size
-  div Rarity
-  div Action Points
-  div Action Factor
+  +if("parentIsActor")
+    label Level (AF)
+  label Rarity
+
 </template>
 
 <style lang="scss" scoped>
+  @import "../../../../styles/Mixins.scss";
+  .extra-info {
+    @include sheetHeader;
+  }
 </style>
