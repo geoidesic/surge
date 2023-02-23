@@ -13,12 +13,13 @@
   const validIngameItems = game.items
     .filter((i) => i.id != $Item.id)
     .map((i) => {
+      console.log(i);
       return {
         value: i.system.code || i.id,
         label: i.name + (i.system.code ? " [" + i.system.code + "]" : ""),
         img: i.img,
         name: i.name,
-        code: i.code,
+        code: i.system.code,
       };
     });
   itemOptions.push(game.items.filter((i) => i.system.code != $Item.code && relevantTypes.includes(i.type)));

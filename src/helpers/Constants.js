@@ -121,7 +121,6 @@ export const manaTypes = [
     label: "cosmic"
   },
 ]
-
 export const priceUnits = [
   {
     label: "gp",
@@ -144,7 +143,6 @@ export const priceUnits = [
     value: "cp"
   },
 ]
-
 export const weightUnits = [
   {
     label: "lb.",
@@ -187,7 +185,6 @@ export const actionTypes = [
     value: "meleespellattack"
   },
 ]
-
 export const magicSchools = [
   {
     label: "Abjuration",
@@ -230,7 +227,6 @@ export const magicSchools = [
     value: "transmutation"
   }
 ]
-
 export const distanceUnits = [
   {
     value: "",
@@ -254,7 +250,6 @@ export const distanceUnits = [
     label: "Kilometers"
   }
 ]
-
 export const damageTypes = [
   {
     value: "",
@@ -310,7 +305,6 @@ export const damageTypes = [
     label: "Psychic"
   },
 ]
-
 export const durationTypes = [
   {
     value: "",
@@ -357,7 +351,6 @@ export const durationTypes = [
     label: "Special",
   },
 ]
-
 export const timeUnits = [
   {
     value: "rounds",
@@ -376,7 +369,6 @@ export const timeUnits = [
     label: "days"
   },
 ]
-
 export const effectTypes = [
   {
     value: "active",
@@ -397,7 +389,9 @@ export const effectStatus = [
     label: "off"
   },
 ]
-
+export const traits = [
+  "skill", "talent", "flaw", "spell"
+]
 export default {
   lvlCost,
   attributes

@@ -18,6 +18,8 @@
   import ShieldTabs from "~/components/item/type/shield/ShieldTabs.svelte";
   import SpellHeader from "~/components/item/type/spell/SpellHeader.svelte";
   import SpellTabs from "~/components/item/type/spell/SpellTabs.svelte";
+  import SkillHeader from "~/components/item/type/skill/SkillHeader.svelte";
+  import SkillTabs from "~/components/item/type/skill/SkillTabs.svelte";
   import TraitHeader from "~/components/item/type/trait/TraitHeader.svelte";
   import TraitTabs from "~/components/item/type/trait/TraitTabs.svelte";
 
@@ -32,6 +34,7 @@
     container: ContainerHeader,
     shield: ShieldHeader,
     spell: SpellHeader,
+    skill: SkillHeader,
     trait: TraitHeader,
     weapon: WeaponHeader,
   };
@@ -42,6 +45,7 @@
     container: ContainerTabs,
     shield: ShieldTabs,
     spell: SpellTabs,
+    skill: SkillTabs,
     trait: TraitTabs,
     weapon: WeaponTabs,
   };

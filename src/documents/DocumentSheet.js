@@ -1,5 +1,7 @@
 import { SvelteApplication } from "@typhonjs-fvtt/runtime/svelte/application";
 import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
+import { traits } from "~/helpers/Constants.js"
+import ActorDropValidator from "~/sheets/actor/ActorDropValidator.js"
 import DocumentShell from "./DocumentShell.svelte";
 export default class SvelteDocumentSheet extends SvelteApplication {
   /**
@@ -187,6 +189,13 @@ export default class SvelteDocumentSheet extends SvelteApplication {
     }
     const item = await Item.implementation.fromDropData(data);
     const itemData = item.toObject();
+
+    console.log('booya');
+    const validator = new ActorDropValidator({ actor, item });
+    if (!validator.validate()) {
+      console.log('invalid drop')
+      return
+    }
 
     // Handle item sorting within the same Actor
     if (actor.uuid === item.parent?.uuid) {

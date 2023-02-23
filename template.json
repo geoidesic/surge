@@ -416,7 +416,8 @@
         "contestedBy": [],
         "APcost": 1,
         "actionType": "",
-        "mods": []
+        "mods": [],
+        "code": null
       },
       "activatedEffect": {
         "activation": {
