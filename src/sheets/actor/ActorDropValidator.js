@@ -92,9 +92,20 @@ export default class ActorDropValidator {
     return valid
   }
 
+  isDuplicateTrait() {
+    const foundDuplicate = this.#params.actor.items.filter(i => {
+      return i.system.code === this.#params.item.system.code && i.name === this.#params.item.name
+    })
+    if (foundDuplicate) {
+      ui.notifications.notify("Actor already has this Trait.", "error")
+    }
+    return foundDuplicate
+  }
+
   validate() {
     if (!this.isProcessableDropType()) return true
     if (!this.itemHasCode()) return false
+    if (this.isDuplicateTrait()) return false
     if (!this.actorHasSufficientXpForDrop()) return false
     if (!this.droppedItemHasPrerequisites()) return true
     if (!this.actorMeetsPrerequisites()) return false
