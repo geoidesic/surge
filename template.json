@@ -396,6 +396,14 @@
         "location": "",
         "HP": 1
       },
+      "prerequisites": {
+        "reqs": {
+          "value": false,
+          "type": "",
+          "min": 1,
+          "list": []
+        }
+      },
       "equippable": {
         "equipped": false,
         "elligibleLocations": []
@@ -407,13 +415,7 @@
         "contestedBy": [],
         "APcost": 1,
         "actionType": "",
-        "mods": [],
-        "reqs": {
-          "value": false,
-          "type": "",
-          "min": 1,
-          "list": null
-        }
+        "mods": []
       },
       "activatedEffect": {
         "activation": {
@@ -455,7 +457,8 @@
       "templates": [
         "base",
         "equippable",
-        "object"
+        "object",
+        "prerequisites"
       ],
       "AF": 0,
       "AP": 1,
@@ -465,7 +468,8 @@
       "templates": [
         "base",
         "equippable",
-        "object"
+        "object",
+        "prerequisites"
       ],
       "AF": 0,
       "DR": []
@@ -474,7 +478,8 @@
       "templates": [
         "base",
         "equippable",
-        "object"
+        "object",
+        "prerequisites"
       ],
       "AF": 0,
       "DR": 1
@@ -504,7 +509,8 @@
       "templates": [
         "base",
         "trait",
-        "activatedEffect"
+        "activatedEffect",
+        "prerequisites"
       ],
       "manaType": "",
       "school": "",
@@ -528,13 +534,15 @@
     "skill": {
       "templates": [
         "base",
-        "trait"
+        "trait",
+        "prerequisites"
       ]
     },
     "feat": {
       "templates": [
         "base",
-        "trait"
+        "trait",
+        "prerequisites"
       ]
     },
     "talent": {

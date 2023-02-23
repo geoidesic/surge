@@ -13,7 +13,7 @@
 
 <template lang="pug">
   ScrollingContainer
-    .flexcol.pa-sm
+    .flexcol.pa-sm.description-tab
       .flexrow
         .flexcol.flex1.left
           h1.flex0 Properties
@@ -38,32 +38,8 @@
 </template>
 
 <style lang="scss" scoped>
-  .flexrow {
-    gap: 2px;
-  }
-  .flexcol {
-    gap: 2px;
-  }
-  label {
-    margin: 0;
-    padding: 0;
-  }
-  .box {
-    background: silver;
-    border: 1px;
-  }
-  .properties-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    li {
-      margin: 3px 0;
-      padding: 0 2px;
-      background: rgba(0, 0, 0, 0.05);
-      border: 2px groove #eeede0;
-      text-align: center;
-      font-size: 12px;
-      line-height: 18px;
-    }
+  @import "../../../../styles/Mixins.scss";
+  .description-tab {
+    @include itemSheetDescriptionTab;
   }
 </style>

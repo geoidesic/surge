@@ -6,8 +6,9 @@
   import DocumentRaritySelect from "~/components/elements/DocumentRaritySelect.svelte";
   import PrerequisiteSelect from "~/components/elements/PrerequisiteSelect.svelte";
   import DocInput from "~/components/item/ItemInput.svelte";
+  import CommonDetails from "~/components/item/CommonDetails.svelte";
+  import CommonPrerequisites from "~/components/item/CommonPrerequisites.svelte";
 
-  import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
   import { getContext } from "svelte";
   import {
     AOEshapes,
@@ -29,45 +30,8 @@
 <template lang="pug">
   ScrollingContainer  
     .px-xs
-      .flexcol
-        .envelope
-          h2.mt-none Detail
-
-          .flexrow.left.mt-xs
-            label.flex1 Magic School
-            DocumentSelect(bind:value="{$doc.system.school}" options="{magicSchools}")
-          .flexrow.left.mt-xs.mb-xs
-            label.flex1 Rarity
-            DocumentRaritySelect(bind:value='{$doc.system.rarity}')
-          .flexrow
-            .labels.flexcol.left
-              div
-                label XP Cost (for level 0)
-              div
-                label Code
-              +if("parentIsActor")
-                label XP
-              +if("parentIsActor")
-                label Level
-              div 
-                label AP cost
-              
-
-            .values.flexcol.left.form-group-stacked
-                div
-                  DocInput(attr="system.xpOffset" inputType="number")
-                div
-                  DocInput(attr="system.code")
-                +if("parentIsActor")
-                  div
-                    DocInput(attr="system.xpAssigned")
-                +if("parentIsActor")
-                  div
-                    //- DocInput(attr="system.level")
-                    DocumentTextInput(type="number" step="any" name="system.level" placeholder="Point Blank" data-tooltip="SURGE.TraitLevel" aria-describedby="tooltip" bind:value="{$doc.system.level}")
-
-                div
-                  DocInput(attr="system.APcost")
+      .flexcol.tab
+        CommonDetails
               
         .envelope
           .flexrow
@@ -192,115 +156,14 @@
             label 
               DocInput(style="width: 100%" attr="system.chatFlavour")
      
-        .envelope
-          h2.mt-none Prerequisites
-          .flexrow.left.mt-xs
-            label.flex1 Prerequisites?
-            DocumentCheckboxInput(class="cheeky" bind:value='{$doc.system.reqs.value}')
-          .flexrow.left.mt-xs
-            +if("$doc.system.reqs.value")
-              label.flex1 Prerequisite Type
-              DocumentSelect(name='system.reqs.type' data-tooltip='SURGE.PrerequisitesType' aria-describedby='tooltip' bind:value="{$doc.system.reqs.type}")
-                option(value selected)
-                option(value='all') All
-                option(value='any') Any
-                option(value='some') At least
-          .flexrow.left.mt-xs
-            +if("$doc.system.reqs.value && $doc.system.reqs.type === 'some'")
-              label.flex1 Prerequisites Minimum
-              DocumentTextInput(type="number" step="any" name="system.reqs.min" placeholder="Point Blank" data-tooltip="SURGE.MinimumPrerequisites" aria-describedby="tooltip" bind:value="{$doc.system.reqs.min}")
-          .flexrow.left.mt-xs
-            +if("$doc.system.reqs.value")
-              .flexcol
-                label.flex1 Prerequisites List
-                PrerequisiteSelect.flex3
+        CommonPrerequisites
         
 
 </template>
 
 <style lang="scss" scoped>
-  .block {
-    border: 10px solid #ff9900;
-    border-radius: var(--border-radius);
-    padding: 0 0.5rem 1rem 0.5rem;
-    margin: 0.3rem 0;
-    .label {
-      vertical-align: -webkit-baseline-middle;
-    }
-  }
-  input {
-    margin: 0;
-  }
-  .flexrow,
-  .flexcol {
-    gap: 2px;
-  }
-  //- example of child selector
-  .block :global(.cheeky) {
-    margin: 0 0 0 -2px;
-  }
-  .form-group {
-    clear: both;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 3px 0;
-  }
-
-  .form-group.stacked label.checkbox,
-  .form-group.stacked label.radio {
-    flex: auto;
-    text-align: left;
-  }
-  .form-group-stacked > *,
-  .form-group.stacked > * {
-    flex: 100%;
-  }
-  .form-group .form-fields {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-  .envelope {
-    margin: 0.4em 0;
-    padding: 1em;
-    border: 0.4em solid transparent;
-    background: linear-gradient(white, white) padding-box,
-      repeating-linear-gradient(-45deg, #6b1818 0, #112768 15%, #848a0e 0, #4e0a30 20%) 0 / 4em 4em;
-    animation: shimmer 4s ease-in-out infinite;
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: 0 0;
-    }
-    50% {
-      background-position: 0.5em 1em;
-    }
-    100% {
-      background-position: 0 0;
-    }
-  }
-
-  $lightblue: #7eb4e2;
-  $darkblue: #32557f;
-
-  .serrated {
-    padding: 10px 10px;
-    border: 10px solid transparent;
-    border-width: 10px 0;
-    background-color: $lightblue;
-    background-color: hsla(0, 0%, 0%, 0);
-    background-image: linear-gradient($lightblue, $darkblue),
-      linear-gradient(to bottom right, transparent 50.5%, $lightblue 50.5%),
-      linear-gradient(to bottom left, transparent 50.5%, $lightblue 50.5%),
-      linear-gradient(to top right, transparent 50.5%, $darkblue 50.5%),
-      linear-gradient(to top left, transparent 50.5%, $darkblue 50.5%);
-    background-repeat: repeat, repeat-x, repeat-x, repeat-x, repeat-x;
-    background-position: 0 0, 10px 0, 10px 0, 10px 100%, 10px 100%;
-    background-size: auto auto, 20px 20px, 20px 20px, 20px 20px, 20px 20px;
-    background-clip: padding-box, border-box, border-box, border-box, border-box;
-    background-origin: padding-box, border-box, border-box, border-box, border-box;
+  @import "../../../../styles/Mixins.scss";
+  .tab {
+    @include itemSheetDetailTab;
   }
 </style>
