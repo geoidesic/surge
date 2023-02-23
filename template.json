@@ -504,7 +504,10 @@
         "base",
         "equippable",
         "object"
-      ]
+      ],
+      "capacity": 0,
+      "capacityUnits": "",
+      "contentHasWeight": true
     },
     "spell": {
       "templates": [

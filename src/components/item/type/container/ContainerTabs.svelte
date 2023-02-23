@@ -1,6 +1,6 @@
 <script>
-  import Description from "~/components/item/type/container/Description.svelte";
-  import Details from "~/components/item/type/container/Details.svelte";
+  import Description from "~/components/item/type/container/DescriptionTab.svelte";
+  import Details from "~/components/item/type/container/DetailsTab.svelte";
   import Effects from "~/components/item/EffectsTab.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
 
