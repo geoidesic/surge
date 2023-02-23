@@ -3,7 +3,9 @@
   import ProseMirror from "~/components/ProseMirror.svelte";
   import DocInput from "~/components/item/ItemInput.svelte";
   import DocumentCheckboxInput from "~/components/elements/DocumentCheckboxInput.svelte";
+  import { TJSSelect } from "@typhonjs-fvtt/svelte-standard/component";
   import { getContext } from "svelte";
+  import { targets } from "~/helpers/Constants.js";
 
   const doc = getContext("#doc");
   $: parentIsActor = $doc.parent?.constructor?.name == "Actor" ? true : false;
@@ -11,24 +13,12 @@
 
 <template lang="pug">
   ScrollingContainer
-    .flexcol.pa-sm
+    .flexcol.pa-sm.description-tab
       .flexrow
         .flexcol.flex1.left
           h1.flex0 Properties
-          
-          div
-            label Cost
-            DocInput(attr="system.xpOffset" inputType="number")
-          div
-            label Code
-            DocInput(attr="system.code")
-          +if("parentIsActor")
-            label XP
-            DocInput(attr="system.xpAssigned")
-          +if("parentIsActor")
-            label Level
-            DocInput(attr="system.level")
-          
+          ol.properties-list
+            
           
         .flexcol.flex3.left
           h1.flex0 Description
@@ -37,14 +27,8 @@
 </template>
 
 <style lang="scss" scoped>
-  .flexrow {
-    gap: 2px;
-  }
-  .flexcol {
-    gap: 2px;
-  }
-  label {
-    margin: 0;
-    padding: 0;
+  @import "../../../../styles/Mixins.scss";
+  .description-tab {
+    @include itemSheetDescriptionTab;
   }
 </style>
