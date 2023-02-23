@@ -12,7 +12,7 @@
 
   $: itemXp =
     $doc.items.reduce((sum, item) => {
-      sum += parseInt(item.system.xpAssigned);
+      sum += parseInt(item.system.xp);
       return sum;
     }, 0) || 0;
 

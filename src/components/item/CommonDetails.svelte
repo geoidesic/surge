@@ -36,7 +36,7 @@
             DocInput(attr="system.code")
           +if("parentIsActor")
             div
-              DocInput(attr="system.xpAssigned")
+              DocInput(attr="system.xp")
           +if("parentIsActor")
             div
               //- DocInput(attr="system.level")

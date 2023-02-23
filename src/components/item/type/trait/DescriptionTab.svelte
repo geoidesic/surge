@@ -24,7 +24,7 @@
             DocInput(attr="system.code")
           +if("parentIsActor")
             label XP
-            DocInput(attr="system.xpAssigned")
+            DocInput(attr="system.xp")
           +if("parentIsActor")
             label Level
             DocInput(attr="system.level")

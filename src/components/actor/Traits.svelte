@@ -105,7 +105,7 @@
     console.log(index);
     console.log(item);
     //- first re-assign XP from this trait back to the unspent pool
-    $doc.update({ "system.xpUnspent": xpUnspent + parseInt(item.system.xpAssigned) });
+    $doc.update({ "system.xpUnspent": xpUnspent + parseInt(item.system.xp) });
     item.delete();
   }
 
@@ -176,7 +176,7 @@
 
     let value = parseInt(event.target.value);
 
-    let dir = key == "up" || key == "down" ? key : XP.directionOfChange(value, item.system.xpAssigned);
+    let dir = key == "up" || key == "down" ? key : XP.directionOfChange(value, item.system.xp);
     let diff = prevValue - value;
     if (diff < 0 && xpUnspent + diff < 0) {
       console.log("Update would result in negative unspent XP, revert value to min");
@@ -184,7 +184,7 @@
       value = prevValue + xpUnspent;
     }
     $doc.update({ [`system.xpUnspent`]: xpUnspent + diff });
-    item.update({ "system.xpAssigned": value });
+    item.update({ "system.xp": value });
     updateLevel(value, item);
   }
 
@@ -242,7 +242,7 @@
             .flex1
               div {item.system.level}
             .flex1
-              input(type="number" bind:value="{item.system.xpAssigned}" on:keydown!="{(event) => validateXpAssigned(event, item)}" on:keyup!="{(event) => updateXpAssigned(event, item)}")
+              input(type="number" bind:value="{item.system.xp}" on:keydown!="{(event) => validateXpAssigned(event, item)}" on:keyup!="{(event) => updateXpAssigned(event, item)}")
 
             div.actions.flex1.right
               +if("!$doc.system.inventoryLocked")
