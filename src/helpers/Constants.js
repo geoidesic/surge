@@ -122,6 +122,39 @@ export const manaTypes = [
   },
 ]
 
+export const actionTypes = [
+  {
+    label: "Healing",
+    description: "Magic that Magic that restores health and vitality to creatures, either instantly or over time.",
+    value: "healing"
+  },
+  {
+    label: "Utility",
+    description: "Magic that provides various useful effects, such as creating light, cleaning dirty objects, or repairing broken ones.",
+    value: "healing"
+  },
+  {
+    label: "Ranged Weapon Attack",
+    description: "Weapon attack which can be used at a distance to attack other creatures or objects.",
+    value: "rangedweaponattack"
+  },
+  {
+    label: "Melee Weapon Attack",
+    description: "Weapons that are used in close combat.",
+    value: "meleeweaponattack"
+  },
+  {
+    label: "Ranged Spell Attack",
+    description: " Magic that can be used at a distance to attack other creatures or objects, such as bolts of energy, fiery blasts, or waves of force. This category includes spells that can be used to damage or weaken other creatures from a distance",
+    value: "rangedspellattack"
+  },
+  {
+    label: "Melee Spell Attack",
+    description: "Magic that is used in close combat, such as by imbuing spells with magical energy, creating shockwaves that knock back enemies, or imbuing the caster's body with magical energy. This category includes spells that can be used to damage or weaken other creatures in close combat.",
+    value: "meleespellattack"
+  },
+]
+
 export const magicSchools = [
   {
     label: "Abjuration",

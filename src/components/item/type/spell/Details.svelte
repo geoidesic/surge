@@ -19,6 +19,7 @@
     distanceUnits,
     damageTypes,
     magicSchools,
+    actionTypes,
   } from "~/helpers/Constants.js";
 
   const doc = getContext("#doc");
@@ -115,6 +116,10 @@
           .flexrow.left.mt-xs
             label.flex1 Mana Type
             DocumentSelect(bind:value="{$doc.system.manaType}" options="{manaTypes}")
+
+          .flexrow.left.mt-xs
+            label.flex1 Mana Type
+            DocumentSelect(bind:value="{$doc.system.actionType}" options="{actionTypes}")
 
           .flexrow.left.mt-xs
             label.flex1 Duration

@@ -6,26 +6,39 @@
   import { manaTypes } from "~/helpers/Constants.js";
 
   const doc = getContext("#doc");
+  $: parentIsActor = $doc.parent?.constructor?.name == "Actor" ? true : false;
 </script>
 
 <template lang="pug">
 section.extra-info.flexrow
-//-   .stat
-//-     .input
-//-       DocumentRaritySelect(bind:value='{$doc.system.rarity}')
-//-   .stat
-//-     .input
-//-       select(bind:value="{$doc.system.manaType}")
-//-         +each("manaTypes as manaType")
-//-           option(value="{manaType.value}") {manaType.label}
+  +if("parentIsActor")
+    .stat.pa-xs {$doc.system.level}
+  .stat.pa-xs {$doc.system.manaType}
+  .stat.pa-xs {$doc.system.school}
+  .stat.pa-xs {$doc.system.rarity}
 
-//- section.extra-info.flexrow
-//-   div Rarity
-//-   div Mana Type
+section.extra-info.flexrow
+  +if("parentIsActor")
+    label Level
+  label Mana Type
+  label Magic School
+  label Rarity
 </template>
 
 <style lang="scss" scoped>
   .extra-info {
     gap: 2px;
+  }
+  .stat {
+    border-bottom: 1px solid rgb(94, 19, 19);
+    // background-color: silver;
+    // margin: 2px;
+    margin-bottom: 2px;
+    padding: 0;
+  }
+  label {
+    font-family: "Modesto Condensed", "Palatino Lynotype", serif;
+    font-size: 1.2rem;
+    // border-top: 1px solid darkolivegreen;
   }
 </style>

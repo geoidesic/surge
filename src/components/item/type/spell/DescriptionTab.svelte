@@ -9,6 +9,13 @@
 
   const doc = getContext("#doc");
   $: parentIsActor = $doc.parent?.constructor?.name == "Actor" ? true : false;
+
+  $: components = [];
+  $: if ($doc.system.components.vocal) components.push("V");
+  $: if ($doc.system.components.somatic) components.push("S");
+  $: if ($doc.system.components.material) components.push("M");
+  $: if ($doc.system.components.rune) components.push("R");
+  $: if ($doc.system.components.concentration) components.push("C");
 </script>
 
 <template lang="pug">
@@ -17,29 +24,23 @@
       .flexrow
         .flexcol.flex1.left
           h1.flex0 Properties
-          
-          div
-            label XP Cost (for level 0)
-            DocInput(attr="system.xpOffset" inputType="number")
-          div
-            label Code
-            DocInput(attr="system.code")
-          +if("parentIsActor")
-            label XP
-            DocInput(attr="system.xpAssigned")
-          +if("parentIsActor")
-            label Level
-            DocInput(attr="system.level")
-          div 
-            label AP cost
-            DocInput(attr="system.APcost")
-          div 
-            label Range
-            DocInput(attr="system.range")
-
-          div 
-            label Target
-              TJSSelect(options="{targets}" bind:value="{$doc.system.target}")
+          ol.properties-list
+            li {components.join(',')}
+            +if("$doc.system.Mcomponents")
+              li {$doc.system.Mcomponents}
+            +if("$doc.system.actionType")
+              li {$doc.system.actionType}
+            +if("$doc.system.APcost")
+              li {$doc.system.APcost} AP
+            +if("$doc.system.manaType")
+              li {$doc.system.manaType}
+            +if("$doc.system.target.value")
+              li {$doc.system.target.value} {$doc.system.target.units} {$doc.system.target.type}
+            +if("$doc.system.range.units")
+              li {$doc.system.range.PB} / {$doc.system.range.RF} / {$doc.system.range.ER} {$doc.system.range.units}
+            +if("$doc.system.duration.units")
+              li {$doc.system.duration.value} {$doc.system.duration.units}
+            
           
         .flexcol.flex3.left
           h1.flex0 Description
@@ -57,5 +58,23 @@
   label {
     margin: 0;
     padding: 0;
+  }
+  .box {
+    background: silver;
+    border: 1px;
+  }
+  .properties-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      margin: 3px 0;
+      padding: 0 2px;
+      background: rgba(0, 0, 0, 0.05);
+      border: 2px groove #eeede0;
+      text-align: center;
+      font-size: 12px;
+      line-height: 18px;
+    }
   }
 </style>

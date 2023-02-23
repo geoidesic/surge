@@ -405,6 +405,7 @@
         "level": 0,
         "contestedBy": [],
         "APcost": 1,
+        "actionType": "",
         "mods": [],
         "reqs": {
           "value": false,
