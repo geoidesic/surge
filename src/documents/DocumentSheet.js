@@ -190,20 +190,28 @@ export default class SvelteDocumentSheet extends SvelteApplication {
     const item = await Item.implementation.fromDropData(data);
     const itemData = item.toObject();
 
-    console.log('booya');
     const validator = new ActorDropValidator({ actor, item });
     if (!validator.validate()) {
-      console.log('invalid drop')
       return
     }
 
+    console.log(itemData);
+    // Modify itemData to set xp = cost
+    if (traits.includes(itemData.type)) {
+      itemData.system.xp = parseInt(itemData.system.xpOffset)
+      itemData.system.xpOffset = parseInt(itemData.system.xpOffset)
+    }
+    console.log(itemData);
     // Handle item sorting within the same Actor
     if (actor.uuid === item.parent?.uuid) {
       return this._onSortItem(event, itemData, actor);
     }
 
+
     // Create the owned item
     return this._onDropItemCreate(itemData, actor);
+
+
   }
 
   async _onDropFolder(event, data, actor) {

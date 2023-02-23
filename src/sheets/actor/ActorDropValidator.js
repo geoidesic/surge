@@ -28,8 +28,11 @@ export default class ActorDropValidator {
   }
 
   actorHasSufficientXpForDrop() {
-    const unspentXp = this.#params.actor.system.xpUnspent;
-    const dropCost = this.#params.item.system.xpOffset
+    const unspentXp = parseInt(this.#params.actor.system.xpUnspent);
+    const dropCost = parseInt(this.#params.item.system.xpOffset);
+    console.log(unspentXp)
+    console.log(dropCost)
+    console.log(dropCost <= unspentXp)
     const valid = dropCost <= unspentXp;
     if (!valid) {
       ui.notifications.notify("Actor does not have sufficient unspent XP available to acquire this Trait", "error")
@@ -93,7 +96,12 @@ export default class ActorDropValidator {
   }
 
   isDuplicateTrait() {
+    if (!this.#params.actor.items.length) { return false } //- don't try compare if the actor has no traits
     const foundDuplicate = this.#params.actor.items.filter(i => {
+      console.log(i.name)
+      console.log(i.system.code)
+      console.log(this.#params.item.system.code)
+      console.log(this.#params.item.name)
       return i.system.code === this.#params.item.system.code && i.name === this.#params.item.name
     })
     if (foundDuplicate) {
