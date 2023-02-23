@@ -183,7 +183,6 @@ export default class SvelteDocumentSheet extends SvelteApplication {
   }
 
   async _onDropItem(event, data, actor) {
-    console.log('_onDropItem');
     if (!actor.isOwner) {
       return false;
     }
@@ -195,23 +194,21 @@ export default class SvelteDocumentSheet extends SvelteApplication {
       return
     }
 
-    console.log(itemData);
-    // Modify itemData to set xp = cost
+    // Modify itemData to set xp = cost and update unspent
     if (traits.includes(itemData.type)) {
       itemData.system.xp = parseInt(itemData.system.xpOffset)
       itemData.system.xpOffset = parseInt(itemData.system.xpOffset)
+      actor.system.xpUnspent -= parseInt(itemData.system.xpOffset);
+      actor.update({ system: actor.system, flags: actor.flags })
     }
-    console.log(itemData);
+
     // Handle item sorting within the same Actor
     if (actor.uuid === item.parent?.uuid) {
       return this._onSortItem(event, itemData, actor);
     }
 
-
     // Create the owned item
     return this._onDropItemCreate(itemData, actor);
-
-
   }
 
   async _onDropFolder(event, data, actor) {
