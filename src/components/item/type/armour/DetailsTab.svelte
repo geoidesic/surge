@@ -10,6 +10,7 @@
   import CommonPrerequisites from "~/components/item/CommonPrerequisites.svelte";
 
   import { getContext } from "svelte";
+  import { weightUnits, priceUnits } from "~/helpers/Constants.js";
 
   const doc = getContext("#doc");
   $: parentIsActor = $doc.parent?.constructor?.name == "Actor" ? true : false;
@@ -23,16 +24,32 @@
         CommonDetails
         .envelope
           h2.mt-none Usage
-          
           .flexrow.left.mt-xs
             label.flex1 Equipped
             DocumentCheckboxInput(name='system.equipped' bind:value="{$doc.system.equipped}") 
         .envelope
-          h2.mt-none Details
+          h2.mt-none Specifications
           
           .flexrow.left.mt-xs
-            label.flex1 Equipped
-            DocumentCheckboxInput(name='system.equipped' bind:value="{$doc.system.equipped}") 
+            label.flex1 Weight
+            DocumentTextInput(type='number' step='any' name='system.weight'  placeholder='—' bind:value="{$doc.system.weight}")
+            label.flex0 Units
+            DocumentSelect( name='system.weightUnits'  placeholder='lb.' bind:value="{$doc.system.weightUnits}"  options="{weightUnits}")
+          .flexrow.left.mt-xs
+            label.flex1 Price
+            DocumentTextInput(type='number' step='any' name='system.price'  placeholder='—' bind:value="{$doc.system.price}")
+            label.flex0 Units
+            DocumentSelect( name='system.priceUnits'  placeholder='lb.' bind:value="{$doc.system.priceUnits}"  options="{priceUnits}")
+          .flexrow.left.mt-xs
+            //- @todo: not sure we need these? Maybe they can be effects. That way DR is not limited by damage type. 
+            //- Alternately the MultiSelect component does have an +add button option and we could use it to add rows.
+            //- Thus a row for each damage type, plus it's value. But again I think ActiveEffects already is a better system for this
+            //- label DR - Slice
+            //- DocumentTextInput(type='number' step='any' name='system.weight'  placeholder='—' bind:value="{$doc.system.weight}")
+            //- label DR - Cudgel
+            //- DocumentTextInput(type='number' step='any' name='system.weight'  placeholder='—' bind:value="{$doc.system.weight}")
+            //- label DR - Impale
+            //- DocumentTextInput(type='number' step='any' name='system.weight'  placeholder='—' bind:value="{$doc.system.weight}")
 
         CommonPrerequisites
 

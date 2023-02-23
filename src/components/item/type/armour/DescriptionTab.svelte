@@ -19,7 +19,7 @@
           h1.flex0 Properties
           ol.properties-list
             li Price: {$doc.system.price} {$doc.system.priceUnits}
-            li Weight: {$doc.system.weight}
+            li Weight: {$doc.system.weight} {$doc.system.weightUnits}
             li.mr-xs Equipped: 
               +if("$doc.system.equipped")
                 i.fas.fa-check

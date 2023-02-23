@@ -392,6 +392,7 @@
         "price": 0,
         "priceUnits": "gp",
         "weight": 0,
+        "weightUnits": "lb",
         "quantity": 1,
         "location": "",
         "HP": 1

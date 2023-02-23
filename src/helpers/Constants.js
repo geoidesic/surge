@@ -122,6 +122,39 @@ export const manaTypes = [
   },
 ]
 
+export const priceUnits = [
+  {
+    label: "gp",
+    value: "gp"
+  },
+  {
+    label: "pp",
+    value: "pp"
+  },
+  {
+    label: "sp",
+    value: "sp"
+  },
+  {
+    label: "ep",
+    value: "ep"
+  },
+  {
+    label: "cp",
+    value: "cp"
+  },
+]
+
+export const weightUnits = [
+  {
+    label: "lb.",
+    value: "lb"
+  },
+  {
+    label: "kg",
+    value: "kg"
+  },
+]
 export const actionTypes = [
   {
     label: "Healing",
