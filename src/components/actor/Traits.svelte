@@ -12,7 +12,7 @@
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
   import ItemInput from "~/components/item/ItemInput.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
-  import XPcalc from "~/components/actor/XPcalc.js";
+  import XPcalc from "~/helpers/XPcalc.js";
   import Select from "~/helpers/svelte-components/select/Select.svelte";
   import RollCalc from "./RollCalc";
 

@@ -2,7 +2,7 @@
   import { getContext, onMount } from "svelte";
   import { validateNumericInput } from "~/helpers/Utility.js";
   import DocInput from "~/components/actor/ActorInput.svelte";
-  import XPcalc from "~/components/actor/XPcalc.js";
+  import XPcalc from "~/helpers/XPcalc.js";
   import NumericInputValidator from "./NumericInputValidator";
   import RollCalc from "./RollCalc";
 

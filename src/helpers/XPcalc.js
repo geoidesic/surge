@@ -41,6 +41,17 @@ export default class XpCalc {
     return this.dir;
   }
 
+  level() {
+    //- xp - cost fo
+    const lvl0Cost = $doc.system.xpOffset;
+    const xp = $doc.system.xp;
+    if (xp <= lvl0Cost) return 0;
+    const level = Array.from({ length: parseInt(xp - lvl0Cost) }, (_, i) => i + 1).reduce((level, current) => {
+      if (xp >= this.levelCost(level + 1)) return level + 1;
+      return level;
+    }, lvl0Cost)
+  }
+
   // /**
   //  * @param {Actor} $doc 
   //  * @param {object} trait 

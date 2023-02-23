@@ -1,7 +1,8 @@
 <script>
+  //- produces calculations for the character as a whole based on XP
   import { getContext, onMount } from "svelte";
   import { lvlCost } from "~/helpers/Constants.js";
-  import XPcalc from "~/components/actor/XPcalc.js";
+  import XPcalc from "~/helpers/XPcalc.js";
   const XP = new XPcalc($doc);
 
   export let className = "unspent";
