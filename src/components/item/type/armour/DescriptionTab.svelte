@@ -29,7 +29,6 @@
             +if("parentIsActor")
               li Quantity: {$doc.system.quantity}
               li Location: {$doc.system.location}
-            
           
         .flexcol.flex3.left
           h1.flex0 Description
