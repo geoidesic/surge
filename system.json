@@ -81,7 +81,7 @@
       "name": "effects",
       "label": "Effects",
       "path": "packs/effects.db",
-      "type": "Effect"
+      "type": "Item"
     },
     {
       "name": "classes",

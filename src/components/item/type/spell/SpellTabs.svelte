@@ -1,7 +1,7 @@
 <script>
   import Description from "~/components/item/type/spell/DescriptionTab.svelte";
-  import Details from "~/components/item/type/spell/Details.svelte";
-  import Effects from "~/components/item/Effects.svelte";
+  import Details from "~/components/item/type/spell/DetailsTab.svelte";
+  import Effects from "~/components/item/EffectsTab.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
 
   let activeTab = "description";

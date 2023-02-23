@@ -390,6 +390,7 @@
         "size": 1,
         "rarity": "common",
         "price": 0,
+        "priceUnits": "gp",
         "weight": 0,
         "quantity": 1,
         "location": "",
