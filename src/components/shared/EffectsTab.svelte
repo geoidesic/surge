@@ -100,10 +100,6 @@
     }
   }
 
-  Hooks.on("createItem", async (item) => {
-    console.log(item);
-  });
-
   function deleteItem(index, item) {
     console.log(index);
     console.log(item);
@@ -124,12 +120,8 @@
   }
 
   function toggleLock() {
-    console.log("toggleLock");
-    $doc.system.inventoryLocked = !$doc.system.inventoryLocked;
     $doc.update({
-      system: $doc.system,
-      flags: $doc.flags,
-      name: $doc.name,
+      ["system.inventoryLocked"]: !$doc.system.inventoryLocked,
     });
   }
 
@@ -139,6 +131,23 @@
   const xpValidator = new NumericInputValidator();
 
   console.log($doc);
+
+  async function openActiveEffectEditor() {
+    const effect = await ActiveEffect.create(
+      {
+        label: $doc.name,
+        icon: $doc.img,
+        origin: $doc.id,
+        disabled: false,
+        transfer: true,
+        flags: {},
+      },
+      { parent: $doc }
+    );
+
+    const effectConfig = new ActiveEffectConfig(effect, { editable: true });
+    effectConfig.render(true);
+  }
 </script>
 
 <template lang="pug">
@@ -171,12 +180,14 @@
             .flex2.left.ml-xl
               div {effect.label}
             .flex1
-              div {activeEffectModes.find(a => a.value == effect.changes[0].mode).label}
+              +if("effect.changes?.[0]")
+                div {activeEffectModes.find(a => a.value == effect.changes[0].mode).label}
             +if("$doc.type != 'effect'")
               .flex1
                 div
             .flex1
-              div {effect.changes[0].value}
+              +if("effect.changes?.[0]")
+                div {effect.changes[0].value}
             +if("$doc.type != 'effect'")
               .flex1
                 div
@@ -193,6 +204,9 @@
       p 
         strong Note 
         | that each of the listed effects may make multiple changes. Only the values for first such change will be shown in each row here. Edit the effect to see all the details.
+
+      button(on:click="{openActiveEffectEditor}") + Add Effect
+
 </template>
 
 <style lang="scss" scoped>
