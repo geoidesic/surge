@@ -14,6 +14,8 @@
   import ClothingTabs from "~/components/item/type/clothing/ClothingTabs.svelte";
   import ContainerHeader from "~/components/item/type/container/ContainerHeader.svelte";
   import ContainerTabs from "~/components/item/type/container/ContainerTabs.svelte";
+  import EffectHeader from "~/components/item/type/effect/EffectHeader.svelte";
+  import EffectTabs from "~/components/item/type/effect/EffectTabs.svelte";
   import ShieldHeader from "~/components/item/type/shield/ShieldHeader.svelte";
   import ShieldTabs from "~/components/item/type/shield/ShieldTabs.svelte";
   import SpellHeader from "~/components/item/type/spell/SpellHeader.svelte";
@@ -32,6 +34,7 @@
     ammunition: AmmunitionHeader,
     clothing: ClothingHeader,
     container: ContainerHeader,
+    effect: EffectHeader,
     shield: ShieldHeader,
     spell: SpellHeader,
     skill: SkillHeader,
@@ -43,6 +46,7 @@
     armour: ArmourTabs,
     clothing: ClothingTabs,
     container: ContainerTabs,
+    effect: EffectTabs,
     shield: ShieldTabs,
     spell: SpellTabs,
     skill: SkillTabs,

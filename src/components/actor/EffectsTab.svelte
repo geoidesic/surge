@@ -4,7 +4,7 @@
   import { getContext } from "svelte";
   import { rippleFocus } from "@typhonjs-fvtt/svelte-standard/action";
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
-  import { createFilterQuery } from "~/filters/traitsFilterQuery";
+  import { createFilterQuery } from "~/filters/effectsFilterQuery";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
   import NumericInputValidator from "~/components/actor/NumericInputValidator";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
@@ -14,19 +14,20 @@
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
   import XPcalc from "~/helpers/XPcalc.js";
   import Select from "~/helpers/svelte-components/select/Select.svelte";
-  import RollCalc from "~/components/actor//RollCalc";
+  import RollCalc from "~/components/actor/RollCalc";
 
   const Actor = getContext("#doc");
   const doc = new TJSDocument($Actor);
 
   const nameSearch = createFilterQuery("name");
   const typeSearch = createFilterQuery("type");
-
+  const fixedType = createFilterQuery("type");
+  // typeSearch.set("effect");
   // typeSearch.set("trait"); //- @deprecated as Trait is now a collective term for other types
 
   //- @todo: is this necessary / correct?
   if (!$doc.system.currentItemTypeFilter) {
-    $doc.system.currentItemTypeFilter = "all-traits";
+    $doc.system.currentItemTypeFilter = "all";
   }
 
   let typeFilterValue = $doc.system.currentItemTypeFilter;
@@ -69,13 +70,14 @@
   };
 
   /** @type {import('@typhonjs-fvtt/runtime/svelte/store').DynMapReducer<string, Item>} */
-  const wildcard = doc.embedded.create("Item", {
+  const wildcard = doc.embedded.create("ActiveEffect", {
     name: "wildcard",
-    filters: [nameSearch, typeSearch],
-    sort: (a, b) => a.name.localeCompare(b.name),
+    // filters: [fixedType, nameSearch, typeSearch],
+    // filters: [fixedType],
+    // sort: (a, b) => a.title.localeCompare(b.title),
   });
 
-  $: items = [...$wildcard];
+  $: ActiveEffects = [...$wildcard];
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
   $: xpUnspent = parseInt($doc.system.xpUnspent) || 0;
@@ -105,7 +107,6 @@
     console.log(index);
     console.log(item);
     //- first re-assign XP from this trait back to the unspent pool
-    $doc.update({ "system.xpUnspent": xpUnspent + parseInt(item.system.xp) });
     item.delete();
   }
 
@@ -118,6 +119,7 @@
     console.log("editItem");
     console.log(index);
     console.log(item);
+    item.sheet.render(true);
   }
 
   function toggleLock() {
@@ -134,89 +136,10 @@
   let keyUp = true;
   let prevValue;
   const xpValidator = new NumericInputValidator();
-  const XP = new XPcalc($doc);
-
-  function validateXpAssigned(event, item) {
-    if (keyUp === false) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
-    key = xpValidator.validate(event, xpUnspent);
-    prevValue = parseInt(event.target.value);
-
-    if (key == false) return;
-
-    const value = parseInt(event.target.value);
-    if (key == "up" && xpUnspent <= 0) {
-      console.log("validate failed because no unspentXP");
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    keyUp = false;
-  }
-
-  function updateXpAssigned(event, item) {
-    keyUp = true;
-    //- if the value has been deleted completely, then set it to zero
-    if (event.target.value === "") {
-      event.target.value = 0;
-      $doc.update({ [`system.xpUnspent`]: unspentXp - prevValue });
-    }
-
-    //- if there was a keypress that failed validation return
-    if (key === false) {
-      console.log("keydown validation failed: do not update");
-      return;
-    }
-    if (!typeof item.system.level == "number") {
-      console.log("Invalid level");
-      item.system.level = 0;
-    }
-
-    let value = parseInt(event.target.value);
-
-    let dir = key == "up" || key == "down" ? key : XP.directionOfChange(value, item.system.xp);
-    let diff = prevValue - value;
-    if (diff < 0 && xpUnspent + diff < 0) {
-      console.log("Update would result in negative unspent XP, revert value to min");
-      diff = -xpUnspent;
-      value = prevValue + xpUnspent;
-    }
-    $doc.update({ [`system.xpUnspent`]: xpUnspent + diff });
-    item.update({ "system.xp": value });
-    updateLevel(value, item);
-  }
-
-  function updateLevel(value, item) {
-    //- if the total XP assigned including this value equals the next level cost, then increase the level to next level
-    //- if it falls below, recuce the level
-    const currentLevel = item.system.level;
-    const nextLevelCost = XP.levelCost(currentLevel + 1, item.system.xpOffset);
-    const currentLevelCost = XP.levelCost(currentLevel, item.system.xpOffset);
-
-    if (value >= nextLevelCost) {
-      item.update({ "system.level": currentLevel + 1 });
-    }
-    if (value < currentLevelCost) {
-      item.update({ "system.level": currentLevel - 1 });
-    }
-  }
 </script>
 
 <template lang="pug">
   ScrollingContainer
-    .flexrow.pt-sm.pr-sm
-      .flexcol.flex1.label-container 
-        label Search
-      .flex3.left
-        TJSInput({input}) {$wildcard}
-      .flexcol.flex1.label-container 
-        label Type
-      .flex3.right
-        Select(options="{typeFilterOptions}" bind:value="{typeFilterValue}")
-    
-
     div.pa-sm
       ol
         li.flexrow.header
@@ -226,30 +149,27 @@
           .flex3.left.ml-xl
             div Name
           .flex1
-            div Lvl.
+            div Type
           .flex1
-            div XP
+            div Status
+          .flex1
+            div Mod
+          .flex1
+            div Source
           div.actions.flex1.right 
             div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
               i.fa(class="{faLockCSS}" on:click="{toggleLock}")
-        +each("items as item, index")
+        +each("ActiveEffects as effect, index")
           li.flexrow.relative.itemrow
-            div.flex0(on:click!="{new RollCalc({doc: item, Actor: $doc, code: 'level', rollType: 'trait'})}")
-              div.rowimgbutton.rowimgbezelbutton
-                img.left.flex0(src="{item.img}" )
             .flex3.left.ml-xl
-              div {item.name}
-            .flex1
-              div {item.system.level}
-            .flex1
-              input(type="number" bind:value="{item.system.xp}" on:keydown!="{(event) => validateXpAssigned(event, item)}" on:keyup!="{(event) => updateXpAssigned(event, item)}")
+              div {effect.label}
 
             div.actions.flex1.right
               +if("!$doc.system.inventoryLocked")
                 div.rowbutton.rowimgbezelbutton
-                  i.left.fa.fa-edit.mr-md( on:click="{editItem(index, item)}")
+                  i.left.fa.fa-edit.mr-md( on:click="{editItem(index, effect)}")
                 div.rowbutton.rowimgbezelbutton
-                  i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, item)}")
+                  i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, effect)}")
         li.flexrow.footer
           
 

@@ -136,7 +136,7 @@
     h2 {code}
     //- input.base(type="number" value="{$doc.system[code].level}" on:keydown="{validate}" on:keyup="{updateBase}" disabled)
     .attribute {$doc.system[code].level}
-    input.current(type="number" value="{$doc.system[code].level}" on:keydown="{validate}" on:keyup="{updateCurrent}" disabled)
+    input.current(type="number" value="{$doc.system[code].mod}" on:keydown="{validate}" on:keyup="{updateCurrent}" disabled)
     input.xp(type="number" value="{$doc.system[code].xp}" on:keydown="{validate}" on:keyup="{updateXP}")
 </template>
 

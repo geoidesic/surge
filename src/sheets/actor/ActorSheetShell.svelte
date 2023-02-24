@@ -5,13 +5,14 @@
   import { setContext, getContext } from "svelte";
   import DocTextArea from "~/components/DocTextArea.svelte";
   import DocInput from "~/components/actor/ActorInput.svelte";
-  import Shield from "~/components/Shield.svelte";
+  // import Shield from "~/components/Shield.svelte";
   import Blobby from "~/components/Blobby.svelte";
   import Attributes from "~/components/actor/Attributes.svelte";
   import Biography from "~/components/actor/Biography.svelte";
   import Inventory from "~/components/actor/Inventory.svelte";
   import Journal from "~/components/actor/Journal.svelte";
   import Traits from "~/components/actor/Traits.svelte";
+  import Effects from "~/components/actor/EffectsTab.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
   import LevelBlock from "~/components/actor/LevelBlock.svelte";
@@ -71,7 +72,7 @@
     { label: "attributes", id: "attributes", component: Attributes },
     { label: "inventory", id: "inventory", component: Inventory },
     { label: "traits", id: "traits", component: Traits },
-    { label: "effects", id: "effects", component: Shield },
+    { label: "effects", id: "effects", component: Effects },
     { label: "biography", id: "biography", component: Biography },
     { label: "journal", id: "journal", component: Journal },
   ];

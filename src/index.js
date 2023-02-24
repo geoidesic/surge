@@ -59,3 +59,12 @@ Hooks.on('preDeleteChatMessage', (message) => {
     message._svelteComponent.$destroy();
   }
 });
+Hooks.on('preUpdateActiveEffect', (effect) => {
+  console.log("preUpdateActiveEffect")
+  console.log(effect)
+});
+
+Hooks.on('closeActiveEffectConfig', (effect) => {
+  console.log("preUpdateActiveEffect")
+  console.log(effect)
+})
