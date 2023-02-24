@@ -2,7 +2,7 @@
 
 <script>
   import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
-  import { setContext, getContext } from "svelte";
+  import { setContext, getContext, onMount } from "svelte";
   import DocInput from "~/components/item/ItemInput.svelte";
   import WeaponHeader from "~/components/item/type/weapon/WeaponHeader.svelte";
   import WeaponTabs from "~/components/item/type/weapon/WeaponTabs.svelte";
@@ -90,38 +90,73 @@
   function _editToken(event) {
     _launchStandardProfileEditor(event);
   }
+
+  async function handleDrop(event) {
+    const data = JSON.parse(event.dataTransfer.getData("text/plain"));
+
+    let droppedItem;
+    console.log(data.type);
+    console.log(data.uuid);
+    console.log(data);
+    let split = data.uuid.split(".");
+    let type = split[0];
+    console.log(split);
+    console.log(type);
+
+    if (type === "Item") {
+      console.log(game.items);
+      droppedItem = await game.items.get(split[1]);
+    } else if (type === "Compendium") {
+      console.log(game.packs);
+      const compendiumName = `${split[1]}.${split[2]}`;
+      console.log(compendiumName);
+      const pack = game.packs.get(compendiumName);
+      console.log(pack);
+      console.log(pack.index);
+
+      droppedItem = await pack.getDocument(split[3]);
+    }
+
+    // Do something with the dropped item
+    console.log(droppedItem);
+
+    if (droppedItem.type == "effect") {
+      //- get the effects from the item
+      //- add the effect from the item to this item
+      await $documentStore.createEmbeddedDocuments("ActiveEffect", Array.from(droppedItem.effects));
+    }
+  }
 </script>
 
 <template lang="pug">
   ApplicationShell(bind:elementRoot)
-    header.surge-defaultSheet-header
+    div(on:drop="{handleDrop}")
+      header.surge-defaultSheet-header
 
-      //- profile pic
-      section.profile-wrap
-        .profile.round
-        .profile-buttons
-        .portrait
-          img.profile(src="{$documentStore.img}" data-tooltip="{$documentStore.name}" on:click="{_launchStandardProfileEditor}")
-          //- img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;")
+        //- profile pic
+        section.profile-wrap
+          .profile.round
+          .profile-buttons
+          .portrait
+            img.profile(src="{$documentStore.img}" data-tooltip="{$documentStore.name}" on:click="{_launchStandardProfileEditor}")
+            //- img.inline.flex2(src="systems/surge/assets/logo.webp" height="100" width="100" style="max-width: 100px; text-align: center;")
 
-      section.item.details
-        //- shared details 
-        section.general-info.flexrow
-          .flexcol.flex3
-            DocInput(className="lg transparent" attr="name" placeholder="Item Name" maxlength="40")
-          div.flex1.level-information
-            table(style="text-align: center")
-              tr
-                td
-                  div {item.type} 
+        section.item.details
+          //- shared details 
+          section.general-info.flexrow
+            .flexcol.flex3
+              DocInput(className="lg transparent" attr="name" placeholder="Item Name" maxlength="40")
+            div.flex1.level-information
+              table(style="text-align: center")
+                tr
+                  td
+                    div {item.type} 
 
-        //- type details
-        svelte:component(this="{headerMap[item.type]}")
-        
-
-
-    section.sheet-body
-      svelte:component(this="{tabMap[item.type]}")
+          //- type details
+          svelte:component(this="{headerMap[item.type]}")
+          
+      section.sheet-body
+        svelte:component(this="{tabMap[item.type]}")
       
 
 </template>
