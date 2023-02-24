@@ -448,6 +448,7 @@
         "APcost": 1,
         "actionType": "",
         "mods": [],
+        "mod": 0,
         "code": null
       },
       "activatedEffect": {

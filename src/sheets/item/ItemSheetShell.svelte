@@ -107,6 +107,9 @@
     }
 
     if (droppedItem.type == "effect") {
+      console.log(">>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<");
+      console.log(droppedItem.effects);
+
       //- get the effects from the item
       //- add the effect from the item to this item
       await $documentStore.createEmbeddedDocuments("ActiveEffect", Array.from(droppedItem.effects));

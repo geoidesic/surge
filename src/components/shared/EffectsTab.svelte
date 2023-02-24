@@ -147,7 +147,7 @@
       ol
         li.flexrow.header
           .flex0
-          .flex3.left.ml-xl
+          .flex2.left.ml-xl
             div Name
           .flex1
             div Mode
@@ -168,7 +168,7 @@
               div.flex0
                 div.rowimgbutton
                   img.left.flex0(src="{effect.icon}" )
-            .flex3.left.ml-xl
+            .flex2.left.ml-xl
               div {effect.label}
             .flex1
               div {activeEffectModes.find(a => a.value == effect.changes[0].mode).label}

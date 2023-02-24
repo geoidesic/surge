@@ -154,11 +154,37 @@
   //- store a copy of the templates for usage as schemas in other places
   setContext("#doc", documentStore);
   setContext("#templates", templates);
+
+  async function handleDrop(event) {
+    const data = JSON.parse(event.dataTransfer.getData("text/plain"));
+
+    let droppedItem;
+    let split = data.uuid.split(".");
+    let type = split[0];
+
+    console.log("type");
+    console.log(type);
+    return;
+
+    if (type === "Item") {
+      droppedItem = await game.items.get(split[1]);
+    } else if (type === "Compendium") {
+      const compendiumName = `${split[1]}.${split[2]}`;
+      const pack = game.packs.get(compendiumName);
+      droppedItem = await pack.getDocument(split[3]);
+    }
+
+    if (droppedItem.type == "effect") {
+      //- get the effects from the item
+      //- add the effect from the item to this item
+      await $documentStore.createEmbeddedDocuments("ActiveEffect", Array.from(droppedItem.effects));
+    }
+  }
 </script>
 
 <template lang="pug">
   ApplicationShell(bind:elementRoot)
-    header.surge-defaultSheet-header
+    header.surge-defaultSheet-header(on:drop="{handleDrop}")
       section.profile-wrap
         .profile.round
         .profile-buttons
@@ -191,7 +217,7 @@
         section.character-stats
           .header-attributes
 
-    section.sheet-body
+    section.sheet-body(on:drop="{handleDrop}")
       Tabs( {tabs} bind:activeTab="{activeTab}")
       
 

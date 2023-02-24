@@ -194,56 +194,12 @@ export default class SvelteDocumentSheet extends SvelteApplication {
       return
     }
 
-    // Modify itemData to set xp = cost and update unspent
+    // For Traits: Modify itemData to set xp = cost and update unspent
     if (traits.includes(itemData.type)) {
-      console.log(itemData);
       itemData.system.xp = parseInt(itemData.system.xpOffset)
       itemData.system.xpOffset = parseInt(itemData.system.xpOffset)
       actor.system.xpUnspent -= parseInt(itemData.system.xpOffset);
       actor.update({ system: actor.system, flags: actor.flags })
-
-      //- create effect
-      const effect = await ActiveEffect.create(
-        {
-          label: itemData.name,
-          icon: itemData.img,
-          origin: itemData.id,
-          disabled: false,
-          transfer: true,
-          duration: { rounds: 1 },
-          flags: {
-          },
-          changes: [
-            {
-              key: "system.siz.mod",
-              value: 2,
-              mode: 2,
-              priority: 20
-            }
-          ]
-        }, { parent: actor }
-      );
-
-      //- embed effect
-      await actor.createEmbeddedDocuments('ActiveEffect', [
-        {
-          label: itemData.name,
-          icon: itemData.img,
-          origin: itemData.id,
-          disabled: false,
-          transfer: true,
-          duration: { rounds: 1 },
-          flags: {
-          },
-          changes: [
-            {
-              key: "system.siz.mod",
-              value: 2,
-              mode: 2,
-              priority: 20
-            }
-          ]
-        }])
     }
 
     // Handle item sorting within the same Actor

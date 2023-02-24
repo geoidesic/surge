@@ -25,16 +25,8 @@
         origin: $doc.id,
         disabled: false,
         transfer: true,
-        duration: { rounds: 1 },
+
         flags: {},
-        changes: [
-          {
-            key: "system.siz.mod",
-            value: 2,
-            mode: 2,
-            priority: 20,
-          },
-        ],
       },
       { parent: $doc }
     );
