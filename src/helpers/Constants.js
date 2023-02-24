@@ -29,6 +29,34 @@ export const AOEshapes = [
     label: "sphere"
   }
 ]
+
+export const activeEffectModes = [
+  {
+    value: "1",
+    label: "multiply"
+  },
+  {
+    value: "2",
+    label: "add"
+  },
+  {
+    value: "3",
+    label: "override"
+  },
+  {
+    value: "4",
+    label: "downgrade"
+  },
+  {
+    value: "5",
+    label: "upgrade"
+  },
+  {
+    value: "6",
+    label: "custom"
+  }
+]
+
 export const targets = [
   {
     value: "self",

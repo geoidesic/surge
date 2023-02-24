@@ -12,7 +12,7 @@
   import Inventory from "~/components/actor/Inventory.svelte";
   import Journal from "~/components/actor/Journal.svelte";
   import Traits from "~/components/actor/Traits.svelte";
-  import Effects from "~/components/actor/EffectsTab.svelte";
+  import Effects from "~/components/shared/EffectsTab.svelte";
   import Tabs from "~/helpers/svelte-components/Tabs.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
   import LevelBlock from "~/components/actor/LevelBlock.svelte";

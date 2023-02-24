@@ -202,31 +202,29 @@ export default class SvelteDocumentSheet extends SvelteApplication {
       actor.system.xpUnspent -= parseInt(itemData.system.xpOffset);
       actor.update({ system: actor.system, flags: actor.flags })
 
-      // //- create effect
-      // const effect = await ActiveEffect.create(
-      //   {
-      //     label: itemData.name,
-      //     icon: itemData.img,
-      //     origin: itemData.id,
-      //     disabled: false,
-      //     transfer: true,
-      //     duration: { rounds: 1 },
-      //     flags: {
-      //     },
-      //     changes: [
-      //       {
-      //         key: "system.siz.mod",
-      //         value: 2,
-      //         mode: 2,
-      //         priority: 20
-      //       }
-      //     ]
-      //   }, { parent: actor }
-      // );
-      // effect.apply();
-      // effect.sheet.render(true)
+      //- create effect
+      const effect = await ActiveEffect.create(
+        {
+          label: itemData.name,
+          icon: itemData.img,
+          origin: itemData.id,
+          disabled: false,
+          transfer: true,
+          duration: { rounds: 1 },
+          flags: {
+          },
+          changes: [
+            {
+              key: "system.siz.mod",
+              value: 2,
+              mode: 2,
+              priority: 20
+            }
+          ]
+        }, { parent: actor }
+      );
 
-
+      //- embed effect
       await actor.createEmbeddedDocuments('ActiveEffect', [
         {
           label: itemData.name,

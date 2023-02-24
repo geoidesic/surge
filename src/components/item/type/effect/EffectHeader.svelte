@@ -11,14 +11,8 @@
 
 <template lang="pug">
 section.extra-info.flexrow
-  +if("parentIsActor")
-    .stat.pa-xs {XPcalc($doc).level()}
-  .stat.pa-xs {$doc.system.rarity}
 
 section.extra-info.flexrow
-  +if("parentIsActor")
-    label Level (AF)
-  label Rarity
 
 </template>
 
