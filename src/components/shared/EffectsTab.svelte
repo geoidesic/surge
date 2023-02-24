@@ -220,6 +220,10 @@
     height: 30px;
     padding: 0;
     object-fit: cover;
+    border: 1px solid grey;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
     img {
       width: 30px;
       height: 30px;
