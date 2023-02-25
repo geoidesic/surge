@@ -22,13 +22,6 @@
   const nameSearch = createFilterQuery("name");
   const typeSearch = createFilterQuery("type");
 
-  // typeSearch.set("trait"); //- @deprecated as Trait is now a collective term for other types
-
-  //- @todo: is this necessary / correct?
-  if (!$doc.system.currentItemTypeFilter) {
-    $doc.system.currentItemTypeFilter = "all-traits";
-  }
-
   let typeFilterValue = $doc.system.currentItemTypeFilter;
 
   $: $doc.system.currentItemTypeFilter = typeFilterValue;
@@ -120,10 +113,11 @@
     console.log(item);
   }
 
-  function toggleLock() {
-    console.log("toggleLock Traits");
+  function toggleLock(event) {
+    console.log("toggleLock Effects");
     event.stopPropagation();
     event.preventDefault();
+    // $doc.system.inventoryLocked = !$doc.system.inventoryLocked;
     $doc.update(
       {
         ["system.inventoryLocked"]: !$doc.system.inventoryLocked,
@@ -132,7 +126,6 @@
         diff: true,
         diffData: true,
         diffSystem: true,
-        render: false,
       }
     );
   }

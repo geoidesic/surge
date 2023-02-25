@@ -74,11 +74,11 @@
   function editItem(index, item) {
     item.sheet.render(true);
   }
-
-  function toggleLock() {
-    console.log("toggleLock Inventory");
+  function toggleLock(event) {
+    console.log("toggleLock Effects");
     event.stopPropagation();
     event.preventDefault();
+    // $doc.system.inventoryLocked = !$doc.system.inventoryLocked;
     $doc.update(
       {
         ["system.inventoryLocked"]: !$doc.system.inventoryLocked,
@@ -87,11 +87,9 @@
         diff: true,
         diffData: true,
         diffSystem: true,
-        render: false,
       }
     );
   }
-
   function toggleEquipped(item) {
     item.update({ ["system.equipped"]: !item.system.equipped });
     console.log(item);
@@ -143,7 +141,7 @@
             i.fas.fa-person-walking-luggage
           div(slot="c7") 
             div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
-              i.fa(class="{faLockCSS}" on:click|preventDefault="{toggleLock}")
+              i.fa(class="{faLockCSS}" on:click="{toggleLock}")
         +each("items as item, index")
           InventoryRow.relative
             div(slot="c1" on:click="{clickItem(index, item)}")

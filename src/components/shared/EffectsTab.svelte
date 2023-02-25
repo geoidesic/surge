@@ -26,15 +26,6 @@
   const typeSearch = createFilterQuery("type");
   const fixedType = createFilterQuery("type");
 
-  console.log(getEffectOrigin, doc);
-  // typeSearch.set("effect");
-  // typeSearch.set("trait"); //- @deprecated as Trait is now a collective term for other types
-
-  //- @todo: is this necessary / correct?
-  if (!$doc.system.currentItemTypeFilter) {
-    $doc.system.currentItemTypeFilter = "all";
-  }
-
   let typeFilterValue = $doc.system.currentItemTypeFilter;
 
   $: $doc.system.currentItemTypeFilter = typeFilterValue;
@@ -111,10 +102,6 @@
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
   $: xpUnspent = parseInt($doc.system.xpUnspent) || 0;
 
-  Hooks.on("createItem", async (item) => {
-    console.log(item);
-  });
-
   /**
    * Handles parsing the drop event and sets new document source.
    *
@@ -160,7 +147,6 @@
         diff: true,
         diffData: true,
         diffSystem: true,
-        render: false,
       }
     );
   }
