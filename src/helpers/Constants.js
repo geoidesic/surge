@@ -398,7 +398,35 @@ export const timeUnits = [
   },
 ]
 
-export const inventory = [
+
+
+export const effectTriggers = [
+  {
+    value: "passive",
+    label: "passive"
+  },
+  {
+    value: "critical",
+    label: "critical"
+  },
+  {
+    value: "contact",
+    label: "contact"
+  }
+]
+export const effectStatus = [
+  {
+    value: "on",
+    label: "on"
+  },
+  {
+    value: "off",
+    label: "off"
+  },
+]
+
+
+export const inventoryOptions = [
   {
     value: "ammunition",
     label: "Ammunition",
@@ -425,32 +453,36 @@ export const inventory = [
   },
 ]
 
-export const effectTriggers = [
-  {
-    value: "passive",
-    label: "passive"
-  },
-  {
-    value: "critical",
-    label: "critical"
-  },
-  {
-    value: "contact",
-    label: "contact"
-  }
-]
-export const effectStatus = [
-  {
-    value: "on",
-    label: "on"
-  },
-  {
-    value: "off",
-    label: "off"
-  },
-]
+
 export const traits = [
   "skill", "talent", "flaw", "spell"
+]
+
+export const inventory = [
+  "ammunition", "armour", "clothing", "container", "shield", "weapon"
+]
+
+export const traitOptions = [
+  {
+    value: "feat",
+    label: "Feat",
+  },
+  {
+    value: "flaw",
+    label: "Flaw",
+  },
+  {
+    value: "skill",
+    label: "Skill",
+  },
+  {
+    value: "spell",
+    label: "Spell",
+  },
+  {
+    value: "talent",
+    label: "Talent",
+  },
 ]
 export default {
   lvlCost,
