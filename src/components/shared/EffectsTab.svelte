@@ -6,7 +6,7 @@
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
   import { createFilterQuery } from "~/filters/effectsFilterQuery";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
-  import { activeEffectModes } from "~/helpers/Constants.js";
+  import { activeEffectModes, effectTriggers } from "~/helpers/Constants.js";
   import { getEffectOrigin } from "~/helpers/Utility.js";
   import NumericInputValidator from "~/components/actor/NumericInputValidator";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
@@ -154,6 +154,7 @@
   }
 
   function toggleEffect(effect) {
+    console.log(effect);
     effect.update({ disabled: !effect.disabled });
   }
 
@@ -201,18 +202,20 @@
       ol
         li.flexrow.header
           .flex0
-          .flex2.left.ml-xl
+          .flex3.left.ml-xl
             div Name
           .flex1
             div Mode
-          +if("$doc.type != 'effect'")
-            .flex1
-              div Enabled
           .flex1
             div Mod
           +if("$doc.type != 'effect'")
             .flex1
-              div Origin
+              div From
+          +if("$doc.type != 'effect'")
+            .flex1
+              div On
+          .flex2.left
+            div Trigger
           div.actions.flex1.right
             div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
               i.fa(class="{faLockCSS}" on:click="{toggleLock}")
@@ -222,21 +225,23 @@
               div.flex0
                 div.rowimgbutton
                   img.left.flex0(src="{effect.icon}" )
-            .flex2.left.ml-xl
+            .flex3.left.ml-xl
               div {effect.label}
             .flex1
               +if("effect.changes?.[0]")
                 div {activeEffectModes.find(a => a.value == effect.changes[0].mode).label}
-            +if("$doc.type != 'effect'")
-              .flex1
-                input(type='checkbox' checked="{!effect.disabled}" data-tooltip="SURGE.ToggleEnabled" aria-describedby="tooltip" on:change="{toggleEffect(effect)}")
             .flex1
               +if("effect.changes?.[0]")
                 div {effect.changes[0].value}
             +if("$doc.type != 'effect'")
               .flex1.relative
                 img.origin.flex0(src="{getEffectOrigin(effect).img}" data-tooltip="{getEffectOrigin(effect).name}" aria-describedby="tooltip")
-
+            +if("$doc.type != 'effect'")
+              .flex1
+                input(type='checkbox' checked="{!effect.disabled}" data-tooltip="SURGE.ToggleEnabled" aria-describedby="tooltip" on:change="{toggleEffect(effect)}")
+            .flex2
+              Select(options="{effectTriggers}" bind:value="{effect.flags.trigger}")
+              
             div.actions.flex1.right
               +if("!$doc.system.inventoryLocked")
                 div.rowbutton.rowimgbezelbutton

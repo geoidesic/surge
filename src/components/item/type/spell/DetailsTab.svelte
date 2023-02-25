@@ -14,7 +14,6 @@
     AOEshapes,
     manaTypes,
     timeUnits,
-    effectTypes,
     targets,
     durationTypes,
     distanceUnits,
