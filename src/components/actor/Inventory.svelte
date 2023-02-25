@@ -76,11 +76,20 @@
   }
 
   function toggleLock() {
-    console.log("toggleLock");
-    // $doc.system.inventoryLocked = !$doc.system.inventoryLocked;
-    $doc.update({
-      ["system.inventoryLocked"]: !$doc.system.inventoryLocked,
-    });
+    console.log("toggleLock Inventory");
+    event.stopPropagation();
+    event.preventDefault();
+    $doc.update(
+      {
+        ["system.inventoryLocked"]: !$doc.system.inventoryLocked,
+      },
+      {
+        diff: true,
+        diffData: true,
+        diffSystem: true,
+        render: false,
+      }
+    );
   }
 
   function toggleEquipped(item) {
@@ -134,7 +143,7 @@
             i.fas.fa-person-walking-luggage
           div(slot="c7") 
             div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
-              i.fa(class="{faLockCSS}" on:click="{toggleLock}")
+              i.fa(class="{faLockCSS}" on:click|preventDefault="{toggleLock}")
         +each("items as item, index")
           InventoryRow.relative
             div(slot="c1" on:click="{clickItem(index, item)}")

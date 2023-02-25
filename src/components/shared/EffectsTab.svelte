@@ -147,12 +147,23 @@
     item.sheet.render(true);
   }
 
-  function toggleLock() {
-    $doc.update({
-      ["system.inventoryLocked"]: !$doc.system.inventoryLocked,
-    });
+  function toggleLock(event) {
+    console.log("toggleLock Effects");
+    event.stopPropagation();
+    event.preventDefault();
+    // $doc.system.inventoryLocked = !$doc.system.inventoryLocked;
+    $doc.update(
+      {
+        ["system.inventoryLocked"]: !$doc.system.inventoryLocked,
+      },
+      {
+        diff: true,
+        diffData: true,
+        diffSystem: true,
+        render: false,
+      }
+    );
   }
-
   function toggleEffect(effect) {
     console.log(effect);
     effect.update({ disabled: !effect.disabled });

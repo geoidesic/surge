@@ -121,15 +121,21 @@
   }
 
   function toggleLock() {
-    console.log("toggleLock");
-    $doc.system.inventoryLocked = !$doc.system.inventoryLocked;
-    $doc.update({
-      system: $doc.system,
-      flags: $doc.flags,
-      name: $doc.name,
-    });
+    console.log("toggleLock Traits");
+    event.stopPropagation();
+    event.preventDefault();
+    $doc.update(
+      {
+        ["system.inventoryLocked"]: !$doc.system.inventoryLocked,
+      },
+      {
+        diff: true,
+        diffData: true,
+        diffSystem: true,
+        render: false,
+      }
+    );
   }
-
   let key = false;
   let keyUp = true;
   let prevValue;
