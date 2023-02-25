@@ -5,6 +5,7 @@
 
   // The value of the input
   export let value;
+  export let preventDefault = false;
 
   // Document reference
   const document = getContext("#doc");
@@ -19,6 +20,7 @@
   disabled={disabled || !$document.isOwner}
   on:change
   on:change={async () => {
+    if (preventDefault) return;
     $document.update({
       system: $document.system,
       flags: $document.flags,

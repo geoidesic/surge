@@ -1,7 +1,7 @@
 <svelte:options accessors={true} />
 
 <script>
-  import { getContext } from "svelte";
+  import { getContext, setContext } from "svelte";
   import { rippleFocus } from "@typhonjs-fvtt/svelte-standard/action";
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
   import { createFilterQuery } from "~/filters/effectsFilterQuery";
@@ -10,6 +10,7 @@
   import NumericInputValidator from "~/components/actor/NumericInputValidator";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
+  import DocumentCheckboxInput from "~/components/elements/DocumentCheckboxInput.svelte";
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
   import ItemInput from "~/components/item/ItemInput.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
@@ -125,6 +126,10 @@
     });
   }
 
+  function toggleEffect(effect) {
+    effect.update({ disabled: !effect.disabled });
+  }
+
   let key = false;
   let keyUp = true;
   let prevValue;
@@ -140,7 +145,9 @@
         origin: $doc.id,
         disabled: false,
         transfer: true,
-        flags: {},
+        flags: {
+          source: "user",
+        },
       },
       { parent: $doc }
     );
@@ -162,7 +169,7 @@
             div Mode
           +if("$doc.type != 'effect'")
             .flex1
-              div Status
+              div Enabled
           .flex1
             div Mod
           +if("$doc.type != 'effect'")
@@ -173,7 +180,7 @@
               i.fa(class="{faLockCSS}" on:click="{toggleLock}")
         +each("ActiveEffects as effect, index")
           li.flexrow.relative.itemrow
-            .flex0
+            .flex0 
               div.flex0
                 div.rowimgbutton
                   img.left.flex0(src="{effect.icon}" )
@@ -184,7 +191,7 @@
                 div {activeEffectModes.find(a => a.value == effect.changes[0].mode).label}
             +if("$doc.type != 'effect'")
               .flex1
-                div
+                input(type='checkbox' checked="{!effect.disabled}" on:change="{toggleEffect(effect)}")
             .flex1
               +if("effect.changes?.[0]")
                 div {effect.changes[0].value}

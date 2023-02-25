@@ -1,8 +1,6 @@
 <script>
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import ProseMirror from "~/components/ProseMirror.svelte";
-  import DocInput from "~/components/item/ItemInput.svelte";
-  import DocumentCheckboxInput from "~/components/elements/DocumentCheckboxInput.svelte";
   import { TJSSelect } from "@typhonjs-fvtt/svelte-standard/component";
   import { getContext } from "svelte";
   import { targets } from "~/helpers/Constants.js";
