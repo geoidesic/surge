@@ -130,6 +130,18 @@
     effect.update({ disabled: !effect.disabled });
   }
 
+  function getOrigin(effect) {
+    const origin = effect._source.origin;
+    const split = origin.split(".");
+    let item = void 0;
+    if (split.length == 4) {
+      item = $doc.items.get(split[3]);
+    } else {
+      item = game.actors.get(origin);
+    }
+    return item;
+  }
+
   let key = false;
   let keyUp = true;
   let prevValue;
@@ -174,7 +186,7 @@
             div Mod
           +if("$doc.type != 'effect'")
             .flex1
-              div Source
+              div Origin
           div.actions.flex1.right 
             div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
               i.fa(class="{faLockCSS}" on:click="{toggleLock}")
@@ -196,8 +208,8 @@
               +if("effect.changes?.[0]")
                 div {effect.changes[0].value}
             +if("$doc.type != 'effect'")
-              .flex1
-                div
+              .flex1.relative 
+                img.origin.flex0(src="{getOrigin(effect).img}" data-tooltip="{getOrigin(effect).name}")
 
             div.actions.flex1.right
               +if("!$doc.system.inventoryLocked")
@@ -222,6 +234,14 @@
     width: 20px;
     height: 20px;
     flex: auto;
+    .origin {
+      position: absolute;
+      top: 0;
+      height: 25px;
+      margin-top: -12px;
+      left: 35%;
+      flex: auto;
+    }
   }
 
   .actions {
