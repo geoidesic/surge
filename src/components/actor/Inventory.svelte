@@ -7,7 +7,7 @@
   import { createFilterQuery } from "~/filters/inventoryFilterQuery";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
   import { validateNumericInput } from "~/helpers/Utility.js";
-  import { inventory } from "~/helpers/Constants.js";
+  import { inventoryOptions } from "~/helpers/Constants.js";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
@@ -28,7 +28,7 @@
       value: "all",
       label: "All",
     },
-    ...inventory,
+    ...inventoryOptions,
   ];
 
   const input = {
