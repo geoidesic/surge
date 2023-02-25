@@ -20,10 +20,19 @@ export function isNumber(value) {
 export function getEffectOrigin(effect) {
   const origin = effect._source.origin;
   const split = origin.split(".");
+  console.log(effect.parent.type)
+  console.log(split)
   let item = void 0;
   if (split.length == 4) {
+    console.log('from effect parent item')
     item = effect.parent.items.get(split[3]);
-  } else {
+  }
+  //- not needed; I got confused, was examining Armour as it it were Actor
+  // else if (effect.parent.constructor.name == 'Item') {
+  //   item = effect.parent
+  // } 
+  else {
+    console.log('from actor or game item')
     item = game.actors.get(origin) || game.items.get(origin);
   }
 

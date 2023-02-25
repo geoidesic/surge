@@ -6,7 +6,7 @@
   import { TJSInput } from "@typhonjs-fvtt/svelte-standard/component";
   import { createFilterQuery } from "~/filters/effectsFilterQuery";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
-  import { activeEffectModes, effectTriggers } from "~/helpers/Constants.js";
+  import { activeEffectModes, effectTriggers, inventoryOptions, traitOptions } from "~/helpers/Constants.js";
   import { getEffectOrigin } from "~/helpers/Utility.js";
   import NumericInputValidator from "~/components/actor/NumericInputValidator";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
@@ -25,8 +25,10 @@
 
   const nameSearch = createFilterQuery("label");
   const typeSearch = createFilterQuery("type");
-  const fixedType = createFilterQuery("type");
 
+  if (!$doc.system.currentItemTypeFilter) {
+    $doc.system.currentItemTypeFilter = "all";
+  }
   let typeFilterValue = $doc.system.currentItemTypeFilter;
 
   $: $doc.system.currentItemTypeFilter = typeFilterValue;
@@ -38,50 +40,13 @@
       label: "All",
     },
     {
-      value: "ammunition",
-      label: "Ammunition",
+      value: "effect",
+      label: "Effect",
     },
-    {
-      value: "armour",
-      label: "Armour",
-    },
-    {
-      value: "clothing",
-      label: "Clothing",
-    },
-    {
-      value: "container",
-      label: "Container",
-    },
-    {
-      value: "shield",
-      label: "Shield",
-    },
-    {
-      value: "weapon",
-      label: "Weapon",
-    },
-    {
-      value: "feat",
-      label: "Feat",
-    },
-    {
-      value: "flaw",
-      label: "Flaw",
-    },
-    {
-      value: "skill",
-      label: "Skill",
-    },
-    {
-      value: "spell",
-      label: "Spell",
-    },
-    {
-      value: "talent",
-      label: "Talent",
-    },
+    ...inventoryOptions,
+    ...traitOptions,
   ];
+  console.log(typeFilterOptions);
 
   const input = {
     store: nameSearch,

@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store';
-
+import { inventory } from "~/helpers/Constants.js"
 import { isWritableStore } from "@typhonjs-fvtt/runtime/svelte/store";
 
 import {
@@ -90,7 +90,7 @@ export function createFilterQuery(properties, { caseSensitive = false, store } =
 
       keyword = normalizeString(value);
       if (value === 'all') {
-        let keywords = ['ammunition', 'armour', 'clothing', 'container', 'shield', 'weapon'];
+        let keywords = inventory;
         let pattern = keywords.map(RegExp.escape).join('|');
         regex = new RegExp(pattern, caseSensitive ? '' : 'i');
       } else {
