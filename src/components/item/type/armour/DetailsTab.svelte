@@ -22,11 +22,12 @@
     .px-xs
       .flexcol.tab
         CommonDetails
-        .envelope
-          h2.mt-none Usage
-          .flexrow.left.mt-xs
-            label.flex1 Equipped
-            DocumentCheckboxInput(name='system.equipped' bind:value="{$doc.system.equipped}") 
+        +if("parentIsActor")
+          .envelope
+            h2.mt-none Usage
+            .flexrow.left.mt-xs
+              label.flex1 Equipped
+              DocumentCheckboxInput(name='system.equipped' bind:value="{$doc.system.equipped}") 
         .envelope
           h2.mt-none Specifications
           

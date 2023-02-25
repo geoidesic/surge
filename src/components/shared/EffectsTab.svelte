@@ -12,6 +12,7 @@
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
   import DocumentCheckboxInput from "~/components/elements/DocumentCheckboxInput.svelte";
+  import DocumentSelect from "~/components/elements/DocumentSelect.svelte";
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
   import ItemInput from "~/components/item/ItemInput.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
@@ -151,8 +152,10 @@
     );
   }
   function toggleEffect(effect) {
-    console.log(effect);
     effect.update({ disabled: !effect.disabled });
+  }
+  function updateTrigger(effect) {
+    effect.update({ ["flags.trigger"]: effect.flags.trigger });
   }
 
   let key = false;
@@ -237,7 +240,7 @@
               .flex1
                 input(type='checkbox' checked="{!effect.disabled}" data-tooltip="SURGE.ToggleEnabled" aria-describedby="tooltip" on:change="{toggleEffect(effect)}")
             .flex2
-              Select(options="{effectTriggers}" bind:value="{effect.flags.trigger}")
+              DocumentSelect(options="{effectTriggers}" bind:value="{effect.flags.trigger}")
               
             div.actions.flex1.right
               +if("!$doc.system.inventoryLocked")

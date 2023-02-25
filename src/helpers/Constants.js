@@ -397,6 +397,34 @@ export const timeUnits = [
     label: "days"
   },
 ]
+
+export const inventory = [
+  {
+    value: "ammunition",
+    label: "Ammunition",
+  },
+  {
+    value: "armour",
+    label: "Armour",
+  },
+  {
+    value: "clothing",
+    label: "Clothing",
+  },
+  {
+    value: "container",
+    label: "Container",
+  },
+  {
+    value: "shield",
+    label: "Shield",
+  },
+  {
+    value: "weapon",
+    label: "Weapon",
+  },
+]
+
 export const effectTriggers = [
   {
     value: "passive",
