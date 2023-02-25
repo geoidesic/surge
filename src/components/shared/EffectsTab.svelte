@@ -137,8 +137,14 @@
     if (split.length == 4) {
       item = $doc.items.get(split[3]);
     } else {
-      item = game.actors.get(origin);
+      item = game.actors.get(origin) || game.items.get(origin);
     }
+
+    // console.log(effect);
+    // console.log(origin);
+    // console.log(item);
+    // console.log(game);
+
     return item;
   }
 
