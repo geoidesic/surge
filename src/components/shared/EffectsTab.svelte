@@ -22,7 +22,7 @@
   const documentStore = getContext("#doc");
   const doc = new TJSDocument($documentStore);
 
-  const nameSearch = createFilterQuery("name");
+  const nameSearch = createFilterQuery("label");
   const typeSearch = createFilterQuery("type");
   const fixedType = createFilterQuery("type");
 
