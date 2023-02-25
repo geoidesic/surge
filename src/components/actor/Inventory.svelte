@@ -22,11 +22,6 @@
   const nameSearch = createFilterQuery("name");
   const typeSearch = createFilterQuery("type");
 
-  let typeFilterValue = $doc.system.currentItemTypeFilter;
-
-  $: $doc.system.currentItemTypeFilter = typeFilterValue;
-  $: typeSearch.set(typeFilterValue);
-
   const typeFilterOptions = [
     {
       value: "all",
@@ -61,7 +56,7 @@
   const input = {
     store: nameSearch,
     efx: rippleFocus(),
-    placeholder: "*",
+    placeholder: "by Name",
     type: "search",
   };
 
@@ -72,20 +67,8 @@
     sort: (a, b) => a.name.localeCompare(b.name),
   });
 
-  $: items = [...$wildcard];
-  $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
-  $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
-
   function deleteItem(index, item) {
-    console.log(index);
-    console.log(item);
     item.delete();
-  }
-
-  function clickItem(index, item) {
-    console.log("clickItem");
-    console.log(index);
-    console.log(item);
   }
 
   function editItem(index, item) {
@@ -93,7 +76,6 @@
   }
 
   function toggleLock() {
-    console.log("toggleLock");
     $doc.system.inventoryLocked = !$doc.system.inventoryLocked;
     $doc.update({
       system: $doc.system,
@@ -104,7 +86,6 @@
 
   function toggleEquipped(item) {
     item.update({ ["system.equipped"]: !item.system.equipped });
-    console.log(item);
   }
 
   function rowWeight(item) {
@@ -113,9 +94,16 @@
   }
 
   function updateQuantity(event, item, index) {
-    //- via svelte
     item.update({ "system.quantity": event.target.value });
   }
+
+  let typeFilterValue = $doc.system.currentItemTypeFilter;
+
+  $: $doc.system.currentItemTypeFilter = typeFilterValue;
+  $: typeSearch.set(typeFilterValue);
+  $: items = [...$wildcard];
+  $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
+  $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
 </script>
 
 <template lang="pug">
