@@ -6,11 +6,16 @@
   const doc = getContext("#doc");
 
   $: inventoryWeight = $doc.items.reduce((sum, item) => {
+    if (!item.system.equipped) return sum;
     sum += parseFloat(item.system.weight) || 0 * parseInt(item.system.quantity) || 0;
     return sum;
   }, 0);
 
-  $: ENC = (inventoryWeight / parseFloat($doc.system.STR) / ($doc.system.siz.level * $doc.system.siz.level)).toFixed(1);
+  $: ENC = (
+    inventoryWeight /
+    parseFloat($doc.system.STR) /
+    (parseInt($doc.system.siz.level) * parseInt($doc.system.siz.level))
+  ).toFixed(1);
 
   $: ENCcalc = isNaN(ENC) ? 0 : ENC; //- prevents empty inventory from rendering NaN on sheet
 

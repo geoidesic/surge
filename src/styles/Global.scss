@@ -51,6 +51,11 @@ input {
   h1, h2, h3, h4 {
     font-family: "Modesto Condensed", "Palatino Lynotype", serif;
   }
+  input {
+    .cheeky {
+      margin: 0 0 0 -2px;
+    }
+  }
 }
 
 .bg-lighten {

@@ -11,6 +11,7 @@
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
   import TextInput from "~/helpers/svelte-components/input/TextInput.svelte";
   import ItemInput from "~/components/item/ItemInput.svelte";
+  import InventoryRow from "~/components/actor/InventoryRow.svelte";
   import Encumbrance from "~/components/actor/Encumbrance.svelte";
   import Select from "~/helpers/svelte-components/select/Select.svelte";
   import RollCalc from "./RollCalc";
@@ -110,6 +111,10 @@
     });
   }
 
+  function toggleEquipped(item) {
+    item.update({ ["system.equipped"]: !item.system.equipped });
+  }
+
   function rowWeight(item) {
     const val = parseFloat(item.system.quantity) * parseFloat(item.system.weight);
     return isNaN(val) ? 0 : val;
@@ -136,38 +141,43 @@
 
     div.pa-sm
       ol
-        li.flexrow.header
-          div.flex0
-            div
-              img.left.flex0
-          .flex3.left.ml-xl
+        InventoryRow.header
+          div(slot="c1") 
+          div(slot="c2") 
             div Name
-          .flex1
+          div(slot="c3") Type
+          div(slot="c4")
             div Quantity
-          .flex1
-            div lb.
-          div.left.ml-sm Type
-          div.actions.flex1.right 
+          div(slot="c5") 
+            i.fas.fa-weight-hanging
+          div(slot="c6") 
+            i.fas.fa-person-walking-luggage
+          div(slot="c7") 
             div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
               i.fa(class="{faLockCSS}" on:click="{toggleLock}")
         +each("items as item, index")
-          li.flexrow.relative
-            div.flex0( on:click="{clickItem(index, item)}")
-              div.rowimgbutton.rowimgbezelbutton(on:click!="{new RollCalc({doc: item, Actor: $doc, code: 'size', rollType: 'inventory'})}")
-                img.left.flex0(src="{item.img}" )
-            .flex3.left.ml-xl
+          InventoryRow.relative
+            div(slot="c1" on:click="{clickItem(index, item)}")
+              div.flex0
+                div.relative
+                  div.rowimgbutton.rowimgbezelbutton(on:click!="{new RollCalc({doc: item, Actor: $doc, code: 'size', rollType: 'inventory'})}")
+                    img.left.flex0(src="{item.img}" )
+            div(slot="c2") 
               div {item.name}
-            .flex1
+            div(slot="c3") {item.type}
+            div(slot="c4") 
               input(type="number" bind:value="{item.system.quantity}" on:keydown="{validateNumericInput(event, item, index)}" on:keyup="{updateQuantity}")
-            .flex1
+            div(slot="c5")              
               div {rowWeight(item)}
-            div.left.ml-sm {item.type}
-            div.actions.flex1.right
+            div(slot="c6") 
+              input(type='checkbox' checked="{!item.equipped}" on:change="{toggleEquipped(item)}")
+            div(slot="c7")
               +if("!$doc.system.inventoryLocked")
                 div.rowbutton.rowimgbezelbutton
                   i.left.fa.fa-edit.mr-md( on:click="{editItem(index, item)}")
                 div.rowbutton.rowimgbezelbutton
                   i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, item)}")
+            
         li.flexrow.footer
           div.flex0
             div.mr-sm Enc.
@@ -205,10 +215,15 @@
     }
   }
 
+  i {
+    padding: 0;
+    margin: 0;
+  }
+
   .rowimgbutton {
     position: absolute;
-    top: -1px;
-    left: 0;
+    top: calc(50% - 15.5px);
+    left: -2px;
     width: 30px;
     height: 30px;
     padding: 0;
@@ -239,7 +254,8 @@
     margin: 0;
     padding: 0.1rem;
     border: 1px solid grey;
-    li {
+    li,
+    :global(li) {
       padding: 3px;
       margin: 0 2px 2px 2px;
       align-items: center;
