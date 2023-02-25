@@ -140,6 +140,7 @@
         transfer: true,
         flags: {
           source: "user",
+          trigger: "passive",
         },
       },
       { parent: $doc }
@@ -205,7 +206,7 @@
               .flex1
                 input(type='checkbox' checked="{!effect.disabled}" data-tooltip="SURGE.ToggleEnabled" aria-describedby="tooltip" on:change="{toggleEffect(effect)}")
             .flex2
-              DocumentSelect(options="{effectTriggers}" bind:value="{effect.flags.trigger}")
+              DocumentSelect(options="{effectTriggers}" bind:value="{effect.flags.trigger}" on:change="{updateTrigger(effect)}")
               
             div.actions.flex1.right
               +if("!$doc.system.inventoryLocked")
