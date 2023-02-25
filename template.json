@@ -437,7 +437,7 @@
         }
       },
       "equippable": {
-        "equipped": false,
+        "equipped": true,
         "elligibleLocations": []
       },
       "trait": {

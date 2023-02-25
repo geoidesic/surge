@@ -113,6 +113,7 @@
 
   function toggleEquipped(item) {
     item.update({ ["system.equipped"]: !item.system.equipped });
+    console.log(item);
   }
 
   function rowWeight(item) {

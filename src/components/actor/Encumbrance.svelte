@@ -11,9 +11,17 @@
     return sum;
   }, 0);
 
+  $: STR =
+    (parseInt($doc.system.siz.level) +
+      parseInt($doc.system.hid.level) +
+      parseInt($doc.system.mus.level) +
+      parseInt($doc.system.ton.level) +
+      parseInt($doc.system.den.level)) /
+    5;
+
   $: ENC = (
     inventoryWeight /
-    parseFloat($doc.system.STR) /
+    parseFloat(STR) /
     (parseInt($doc.system.siz.level) * parseInt($doc.system.siz.level))
   ).toFixed(1);
 
