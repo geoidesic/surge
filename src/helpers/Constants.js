@@ -30,6 +30,61 @@ export const AOEshapes = [
   }
 ]
 
+export const intents = [
+  {
+    value: "move",
+    label: "move"
+  },
+  {
+    value: "run",
+    label: "run"
+  },
+  {
+    value: "sprint",
+    label: "sprint"
+  },
+  {
+    value: "aim",
+    label: "aim"
+  },
+  {
+    value: "dodge",
+    label: "dodge"
+  },
+  {
+    value: "hide",
+    label: "hide"
+  },
+  {
+    value: "object",
+    label: "object"
+  },
+  {
+    value: "skill",
+    label: "skill"
+  },
+  {
+    value: "perceive",
+    label: "perceive"
+  },
+  {
+    value: "cover",
+    label: "cover"
+  },
+  {
+    value: "charge",
+    label: "charge"
+  },
+  {
+    value: "mount",
+    label: "mount"
+  },
+  {
+    value: "combat",
+    label: "combat"
+  }
+]
+
 export const activeEffectModes = [
   {
     value: "1",

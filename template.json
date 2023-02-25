@@ -496,7 +496,8 @@
       ],
       "AF": 0,
       "AP": 1,
-      "damageType": ""
+      "damageType": "",
+      "ammunitionType": ""
     },
     "armour": {
       "templates": [
