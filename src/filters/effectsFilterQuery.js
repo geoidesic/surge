@@ -1,6 +1,7 @@
 import { get, writable } from 'svelte/store';
 
 import { isWritableStore } from "@typhonjs-fvtt/runtime/svelte/store";
+import { getEffectOrigin } from "~/helpers/Utility.js";
 
 import {
   isIterable,
@@ -56,16 +57,22 @@ export function createFilterQuery(properties, { caseSensitive = false, store } =
    * @returns {boolean} AnimationStore filter state.
    */
   function filterQuery(data) {
+
+    const origin = getEffectOrigin(data);
+
     if (keyword === '' || !regex) { return true; }
 
     if (isIterable(properties)) {
+      console.log('isIterable');
+
       for (const property of properties) {
-        if (regex.test(normalizeString(data?.[property]))) { return true; }
+        if (regex.test(normalizeString(origin?.[property]))) { return true; }
       }
       return false;
     }
     else {
-      return regex.test(normalizeString(data?.[properties]));
+      console.log('isNotIterable');
+      return regex.test(normalizeString(origin?.[properties]));
     }
   }
 
@@ -90,7 +97,7 @@ export function createFilterQuery(properties, { caseSensitive = false, store } =
 
       keyword = normalizeString(value);
       if (value === 'all') {
-        let keywords = ['feat', 'flaw', 'skill', 'spell', 'talent'];
+        let keywords = ['feat', 'flaw', 'skill', 'spell', 'talent', 'armour', 'clothing', 'shield', 'weapon', 'feat', 'flaw', 'skill', 'spell', 'talent', 'ammunition'];
         let pattern = keywords.map(RegExp.escape).join('|');
         regex = new RegExp(pattern, caseSensitive ? '' : 'i');
       } else {

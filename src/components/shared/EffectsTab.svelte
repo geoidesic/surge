@@ -7,6 +7,7 @@
   import { createFilterQuery } from "~/filters/effectsFilterQuery";
   import { TJSDocument } from "@typhonjs-fvtt/runtime/svelte/store";
   import { activeEffectModes } from "~/helpers/Constants.js";
+  import { getEffectOrigin } from "~/helpers/Utility.js";
   import NumericInputValidator from "~/components/actor/NumericInputValidator";
   import ScrollingContainer from "~/helpers/svelte-components/ScrollingContainer.svelte";
   import DocumentTextInput from "~/components/elements/DocumentTextInput.svelte";
@@ -24,6 +25,8 @@
   const nameSearch = createFilterQuery("name");
   const typeSearch = createFilterQuery("type");
   const fixedType = createFilterQuery("type");
+
+  console.log(getEffectOrigin, doc);
   // typeSearch.set("effect");
   // typeSearch.set("trait"); //- @deprecated as Trait is now a collective term for other types
 
@@ -41,6 +44,30 @@
     {
       value: "all",
       label: "All",
+    },
+    {
+      value: "ammunition",
+      label: "Ammunition",
+    },
+    {
+      value: "armour",
+      label: "Armour",
+    },
+    {
+      value: "clothing",
+      label: "Clothing",
+    },
+    {
+      value: "container",
+      label: "Container",
+    },
+    {
+      value: "shield",
+      label: "Shield",
+    },
+    {
+      value: "weapon",
+      label: "Weapon",
     },
     {
       value: "feat",
@@ -74,8 +101,8 @@
   /** @type {import('@typhonjs-fvtt/runtime/svelte/store').DynMapReducer<string, Item>} */
   const wildcard = doc.embedded.create("ActiveEffect", {
     name: "wildcard",
-    // filters: [fixedType, nameSearch, typeSearch],
-    // filters: [fixedType],
+    filters: [nameSearch, typeSearch],
+    // filters: [typeSearch],
     // sort: (a, b) => a.title.localeCompare(b.title),
   });
 
@@ -130,24 +157,6 @@
     effect.update({ disabled: !effect.disabled });
   }
 
-  function getOrigin(effect) {
-    const origin = effect._source.origin;
-    const split = origin.split(".");
-    let item = void 0;
-    if (split.length == 4) {
-      item = $doc.items.get(split[3]);
-    } else {
-      item = game.actors.get(origin) || game.items.get(origin);
-    }
-
-    // console.log(effect);
-    // console.log(origin);
-    // console.log(item);
-    // console.log(game);
-
-    return item;
-  }
-
   let key = false;
   let keyUp = true;
   let prevValue;
@@ -177,6 +186,17 @@
 
 <template lang="pug">
   ScrollingContainer
+
+    .flexrow.pt-sm.pr-sm
+      .flexcol.flex1.label-container 
+        label Search
+      .flex3.left
+        TJSInput({input}) {$wildcard}
+      .flexcol.flex1.label-container 
+        label Source
+      .flex3.right
+        Select(options="{typeFilterOptions}" bind:value="{typeFilterValue}")
+
     div.pa-sm
       ol
         li.flexrow.header
@@ -193,12 +213,12 @@
           +if("$doc.type != 'effect'")
             .flex1
               div Origin
-          div.actions.flex1.right 
+          div.actions.flex1.right
             div.rowbutton.rowimgbezelbutton(class="{lockCSS}")
               i.fa(class="{faLockCSS}" on:click="{toggleLock}")
         +each("ActiveEffects as effect, index")
           li.flexrow.relative.itemrow
-            .flex0 
+            .flex0
               div.flex0
                 div.rowimgbutton
                   img.left.flex0(src="{effect.icon}" )
@@ -209,13 +229,13 @@
                 div {activeEffectModes.find(a => a.value == effect.changes[0].mode).label}
             +if("$doc.type != 'effect'")
               .flex1
-                input(type='checkbox' checked="{!effect.disabled}" on:change="{toggleEffect(effect)}")
+                input(type='checkbox' checked="{!effect.disabled}" data-tooltip="SURGE.ToggleEnabled" aria-describedby="tooltip" on:change="{toggleEffect(effect)}")
             .flex1
               +if("effect.changes?.[0]")
                 div {effect.changes[0].value}
             +if("$doc.type != 'effect'")
-              .flex1.relative 
-                img.origin.flex0(src="{getOrigin(effect).img}" data-tooltip="{getOrigin(effect).name}")
+              .flex1.relative
+                img.origin.flex0(src="{getEffectOrigin(effect).img}" data-tooltip="{getEffectOrigin(effect).name}" aria-describedby="tooltip")
 
             div.actions.flex1.right
               +if("!$doc.system.inventoryLocked")
@@ -224,7 +244,7 @@
                 div.rowbutton.rowimgbezelbutton
                   i.left.fa.fa-trash.mr-md( on:click="{deleteItem(index, effect)}")
         li.flexrow.footer
-          
+
     .pa-sm
       p 
         strong Note 

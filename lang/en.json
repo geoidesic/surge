@@ -21,5 +21,6 @@
   "SURGE.EffectiveRange": "Effective Range",
   "SURGE.TraitLevel": "Trait Level",
   "SURGE.MinimumPrerequisites": "Minimum number of Prerequisites Required",
-  "SURGE.UsesMax": "Maximum Uses during Period"
+  "SURGE.UsesMax": "Maximum Uses during Period",
+  "SURGE.ToggleEnabled": "Toggle Enabled"
 }

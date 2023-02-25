@@ -2,7 +2,7 @@
 </script>
 
 <template lang="pug">
-  li(class="{$$restProps.class} flexrow")
+<li class="{$$restProps.class} flexrow" >
     div.flex0
       slot(name="c1")
     .flex3.left.ml-xl
@@ -17,6 +17,7 @@
       slot(name="c6")
     .flex1.actions.right 
       slot(name="c7")
+</li>
 </template>
 
 <style lang="scss" scoped>

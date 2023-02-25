@@ -22,11 +22,6 @@
   const nameSearch = createFilterQuery("name");
   const typeSearch = createFilterQuery("type");
 
-  //- @todo: is this necessary / correct?
-  if (!$doc.system.currentItemTypeFilter) {
-    $doc.system.currentItemTypeFilter = "all-inventory";
-  }
-
   let typeFilterValue = $doc.system.currentItemTypeFilter;
 
   $: $doc.system.currentItemTypeFilter = typeFilterValue;
@@ -80,10 +75,6 @@
   $: items = [...$wildcard];
   $: lockCSS = $doc.system.inventoryLocked ? "lock" : "lock-open";
   $: faLockCSS = $doc.system.inventoryLocked ? "fa-lock" : "fa-lock-open";
-
-  Hooks.on("createItem", async (item) => {
-    console.log(item);
-  });
 
   function deleteItem(index, item) {
     console.log(index);

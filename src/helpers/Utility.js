@@ -17,6 +17,23 @@ export function isNumber(value) {
   return typeof value === 'number' && isFinite(value);
 }
 
+export function getEffectOrigin(effect) {
+  const origin = effect._source.origin;
+  const split = origin.split(".");
+  let item = void 0;
+  if (split.length == 4) {
+    item = effect.parent.items.get(split[3]);
+  } else {
+    item = game.actors.get(origin) || game.items.get(origin);
+  }
+
+  // console.log(effect);
+  // console.log(origin);
+  // console.log(item);
+  // console.log(game);
+
+  return item;
+}
 
 // export async function attributeRoll(Actor, code) {
 //   let roll = new Roll("1d22");
