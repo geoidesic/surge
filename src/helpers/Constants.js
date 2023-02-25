@@ -397,15 +397,19 @@ export const timeUnits = [
     label: "days"
   },
 ]
-export const effectTypes = [
-  {
-    value: "active",
-    label: "active"
-  },
+export const effectTriggers = [
   {
     value: "passive",
     label: "passive"
   },
+  {
+    value: "critical",
+    label: "critical"
+  },
+  {
+    value: "contact",
+    label: "contact"
+  }
 ]
 export const effectStatus = [
   {
