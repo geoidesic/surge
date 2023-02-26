@@ -14,6 +14,10 @@ import CombatTracker from './extensions/combat-tracker.js'
 //- set to true to see which hooks get called
 CONFIG.debug.hooks = true;
 CONFIG.Combat.entityClass = CombatTracker;
+CONFIG.Combat.initiative = {
+  formula: "1d20 + (@spd.level + @flx.level + @agl.level + @bal.level + @coo.level)/5",
+  decimals: 2
+};
 
 Hooks.once("init", async () => {
   console.log("SURGE | Starting Surge VTTRPG System");
