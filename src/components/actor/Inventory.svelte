@@ -53,10 +53,8 @@
     item.sheet.render(true);
   }
   function toggleLock(event) {
-    console.log("toggleLock Effects");
     event.stopPropagation();
     event.preventDefault();
-    // $doc.system.inventoryLocked = !$doc.system.inventoryLocked;
     $doc.update(
       {
         ["system.inventoryLocked"]: !$doc.system.inventoryLocked,

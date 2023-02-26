@@ -22,7 +22,8 @@
         "xpSpent": 0,
         "inventoryLocked": true,
         "templates": {},
-        "currentItemTypeFilter": "all"
+        "currentItemTypeFilter": "all",
+        "intent": "move"
       },
       "humanoid": {
         "body": {

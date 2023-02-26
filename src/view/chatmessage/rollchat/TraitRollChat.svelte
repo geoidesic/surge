@@ -4,7 +4,7 @@
   export let img = void 0;
   export let name = void 0;
   export let doc = void 0;
-  export let roll = void 0;
+  export let result = void 0;
   export let code = void 0;
   export let noOfDice = void 0;
   export let die = void 0;
@@ -30,7 +30,7 @@
       .flex2
         .flexrow
           .code-container Trait
-      .flex3.right.roll-result {roll}
+      .flex3.right.roll-result {result}
 </template>
 
 <style lang="scss" scoped>

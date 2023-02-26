@@ -10,6 +10,12 @@ import SurgeRoll from './view/chatmessage/SurgeRoll.svelte';
 import { intents } from "./helpers/Constants.js"
 import CombatTracker from './extensions/combat-tracker.js'
 
+import "./styles/Fonts.scss";
+import "./styles/Variables.scss";
+import "./styles/Mixins.scss";
+import "./styles/Animations.scss";
+import "./styles/Global.scss";
+
 
 //- set to true to see which hooks get called
 CONFIG.debug.hooks = true;
@@ -21,6 +27,8 @@ CONFIG.Combat.initiative = {
 
 Hooks.once("init", async () => {
   console.log("SURGE | Starting Surge VTTRPG System");
+  console.log(Object.keys(window));
+
 
   Actors.registerSheet("surge", SurgeActorSheet, {
     makeDefault: true,

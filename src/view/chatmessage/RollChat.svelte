@@ -3,7 +3,7 @@
   // this can be modified to include different templates based on the received data
   export let img = void 0;
   export let name = void 0;
-  export let roll = void 0;
+  export let result = void 0;
   export let code = void 0;
   export let noOfDice = void 0;
   export let die = void 0;
@@ -31,7 +31,7 @@
         .flexrow
           .code-container {code.toUpperCase()}
           .sub {superScript}
-      .flex3.right.roll-result {roll}
+      .flex3.right.roll-result {result}
 
 </template>
 
